@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/entities/genre_entity.dart';
+import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/genre_bloc/genre_bloc.dart';
+import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/movie_detail/movie_detail_bloc.dart';
+import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/movies_bloc/movies_bloc.dart';
+import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/person_bloc/person_bloc.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/views/splash/splash_page.dart';
 import 'src/core/injector/injection_container.dart' as di;
 
@@ -15,8 +20,28 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: const [
-        //BlocProvider(create: (_)),
+      providers: [
+        BlocProvider<MoviesBloc>(
+          create: (_) => MoviesBloc(
+            getMoviesByGenreUsecase: di.sl(),
+            getNowMoviesUsecase: di.sl(),
+          ),
+        ),
+        BlocProvider<MovieDetailBloc>(
+          create: (_) => MovieDetailBloc(
+            getMoviesDetailsUsecase: di.sl(),
+          ),
+        ),
+        BlocProvider<GenreBloc>(
+          create: (_) => GenreBloc(
+            getGenreListUsecase: di.sl(),
+          ),
+        ),
+        BlocProvider<PersonBloc>(
+          create: (_) => PersonBloc(
+            getTrendingPersonUsecase: di.sl(),
+          ),
+        ),
       ],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
