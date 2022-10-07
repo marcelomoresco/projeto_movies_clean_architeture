@@ -1,12 +1,12 @@
 import 'package:equatable/equatable.dart';
 
 class PersonEntity extends Equatable {
-  final String id;
+  final int id;
   final String gender;
   final String name;
   final String profilePath;
   final String knowForDepartment;
-  final String popularity;
+  final double popularity;
 
   const PersonEntity(
       {required this.id,
