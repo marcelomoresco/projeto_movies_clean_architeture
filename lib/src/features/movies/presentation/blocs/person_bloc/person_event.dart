@@ -6,3 +6,10 @@ abstract class PersonEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+class StartPersonEvent extends PersonEvent {
+  const StartPersonEvent();
+
+  @override
+  List<Object> get props => [];
+}

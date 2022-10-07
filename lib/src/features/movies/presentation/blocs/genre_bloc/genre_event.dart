@@ -6,3 +6,10 @@ abstract class GenreEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+class StartGenreEvent extends GenreEvent {
+  const StartGenreEvent();
+
+  @override
+  List<Object> get props => [];
+}
