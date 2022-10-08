@@ -1,10 +1,44 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
-class SplashPage extends StatelessWidget {
+import '../home/home_page.dart';
+
+class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
 
   @override
+  State<SplashPage> createState() => _SplashPageState();
+}
+
+class _SplashPageState extends State<SplashPage> {
+  void _onLoading() async {
+    await Future.delayed(const Duration(seconds: 4));
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(
+        builder: (_) => const HomePage(),
+      ),
+    );
+  }
+
+  @override
+  void initState() {
+    _onLoading();
+    super.initState();
+  }
+
   Widget build(BuildContext context) {
-    return Container();
+    final sizePhone = MediaQuery.of(context).size;
+
+    return Scaffold(
+      backgroundColor: Colors.black,
+      body: SizedBox(
+        height: sizePhone.height,
+        width: sizePhone.width,
+        child: Stack(
+          alignment: Alignment.center,
+          children: [Text("Talk Movie"), Lottie.asset("assets/movie.json")],
+        ),
+      ),
+    );
   }
 }

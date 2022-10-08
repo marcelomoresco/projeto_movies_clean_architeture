@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
           create: (_) => MoviesBloc(
             getMoviesByGenreUsecase: di.sl(),
             getNowMoviesUsecase: di.sl(),
-          ),
+          )..add(StartMoviesEvent(0, "")),
         ),
         BlocProvider<MovieDetailBloc>(
           create: (_) => MovieDetailBloc(
@@ -35,12 +35,12 @@ class MyApp extends StatelessWidget {
         BlocProvider<GenreBloc>(
           create: (_) => GenreBloc(
             getGenreListUsecase: di.sl(),
-          ),
+          )..add(const StartGenreEvent()),
         ),
         BlocProvider<PersonBloc>(
           create: (_) => PersonBloc(
             getTrendingPersonUsecase: di.sl(),
-          ),
+          )..add(const StartPersonEvent()),
         ),
       ],
       child: const MaterialApp(

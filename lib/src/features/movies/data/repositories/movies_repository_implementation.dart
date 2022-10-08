@@ -19,9 +19,8 @@ class MoviesRepositoryImplementation implements IMoviesRepository {
 
   @override
   Future<Either<Failure, List<CastEntity>>> getCastList(int movieId) async {
-    final movies = await moviesRemoteDatasource.getCastList(movieId);
-
     try {
+      final movies = await moviesRemoteDatasource.getCastList(movieId);
       return Right(movies);
     } on ServerException {
       return Left(ServerFailure());
@@ -30,9 +29,9 @@ class MoviesRepositoryImplementation implements IMoviesRepository {
 
   @override
   Future<Either<Failure, List<GenreEntity>>> getGenreList() async {
-    final movies = await moviesRemoteDatasource.getGenreList();
-
     try {
+      final movies = await moviesRemoteDatasource.getGenreList();
+
       return Right(movies);
     } on ServerException {
       return Left(ServerFailure());
@@ -42,9 +41,9 @@ class MoviesRepositoryImplementation implements IMoviesRepository {
   @override
   Future<Either<Failure, List<MoviesEntity>>> getMovieByGenre(
       int movieId) async {
-    final movies = await moviesRemoteDatasource.getMovieByGenre(movieId);
-
     try {
+      final movies = await moviesRemoteDatasource.getMovieByGenre(movieId);
+
       return Right(movies);
     } on ServerException {
       return Left(ServerFailure());
@@ -54,9 +53,9 @@ class MoviesRepositoryImplementation implements IMoviesRepository {
   @override
   Future<Either<Failure, MoviesDetailsEntity>> getMoviesDetail(
       int movieId) async {
-    final movies = await moviesRemoteDatasource.getMoviesDetail(movieId);
-
     try {
+      final movies = await moviesRemoteDatasource.getMoviesDetail(movieId);
+
       return Right(movies);
     } on ServerException {
       return Left(ServerFailure());
@@ -65,9 +64,9 @@ class MoviesRepositoryImplementation implements IMoviesRepository {
 
   @override
   Future<Either<Failure, List<MoviesEntity>>> getNowMovies() async {
-    final movies = await moviesRemoteDatasource.getNowMovies();
-
     try {
+      final movies = await moviesRemoteDatasource.getNowMovies();
+
       return Right(movies);
     } on ServerException {
       return Left(ServerFailure());
@@ -77,9 +76,9 @@ class MoviesRepositoryImplementation implements IMoviesRepository {
   @override
   Future<Either<Failure, List<MoviesEntity>>> getSimilarMovies(
       int movieId) async {
-    final movies = await moviesRemoteDatasource.getSimilarMovies(movieId);
-
     try {
+      final movies = await moviesRemoteDatasource.getSimilarMovies(movieId);
+
       return Right(movies);
     } on ServerException {
       return Left(ServerFailure());
@@ -88,9 +87,9 @@ class MoviesRepositoryImplementation implements IMoviesRepository {
 
   @override
   Future<Either<Failure, List<PersonEntity>>> getTrendingPerson() async {
-    final movies = await moviesRemoteDatasource.getTrendingPerson();
-
     try {
+      final movies = await moviesRemoteDatasource.getTrendingPerson();
+
       return Right(movies);
     } on ServerException {
       return Left(ServerFailure());
@@ -99,9 +98,9 @@ class MoviesRepositoryImplementation implements IMoviesRepository {
 
   @override
   Future<Either<Failure, List<MoviesEntity>>> getUpcomingMovies() async {
-    final movies = await moviesRemoteDatasource.getUpcomingMovies();
-
     try {
+      final movies = await moviesRemoteDatasource.getUpcomingMovies();
+      print("$movies repositorio IMP");
       return Right(movies);
     } on ServerException {
       return Left(ServerFailure());

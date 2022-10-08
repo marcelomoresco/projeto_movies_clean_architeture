@@ -82,9 +82,10 @@ class MoviesRemoteDatasourceImplementation implements IMoviesRemoteDatasource {
 
   @override
   Future<List<MoviesEntity>> getNowMovies() async {
+    print("REMOTE IMP");
     final response = await Dio().get(
         '$mainUrl/movie/now_playing?api_key=$apiKey&language=en-US&page=1');
-
+    print(response);
     if (response.statusCode == 200) {
       var nowMovies = response.data['results'] as List;
       return List<MoviesModel>.from(

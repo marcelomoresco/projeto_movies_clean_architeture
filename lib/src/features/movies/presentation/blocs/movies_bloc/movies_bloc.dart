@@ -16,15 +16,17 @@ class MoviesBloc extends Bloc<MoviesEvent, MoviesState> {
   MoviesBloc({
     required this.getNowMoviesUsecase,
     required this.getMoviesByGenreUsecase,
-  }) : super(MoviesLoadingState()) {
+  }) : super(MoviesInitialState()) {
     on<StartMoviesEvent>(_onStartMoviesEvent);
   }
 
   void _onStartMoviesEvent(
       StartMoviesEvent event, Emitter<MoviesState> emit) async {
     emit(MoviesLoadingState());
+    print(event.movieId);
     if (event.movieId == 0) {
       final result = await getNowMoviesUsecase(NoParams());
+      print(result);
       result.fold(
         (failed) => emit(
             const MoviesErrorState(errorMessage: "Erro ao Pegar os filmes")),
