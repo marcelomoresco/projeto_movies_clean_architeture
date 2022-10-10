@@ -20,8 +20,10 @@ class MovieDetailBloc extends Bloc<MovieDetailEvent, MovieDetailState> {
   void _getMovieDetailsEvent(
       GetMovieDetailsEvent event, Emitter<MovieDetailState> emit) async {
     emit(MovieDetailLoadingState());
+    print("ESTOU CARREGANDO");
+    print("------------------------------------");
     final result = await getMoviesDetailsUsecase(event.movieId);
-
+    print(result);
     result.fold(
       (failed) => emit(
         const MovieDetailErrorState(
