@@ -8,11 +8,11 @@ class UserEntity extends Equatable {
   final String? password;
 
   const UserEntity({
-    required this.name,
-    required this.email,
-    required this.uid,
+    this.name,
+    this.email,
+    this.uid,
     this.status = "Olá estou usando esse aplicativo",
-    required this.password,
+    this.password,
   });
 
   @override

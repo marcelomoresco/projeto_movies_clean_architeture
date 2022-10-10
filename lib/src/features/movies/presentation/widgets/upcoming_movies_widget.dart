@@ -37,7 +37,7 @@ class UpcomingMoviesWidget extends StatelessWidget {
                               borderRadius: BorderRadius.circular(5.0),
                               child: CachedNetworkImage(
                                 imageUrl:
-                                    'https://image.tmdb.org/t/p/original/${movie.backdropPath}',
+                                    'https://image.tmdb.org/t/p/original/${movie.posterPath}',
                                 height: MediaQuery.of(context).size.height / 3,
                                 width: MediaQuery.of(context).size.width,
                                 fit: BoxFit.cover,

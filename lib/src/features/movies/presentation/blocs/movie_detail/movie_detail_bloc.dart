@@ -26,7 +26,7 @@ class MovieDetailBloc extends Bloc<MovieDetailEvent, MovieDetailState> {
     final result = await getMoviesDetailsUsecase(event.movieId);
     print("------------------------------------");
     print("PASSEI DA REQUISIÇÃO");
-
+    print(result);
     result.fold(
         (failed) async => emit(
               const MovieDetailErrorState(

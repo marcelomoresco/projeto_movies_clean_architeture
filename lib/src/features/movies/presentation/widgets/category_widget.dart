@@ -150,11 +150,12 @@ class BuildWidgetCategoryState extends State<BuildWidgetCategory> {
                             child: ClipRRect(
                               child: CachedNetworkImage(
                                 imageUrl:
-                                    'https://image.tmdb.org/t/p/original/${movie.backdropPath}',
+                                    'https://image.tmdb.org/t/p/original/${movie.posterPath}',
+                                fit: BoxFit.cover,
                                 imageBuilder: (context, imageProvider) {
                                   return Container(
                                     width: 180,
-                                    height: 170,
+                                    height: 190,
                                     decoration: BoxDecoration(
                                       borderRadius: const BorderRadius.all(
                                         Radius.circular(12),
@@ -168,7 +169,7 @@ class BuildWidgetCategoryState extends State<BuildWidgetCategory> {
                                 },
                                 placeholder: (context, url) => const SizedBox(
                                   width: 180,
-                                  height: 170,
+                                  height: 190,
                                   child: Center(
                                       child: CircularProgressIndicator()),
                                 ),

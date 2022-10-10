@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/data/datasources/remote/movies_remote_datasource.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/data/models/genre_model.dart';
@@ -7,7 +9,7 @@ import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/entit
 import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/entities/movies_details_entity.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/entities/genre_entity.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/entities/cast_entity.dart';
-
+import 'package:http/http.dart' as http;
 import '../../../../../core/error/exceptions.dart';
 import '../../models/movie_model.dart';
 import '../../models/movies_details_model.dart';
@@ -15,10 +17,11 @@ import '../../models/movies_details_model.dart';
 class MoviesRemoteDatasourceImplementation implements IMoviesRemoteDatasource {
   final apiKey = 'ce7533c109968faa724d1787f65b8a21';
   final mainUrl = 'https://api.themoviedb.org/3';
+  final Dio _dio = Dio();
 
   @override
   Future<List<CastEntity>> getCastList(int movieId) async {
-    final response = await Dio().get('$mainUrl/movie/$movieId/credits?$apiKey');
+    final response = await _dio.get('$mainUrl/movie/$movieId/credits?$apiKey');
     if (response.statusCode == 200) {
       var list = response.data['cast'] as List;
       List<CastEntity> castList = list
@@ -38,7 +41,7 @@ class MoviesRemoteDatasourceImplementation implements IMoviesRemoteDatasource {
 
   @override
   Future<List<GenreEntity>> getGenreList() async {
-    final response = await Dio()
+    final response = await _dio
         .get('$mainUrl/genre/movie/list?api_key=$apiKey&language=en-US');
 
     if (response.statusCode == 200) {
@@ -53,7 +56,7 @@ class MoviesRemoteDatasourceImplementation implements IMoviesRemoteDatasource {
 
   @override
   Future<List<MoviesEntity>> getMovieByGenre(int movieId) async {
-    final response = await Dio()
+    final response = await _dio
         .get("$mainUrl/discover/movie?with_genres=$movieId&api_key=$apiKey");
 
     if (response.statusCode == 200) {
@@ -68,17 +71,20 @@ class MoviesRemoteDatasourceImplementation implements IMoviesRemoteDatasource {
 
   @override
   Future<MoviesDetailsEntity> getMoviesDetail(int movieId) async {
-    print("CHEGOU AQUI REMOTE REPOSITORY");
-    final response = await Dio()
-        .get("$mainUrl/movie/movieId?api_key=$apiKey&language=en-US");
-    print(response);
-    print("PASSOU AQUI REMOTE REPOSITORY");
-    print("-------------------");
+    print("-----------------CHEGUEIIIIIIIIIII");
+    print(
+        "------- fazendo requisição----------------------------------------------");
+    print(movieId);
+    print(
+        "-------------------------------------------------------------------------");
+    Response response = await _dio.get(
+        "https://api.themoviedb.org/3/movie/$movieId?api_key=ce7533c109968faa724d1787f65b8a21");
+    print(MoviesDetailsModel.fromJson(response.data));
+    print("-----------------repositoriy");
 
     if (response.statusCode == 200) {
       MoviesDetailsEntity movieDetail =
           MoviesDetailsModel.fromJson(response.data);
-
       movieDetail.castList = await getCastList(movieId);
       return movieDetail;
     } else {
@@ -88,7 +94,7 @@ class MoviesRemoteDatasourceImplementation implements IMoviesRemoteDatasource {
 
   @override
   Future<List<MoviesEntity>> getNowMovies() async {
-    final response = await Dio().get(
+    final response = await _dio.get(
         '$mainUrl/movie/now_playing?api_key=$apiKey&language=en-US&page=1');
     if (response.statusCode == 200) {
       var nowMovies = response.data['results'] as List;
@@ -101,7 +107,7 @@ class MoviesRemoteDatasourceImplementation implements IMoviesRemoteDatasource {
 
   @override
   Future<List<MoviesEntity>> getSimilarMovies(int movieId) async {
-    final response = await Dio().get(
+    final response = await _dio.get(
         "$mainUrl/movie/$movieId/similar?api_key=$apiKey&language=en-US&page=1");
 
     if (response.statusCode == 200) {
@@ -116,7 +122,7 @@ class MoviesRemoteDatasourceImplementation implements IMoviesRemoteDatasource {
   @override
   Future<List<PersonEntity>> getTrendingPerson() async {
     final response =
-        await Dio().get('$mainUrl/trending/person/week?api_key=$apiKey');
+        await _dio.get('$mainUrl/trending/person/week?api_key=$apiKey');
 
     var persons = response.data['results'] as List;
     List<PersonEntity> personList =
@@ -126,7 +132,7 @@ class MoviesRemoteDatasourceImplementation implements IMoviesRemoteDatasource {
 
   @override
   Future<List<MoviesEntity>> getUpcomingMovies() async {
-    final response = await Dio()
+    final response = await _dio
         .get("$mainUrl/movie/upcoming?api_key=$apiKey&language=en-US&page=1");
 
     if (response.statusCode == 200) {
