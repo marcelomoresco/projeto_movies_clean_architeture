@@ -4,6 +4,7 @@ import 'package:equatable/equatable.dart';
 
 import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/entities/movies_details_entity.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/usecases/get_movies_details_usecase.dart';
+import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/movies_bloc/movies_bloc.dart';
 
 part 'movie_detail_event.dart';
 part 'movie_detail_state.dart';
@@ -13,25 +14,27 @@ class MovieDetailBloc extends Bloc<MovieDetailEvent, MovieDetailState> {
 
   MovieDetailBloc({
     required this.getMoviesDetailsUsecase,
-  }) : super(MovieDetailLoadingState()) {
+  }) : super(MovieDetailInitialState()) {
     on<GetMovieDetailsEvent>(_getMovieDetailsEvent);
   }
 
-  void _getMovieDetailsEvent(
+  Future<void> _getMovieDetailsEvent(
       GetMovieDetailsEvent event, Emitter<MovieDetailState> emit) async {
     emit(MovieDetailLoadingState());
     print("ESTOU CARREGANDO");
     print("------------------------------------");
     final result = await getMoviesDetailsUsecase(event.movieId);
-    print(result);
+    print("------------------------------------");
+    print("PASSEI DA REQUISIÇÃO");
+
     result.fold(
-      (failed) => emit(
-        const MovieDetailErrorState(
-            errorMessage: "Erro ao pegar informações do filme!"),
-      ),
-      (movie) => emit(
-        MovieDetailLoadedState(movieDetails: movie),
-      ),
-    );
+        (failed) async => emit(
+              const MovieDetailErrorState(
+                  errorMessage: "Erro ao pegar informações do filme!"),
+            ), (movie) async {
+      emit(MovieDetailLoadingState());
+      await Future.delayed(const Duration(seconds: 2));
+      emit(MovieDetailLoadedState(movieDetails: movie));
+    });
   }
 }
