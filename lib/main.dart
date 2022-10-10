@@ -5,6 +5,8 @@ import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/movie_detail/movie_detail_bloc.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/movies_bloc/movies_bloc.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/person_bloc/person_bloc.dart';
+import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/similar_movies/similar_movies_bloc.dart';
+import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/upcoming_movies_bloc/upcoming_movies_bloc.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/views/splash/splash_page.dart';
 import 'src/core/injector/injection_container.dart' as di;
 
@@ -25,12 +27,14 @@ class MyApp extends StatelessWidget {
           create: (_) => MoviesBloc(
             getMoviesByGenreUsecase: di.sl(),
             getNowMoviesUsecase: di.sl(),
-          )..add(StartMoviesEvent(0, "")),
+          )..add(const StartMoviesEvent(0, "")),
         ),
-        BlocProvider<MovieDetailBloc>(
-          create: (_) => MovieDetailBloc(
-            getMoviesDetailsUsecase: di.sl(),
-          ),
+        BlocProvider<UpcomingMoviesBloc>(
+          create: (_) => UpcomingMoviesBloc(
+            getUpcomingMoviesUsecase: di.sl(),
+          )..add(
+              StartUpcomingMoviesEvent(),
+            ),
         ),
         BlocProvider<GenreBloc>(
           create: (_) => GenreBloc(

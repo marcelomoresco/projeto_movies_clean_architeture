@@ -36,7 +36,10 @@ class _SplashPageState extends State<SplashPage> {
         width: sizePhone.width,
         child: Stack(
           alignment: Alignment.center,
-          children: [Text("Talk Movie"), Lottie.asset("assets/movie.json")],
+          children: [
+            const Text("Talk Movie"),
+            //Lottie.asset("assets/movie.json"),
+          ],
         ),
       ),
     );

@@ -1,11 +1,7 @@
-import 'package:projeto_movies_clean_arciteture/src/features/movies/data/models/genre_model.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/entities/movies_details_entity.dart';
-import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/entities/movies_entity.dart';
-
-import '../../domain/entities/genre_entity.dart';
 
 class MoviesDetailsModel extends MoviesDetailsEntity {
-  const MoviesDetailsModel({
+  MoviesDetailsModel({
     required String id,
     required String popularity,
     required String title,

@@ -1,4 +1,4 @@
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/entities/person_entity.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/usecases/get_trending_person_usecase.dart';
@@ -20,7 +20,7 @@ class PersonBloc extends Bloc<PersonEvent, PersonState> {
       StartPersonEvent event, Emitter<PersonState> emit) async {
     emit(PersonLoadingState());
     final result = await getTrendingPersonUsecase(NoParams());
-
+    print("CHEGOU AQUI BLOC PERSON");
     result.fold(
       (failed) => emit(
         const PersonErrorState(

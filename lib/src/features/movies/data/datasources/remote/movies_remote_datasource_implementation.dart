@@ -45,7 +45,6 @@ class MoviesRemoteDatasourceImplementation implements IMoviesRemoteDatasource {
       var genres = response.data['genres'] as List;
       List<GenreEntity> genreList =
           genres.map((g) => GenreModel.fromJson(g)).toList();
-      print(genreList);
       return genreList;
     } else {
       throw ServerException();
@@ -61,7 +60,6 @@ class MoviesRemoteDatasourceImplementation implements IMoviesRemoteDatasource {
       var movies = response.data['results'] as List;
       List<MoviesEntity> movieList =
           movies.map((movie) => MoviesModel.fromJson(movie)).toList();
-      print(movieList);
       return movieList;
     } else {
       throw ServerException();
@@ -72,9 +70,12 @@ class MoviesRemoteDatasourceImplementation implements IMoviesRemoteDatasource {
   Future<MoviesDetailsEntity> getMoviesDetail(int movieId) async {
     final response = await Dio()
         .get("$mainUrl/movie/movieId?api_key=$apiKey&language=en-US");
-    print(response);
     if (response.statusCode == 200) {
-      return MoviesDetailsModel.fromJson(response.data);
+      MoviesDetailsEntity movieDetail =
+          MoviesDetailsModel.fromJson(response.data);
+
+      movieDetail.castList = await getCastList(movieId);
+      return movieDetail;
     } else {
       throw ServerException();
     }
@@ -82,7 +83,6 @@ class MoviesRemoteDatasourceImplementation implements IMoviesRemoteDatasource {
 
   @override
   Future<List<MoviesEntity>> getNowMovies() async {
-    print("REMOTE IMP");
     final response = await Dio().get(
         '$mainUrl/movie/now_playing?api_key=$apiKey&language=en-US&page=1');
     print(response);
@@ -114,14 +114,13 @@ class MoviesRemoteDatasourceImplementation implements IMoviesRemoteDatasource {
     final response =
         await Dio().get('$mainUrl/trending/person/week?api_key=$apiKey');
 
-    if (response.statusCode == 200) {
-      var persons = response.data['results'] as List;
-      List<PersonEntity> personList =
-          persons.map((p) => PersonModel.fromJson(p)).toList();
-      return personList;
-    } else {
-      throw ServerException();
-    }
+    var persons = response.data['results'] as List;
+    List<PersonEntity> personList =
+        persons.map((p) => PersonModel.fromJson(p)).toList();
+    print("DATASOURCEREMOTE GET TREINDING PERSON");
+    print("---------------------------------");
+    print(personList);
+    return personList;
   }
 
   @override

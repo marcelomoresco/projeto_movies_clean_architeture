@@ -48,6 +48,9 @@ dependencies:
   lottie: ^1.4.3
   carousel_slider: ^4.1.1
   cached_network_image: ^3.2.2
+  shimmer: ^2.0.0
+  intl: ^0.17.0
+  url_launcher: ^6.1.6
 
 
 dev_dependencies:
@@ -73,8 +76,9 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
+  assets:
+    - movie.json
+    - img_not_found.jpg
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
