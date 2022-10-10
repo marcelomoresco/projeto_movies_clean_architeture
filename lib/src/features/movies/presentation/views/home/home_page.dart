@@ -9,11 +9,8 @@ import '../../widgets/person_list_widget.dart';
 import '../../widgets/upcoming_movies_widget.dart';
 
 class HomePage extends StatelessWidget {
-  final String uid;
-
   const HomePage({
     Key? key,
-    required this.uid,
   }) : super(key: key);
 
   @override

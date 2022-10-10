@@ -3,9 +3,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/entities/cast_entity.dart';
 
-import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/entities/movies_entity.dart';
-import 'package:url_launcher/url_launcher.dart';
-
 import '../../domain/entities/movies_details_entity.dart';
 
 class MoviesDetailsWidget extends StatelessWidget {
@@ -19,7 +16,7 @@ class MoviesDetailsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     MoviesDetailsEntity movieDetail = movie;
     return Stack(
-      children: <Widget>[
+      children: [
         ClipPath(
           child: ClipRRect(
             borderRadius: const BorderRadius.only(
@@ -74,11 +71,11 @@ class MoviesDetailsWidget extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 12),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
+                children: [
                   Container(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
+                      children: [
                         Text(
                           'Overview'.toUpperCase(),
                           style: const TextStyle(
@@ -106,13 +103,13 @@ class MoviesDetailsWidget extends StatelessWidget {
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
+                    children: [
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
+                        children: [
                           Text(
                             'Release date'.toUpperCase(),
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               fontFamily: 'muli',
                             ),
@@ -132,7 +129,7 @@ class MoviesDetailsWidget extends StatelessWidget {
                         children: [
                           Text(
                             'run time'.toUpperCase(),
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               fontFamily: 'muli',
                             ),

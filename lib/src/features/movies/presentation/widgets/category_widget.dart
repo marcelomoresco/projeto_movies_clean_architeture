@@ -50,8 +50,9 @@ class BuildWidgetCategoryState extends State<BuildWidgetCategory> {
                 return const LoadingWidget();
               } else if (state is GenreLoadedState) {
                 List<GenreEntity> genres = state.genreList;
-                return SizedBox(
-                  height: 45,
+                return Container(
+                  height: 55,
+                  color: Colors.white,
                   child: ListView.separated(
                     separatorBuilder: (BuildContext context, int index) =>
                         const VerticalDivider(
@@ -62,43 +63,45 @@ class BuildWidgetCategoryState extends State<BuildWidgetCategory> {
                     itemCount: genres.length,
                     itemBuilder: (context, index) {
                       GenreEntity genre = genres[index];
-                      return Column(
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                GenreEntity genre = genres[index];
-                                selectedGenre = genre.id;
-                                context
-                                    .read<MoviesBloc>()
-                                    .add(StartMoviesEvent(selectedGenre!, ''));
-                              });
-                            },
-                            child: Container(
-                              padding: const EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Colors.black45,
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  GenreEntity genre = genres[index];
+                                  selectedGenre = genre.id;
+                                  context.read<MoviesBloc>().add(
+                                      StartMoviesEvent(selectedGenre!, ''));
+                                });
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: Colors.black45,
+                                  ),
+                                  borderRadius: const BorderRadius.all(
+                                    Radius.circular(25),
+                                  ),
+                                  color: (genre.id == selectedGenre)
+                                      ? Colors.grey[400]
+                                      : Colors.white,
                                 ),
-                                borderRadius: const BorderRadius.all(
-                                  Radius.circular(25),
-                                ),
-                                color: (genre.id == selectedGenre)
-                                    ? Colors.grey[400]
-                                    : Colors.white,
-                              ),
-                              child: Text(
-                                genre.name.toUpperCase(),
-                                style: const TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                  fontFamily: 'muli',
+                                child: Text(
+                                  genre.name.toUpperCase(),
+                                  style: const TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
+                                    fontFamily: 'muli',
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       );
                     },
                   ),
@@ -137,9 +140,6 @@ class BuildWidgetCategoryState extends State<BuildWidgetCategory> {
                         children: [
                           GestureDetector(
                             onTap: () {
-                              context
-                                  .read<MovieDetailBloc>()
-                                  .add(GetMovieDetailsEvent(movie.id));
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
