@@ -20,7 +20,6 @@ class PersonBloc extends Bloc<PersonEvent, PersonState> {
       StartPersonEvent event, Emitter<PersonState> emit) async {
     emit(PersonLoadingState());
     final result = await getTrendingPersonUsecase(NoParams());
-    print("CHEGOU AQUI BLOC PERSON");
     result.fold(
       (failed) => emit(
         const PersonErrorState(

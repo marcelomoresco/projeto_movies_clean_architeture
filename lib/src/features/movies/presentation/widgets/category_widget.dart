@@ -50,9 +50,8 @@ class BuildWidgetCategoryState extends State<BuildWidgetCategory> {
                 return const LoadingWidget();
               } else if (state is GenreLoadedState) {
                 List<GenreEntity> genres = state.genreList;
-                return Container(
+                return SizedBox(
                   height: 55,
-                  color: Colors.white,
                   child: ListView.separated(
                     separatorBuilder: (BuildContext context, int index) =>
                         const VerticalDivider(

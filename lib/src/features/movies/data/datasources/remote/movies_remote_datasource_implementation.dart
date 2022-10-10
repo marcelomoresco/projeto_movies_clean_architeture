@@ -72,6 +72,9 @@ class MoviesRemoteDatasourceImplementation implements IMoviesRemoteDatasource {
     final response = await Dio()
         .get("$mainUrl/movie/movieId?api_key=$apiKey&language=en-US");
     print(response);
+    print("PASSOU AQUI REMOTE REPOSITORY");
+    print("-------------------");
+
     if (response.statusCode == 200) {
       MoviesDetailsEntity movieDetail =
           MoviesDetailsModel.fromJson(response.data);
