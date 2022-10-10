@@ -137,6 +137,9 @@ class BuildWidgetCategoryState extends State<BuildWidgetCategory> {
                         children: [
                           GestureDetector(
                             onTap: () {
+                              context
+                                  .read<MovieDetailBloc>()
+                                  .add(GetMovieDetailsEvent(movie.id));
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(

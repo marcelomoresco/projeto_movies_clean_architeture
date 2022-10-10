@@ -1,28 +1,19 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:io';
-
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/entities/movies_entity.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/upcoming_movies_bloc/upcoming_movies_bloc.dart';
-import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/views/details/movie_detail_page.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/widgets/loading_widget.dart';
-import 'package:shimmer/shimmer.dart';
-
-import '../../../domain/entities/person_entity.dart';
-import '../../blocs/movies_bloc/movies_bloc.dart';
 import '../../blocs/person_bloc/person_bloc.dart';
 import '../../widgets/category_widget.dart';
 import '../../widgets/person_list_widget.dart';
 import '../../widgets/upcoming_movies_widget.dart';
 
 class HomePage extends StatelessWidget {
+  final String uid;
+
   const HomePage({
     Key? key,
+    required this.uid,
   }) : super(key: key);
 
   @override

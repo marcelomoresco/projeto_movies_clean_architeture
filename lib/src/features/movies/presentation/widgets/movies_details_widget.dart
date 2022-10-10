@@ -38,7 +38,7 @@ class MoviesDetailsWidget extends StatelessWidget {
         ),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
+          children: [
             AppBar(
               backgroundColor: Colors.transparent,
               elevation: 0,

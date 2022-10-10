@@ -36,6 +36,21 @@ class MyApp extends StatelessWidget {
               StartUpcomingMoviesEvent(),
             ),
         ),
+        BlocProvider<MovieDetailBloc>(
+          create: (_) => MovieDetailBloc(
+            getMoviesDetailsUsecase: di.sl(),
+          ),
+        ),
+        BlocProvider<SimilarMoviesBloc>(
+          create: (_) => SimilarMoviesBloc(
+            getSimilarMoviesUsecase: di.sl(),
+          ),
+        ),
+        BlocProvider<GenreBloc>(
+          create: (_) => GenreBloc(
+            getGenreListUsecase: di.sl(),
+          )..add(const StartGenreEvent()),
+        ),
         BlocProvider<GenreBloc>(
           create: (_) => GenreBloc(
             getGenreListUsecase: di.sl(),
@@ -50,6 +65,25 @@ class MyApp extends StatelessWidget {
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
         home: SplashPage(),
+        /* initialRoute: '/',
+        onGenerateRoute: OnGenerateRoute.route,
+        routes: {
+          "/": (context) {
+            return BlocBuilder<AuthCubit, AuthState>(
+                builder: (context, authState) {
+              if (authState is Authenticated) {
+                return HomePage(
+                  uid: authState.uid,
+                );
+              }
+              if (authState is UnAuthenticated) {
+                return const SignInPage();
+              }
+
+              return const CircularProgressIndicator();
+            });
+          }
+        },*/
       ),
     );
   }

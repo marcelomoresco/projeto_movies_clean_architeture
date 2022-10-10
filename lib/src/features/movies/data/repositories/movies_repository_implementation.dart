@@ -55,7 +55,8 @@ class MoviesRepositoryImplementation implements IMoviesRepository {
       int movieId) async {
     try {
       final movies = await moviesRemoteDatasource.getMoviesDetail(movieId);
-
+      print("IMPLEMENTAÇÃO DO REPOSITORIO");
+      print(movies);
       return Right(movies);
     } on ServerException {
       return Left(ServerFailure());
@@ -100,7 +101,6 @@ class MoviesRepositoryImplementation implements IMoviesRepository {
   Future<Either<Failure, List<MoviesEntity>>> getUpcomingMovies() async {
     try {
       final movies = await moviesRemoteDatasource.getUpcomingMovies();
-      print("$movies repositorio IMP");
       return Right(movies);
     } on ServerException {
       return Left(ServerFailure());

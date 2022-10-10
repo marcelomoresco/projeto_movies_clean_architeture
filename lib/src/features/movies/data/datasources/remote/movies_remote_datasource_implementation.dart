@@ -68,8 +68,10 @@ class MoviesRemoteDatasourceImplementation implements IMoviesRemoteDatasource {
 
   @override
   Future<MoviesDetailsEntity> getMoviesDetail(int movieId) async {
+    print("CHEGOU AQUI REMOTE REPOSITORY");
     final response = await Dio()
         .get("$mainUrl/movie/movieId?api_key=$apiKey&language=en-US");
+    print(response);
     if (response.statusCode == 200) {
       MoviesDetailsEntity movieDetail =
           MoviesDetailsModel.fromJson(response.data);
@@ -85,7 +87,6 @@ class MoviesRemoteDatasourceImplementation implements IMoviesRemoteDatasource {
   Future<List<MoviesEntity>> getNowMovies() async {
     final response = await Dio().get(
         '$mainUrl/movie/now_playing?api_key=$apiKey&language=en-US&page=1');
-    print(response);
     if (response.statusCode == 200) {
       var nowMovies = response.data['results'] as List;
       return List<MoviesModel>.from(
@@ -117,9 +118,6 @@ class MoviesRemoteDatasourceImplementation implements IMoviesRemoteDatasource {
     var persons = response.data['results'] as List;
     List<PersonEntity> personList =
         persons.map((p) => PersonModel.fromJson(p)).toList();
-    print("DATASOURCEREMOTE GET TREINDING PERSON");
-    print("---------------------------------");
-    print(personList);
     return personList;
   }
 
