@@ -23,7 +23,7 @@ class OnGenerateRoute {
 
       case PageConst.homeMoviePage:
         return materialBuilder(
-          widget: const HomePage(),
+          widget: HomePage(),
         );
       case PageConst.movieDetailsPage:
         return materialBuilder(
