@@ -22,12 +22,6 @@ class MovieDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<MovieDetailBloc>(
-          create: (_) => MovieDetailBloc(getMoviesDetailsUsecase: di.sl())
-            ..add(
-              GetMovieDetailsEvent(movie.id),
-            ),
-        ),
         BlocProvider<SimilarMoviesBloc>(
           create: (_) => SimilarMoviesBloc(getSimilarMoviesUsecase: di.sl())
             ..add(
@@ -47,6 +41,7 @@ class MovieDetailPage extends StatelessWidget {
                   child: Text(state.errorMessage),
                 );
               } else if (state is MovieDetailLoadedState) {
+                print("detail page");
                 return MoviesDetailsWidget(movie: state.movieDetails);
               } else {
                 return const Center(

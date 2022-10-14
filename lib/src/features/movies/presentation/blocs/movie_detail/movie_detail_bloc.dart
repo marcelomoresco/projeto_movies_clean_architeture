@@ -21,19 +21,12 @@ class MovieDetailBloc extends Bloc<MovieDetailEvent, MovieDetailState> {
   Future<void> _getMovieDetailsEvent(
       GetMovieDetailsEvent event, Emitter<MovieDetailState> emit) async {
     emit(MovieDetailLoadingState());
-    print("ESTOU CARREGANDO");
-    print("------------------------------------");
     final result = await getMoviesDetailsUsecase(event.movieId);
-    print("------------------------------------");
-    print("PASSEI DA REQUISIÇÃO");
-    print(result);
     result.fold(
         (failed) async => emit(
               const MovieDetailErrorState(
                   errorMessage: "Erro ao pegar informações do filme!"),
             ), (movie) async {
-      emit(MovieDetailLoadingState());
-      await Future.delayed(const Duration(seconds: 2));
       emit(MovieDetailLoadedState(movieDetails: movie));
     });
   }

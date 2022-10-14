@@ -4,21 +4,19 @@ import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/entit
 import 'cast_entity.dart';
 
 class MoviesDetailsEntity extends Equatable {
-  final String id;
-  final String popularity;
+  final int id;
+  final double popularity;
   final String title;
   final String backPoster;
   final String poster;
   final String overview;
-  final String rating;
-  final String voteCount;
-
+  final double voteAverage;
+  final int voteCount;
   final String releaseDate;
-  final String budget;
-  final String revenue;
+  final int budget;
+  final int revenue;
   final String status;
-  final String runtime;
-
+  final int runtime;
   List<CastEntity>? castList;
 
   MoviesDetailsEntity({
@@ -28,7 +26,7 @@ class MoviesDetailsEntity extends Equatable {
     required this.backPoster,
     required this.poster,
     required this.overview,
-    required this.rating,
+    required this.voteAverage,
     required this.voteCount,
     required this.releaseDate,
     required this.budget,
@@ -45,7 +43,7 @@ class MoviesDetailsEntity extends Equatable {
         backPoster,
         poster,
         overview,
-        rating,
+        voteAverage,
         voteCount,
         releaseDate,
         budget,

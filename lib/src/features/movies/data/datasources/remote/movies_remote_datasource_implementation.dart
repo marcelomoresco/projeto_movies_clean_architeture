@@ -21,7 +21,8 @@ class MoviesRemoteDatasourceImplementation implements IMoviesRemoteDatasource {
 
   @override
   Future<List<CastEntity>> getCastList(int movieId) async {
-    final response = await _dio.get('$mainUrl/movie/$movieId/credits?$apiKey');
+    final response =
+        await _dio.get('$mainUrl/movie/$movieId/credits?api_key=$apiKey');
     if (response.statusCode == 200) {
       var list = response.data['cast'] as List;
       List<CastEntity> castList = list
@@ -71,17 +72,8 @@ class MoviesRemoteDatasourceImplementation implements IMoviesRemoteDatasource {
 
   @override
   Future<MoviesDetailsEntity> getMoviesDetail(int movieId) async {
-    print("-----------------CHEGUEIIIIIIIIIII");
-    print(
-        "------- fazendo requisição----------------------------------------------");
-    print(movieId);
-    print(
-        "-------------------------------------------------------------------------");
-    Response response = await _dio.get(
-        "https://api.themoviedb.org/3/movie/$movieId?api_key=ce7533c109968faa724d1787f65b8a21");
-    print(MoviesDetailsModel.fromJson(response.data));
-    print("-----------------repositoriy");
-
+    final response = await _dio
+        .get('https://api.themoviedb.org/3/movie/$movieId?api_key=$apiKey');
     if (response.statusCode == 200) {
       MoviesDetailsEntity movieDetail =
           MoviesDetailsModel.fromJson(response.data);

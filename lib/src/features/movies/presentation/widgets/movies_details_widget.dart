@@ -135,7 +135,7 @@ class MoviesDetailsWidget extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            movieDetail.runtime,
+                            movieDetail.runtime.toString(),
                             style: TextStyle(
                               color: Colors.yellow[800],
                               fontSize: 12,
@@ -152,7 +152,7 @@ class MoviesDetailsWidget extends StatelessWidget {
                                 fontWeight: FontWeight.bold,
                                 fontFamily: 'muli',
                               )),
-                          Text(movieDetail.budget,
+                          Text(movieDetail.budget.toString(),
                               style: TextStyle(
                                 color: Colors.yellow[800],
                                 fontSize: 12,
@@ -172,7 +172,7 @@ class MoviesDetailsWidget extends StatelessWidget {
                         fontFamily: 'muli',
                         color: Colors.white,
                       )),
-                  SizedBox(
+                  /*SizedBox(
                     height: 110,
                     child: ListView.separated(
                       scrollDirection: Axis.horizontal,
@@ -260,7 +260,7 @@ class MoviesDetailsWidget extends StatelessWidget {
                         );
                       },
                     ),
-                  ),
+                  ),*/
                 ],
               ),
             ),

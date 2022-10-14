@@ -2,19 +2,19 @@ import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/entit
 
 class MoviesDetailsModel extends MoviesDetailsEntity {
   MoviesDetailsModel({
-    required String id,
-    required String popularity,
+    required int id,
+    required double popularity,
     required String title,
     required String backPoster,
     required String poster,
     required String overview,
-    required String rating,
-    required String voteCount,
+    required double voteAverage,
+    required int voteCount,
     required String releaseDate,
-    required String budget,
-    required String revenue,
+    required int budget,
+    required int revenue,
     required String status,
-    required String runtime,
+    required int runtime,
   }) : super(
           id: id,
           popularity: popularity,
@@ -22,7 +22,7 @@ class MoviesDetailsModel extends MoviesDetailsEntity {
           backPoster: backPoster,
           poster: poster,
           overview: overview,
-          rating: rating,
+          voteAverage: voteAverage,
           voteCount: voteCount,
           releaseDate: releaseDate,
           budget: budget,
@@ -33,19 +33,19 @@ class MoviesDetailsModel extends MoviesDetailsEntity {
 
   factory MoviesDetailsModel.fromJson(Map<String, dynamic> json) {
     return MoviesDetailsModel(
-      id: json["id"].toString(),
+      id: json["id"],
       popularity: json["popularity"],
       title: json["title"],
       backPoster: json["backdrop_path"],
       poster: json["poster_path"],
       overview: json["overview"],
-      rating: json["vote_average"].toString(),
-      voteCount: json['vote_count'].toString(),
+      voteAverage: json["vote_average"],
+      voteCount: json['vote_count'],
       releaseDate: json["release_date"],
-      budget: json["budget"].toString(),
+      budget: json["budget"],
       revenue: json["revenue"],
       status: json["status"],
-      runtime: json["runtime"].toString(),
+      runtime: json["runtime"],
     );
   }
 }

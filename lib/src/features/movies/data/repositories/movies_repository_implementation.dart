@@ -55,8 +55,7 @@ class MoviesRepositoryImplementation implements IMoviesRepository {
       int movieId) async {
     try {
       final movies = await moviesRemoteDatasource.getMoviesDetail(movieId);
-      print("AGORA ESTOU NO REPOSiTORY IMP");
-      print("-------------------");
+      print(movies);
       return Right(movies);
     } on ServerException {
       return Left(ServerFailure());

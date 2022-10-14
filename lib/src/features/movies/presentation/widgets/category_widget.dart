@@ -35,7 +35,7 @@ class BuildWidgetCategoryState extends State<BuildWidgetCategory> {
       padding: const EdgeInsets.all(18.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
+        children: [
           const Text(
             "Categorias",
             style: TextStyle(
@@ -139,6 +139,8 @@ class BuildWidgetCategoryState extends State<BuildWidgetCategory> {
                         children: [
                           GestureDetector(
                             onTap: () {
+                              context.read<MovieDetailBloc>().add(
+                                  GetMovieDetailsEvent(movieList[index].id));
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
