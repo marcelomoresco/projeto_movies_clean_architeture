@@ -6,6 +6,8 @@ class LoadingWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: const [
         Center(
           child: CircularProgressIndicator(),
@@ -13,7 +15,7 @@ class LoadingWidget extends StatelessWidget {
         SizedBox(
           height: 15,
         ),
-        Text("Carregandoo......")
+        Text("Carregandoo......", style: TextStyle(color: Colors.white))
       ],
     );
   }

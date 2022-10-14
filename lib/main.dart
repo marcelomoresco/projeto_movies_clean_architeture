@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/cast_movie_bloc/cast_movie_bloc.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/genre_bloc/genre_bloc.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/movie_detail/movie_detail_bloc.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/movies_bloc/movies_bloc.dart';
@@ -38,6 +39,11 @@ class MyApp extends StatelessWidget {
         BlocProvider<MovieDetailBloc>(
           create: (_) => MovieDetailBloc(
             getMoviesDetailsUsecase: di.sl(),
+          ),
+        ),
+        BlocProvider<CastMovieBloc>(
+          create: (_) => CastMovieBloc(
+            getCastListUsecase: di.sl(),
           ),
         ),
         BlocProvider<SimilarMoviesBloc>(

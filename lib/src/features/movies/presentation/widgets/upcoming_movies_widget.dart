@@ -2,9 +2,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/entities/movies_entity.dart';
 
+import '../blocs/movie_detail/movie_detail_bloc.dart';
 import '../views/details/movie_detail_page.dart';
 
 class UpcomingMoviesWidget extends StatelessWidget {
@@ -22,6 +24,9 @@ class UpcomingMoviesWidget extends StatelessWidget {
           items: moviesList
               .map((movie) => GestureDetector(
                     onTap: () {
+                      context
+                          .read<MovieDetailBloc>()
+                          .add(GetMovieDetailsEvent(movie.id));
                       Navigator.push(
                         context,
                         MaterialPageRoute(

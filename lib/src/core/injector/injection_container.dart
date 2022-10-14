@@ -15,14 +15,13 @@ import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/useca
 import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/usecases/get_similar_moives.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/usecases/get_trending_person_usecase.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/usecases/get_upcoming_movies_usecase.dart';
+import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/cast_movie_bloc/cast_movie_bloc.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/genre_bloc/genre_bloc.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/movie_detail/movie_detail_bloc.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/movies_bloc/movies_bloc.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/person_bloc/person_bloc.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/similar_movies/similar_movies_bloc.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/upcoming_movies_bloc/upcoming_movies_bloc.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 final sl = GetIt.instance;
 
@@ -46,6 +45,7 @@ Future<void> initialize() async {
   sl.registerFactory(() => UpcomingMoviesBloc(getUpcomingMoviesUsecase: sl()));
   sl.registerFactory(() => PersonBloc(getTrendingPersonUsecase: sl()));
   sl.registerFactory(() => GenreBloc(getGenreListUsecase: sl()));
+  sl.registerFactory(() => CastMovieBloc(getCastListUsecase: sl()));
 
   //usecase
 
