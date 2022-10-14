@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
 import '../home/home_page.dart';
+import '../initial/initial_page.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -15,7 +16,7 @@ class _SplashPageState extends State<SplashPage> {
     await Future.delayed(const Duration(seconds: 4));
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(
-        builder: (_) => const HomePage(),
+        builder: (_) => const InitialPage(),
       ),
     );
   }

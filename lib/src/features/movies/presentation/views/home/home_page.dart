@@ -18,16 +18,6 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       extendBody: true,
       backgroundColor: Colors.black,
-      appBar: AppBar(
-        title: const Text("Talk Movie"),
-        backgroundColor: Colors.black,
-        centerTitle: true,
-        elevation: 0,
-        leading: const Icon(
-          Icons.menu,
-          color: Colors.white,
-        ),
-      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
