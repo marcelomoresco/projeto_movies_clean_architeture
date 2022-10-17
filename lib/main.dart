@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:projeto_movies_clean_arciteture/src/core/consts/routes/on_generate_route.dart';
+import 'package:projeto_movies_clean_arciteture/src/features/login/presentation/blocs/auth_cubit/auth_cubit.dart';
+import 'package:projeto_movies_clean_arciteture/src/features/login/presentation/blocs/user_cubit/user_cubit.dart';
+import 'package:projeto_movies_clean_arciteture/src/features/login/presentation/views/login/sign_in_page.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/cast_movie_bloc/cast_movie_bloc.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/genre_bloc/genre_bloc.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/movie_detail/movie_detail_bloc.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/movies_bloc/movies_bloc.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/person_bloc/person_bloc.dart';
+import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/search_bloc/search_bloc.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/similar_movies/similar_movies_bloc.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/upcoming_movies_bloc/upcoming_movies_bloc.dart';
+import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/views/initial/initial_page.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/views/splash/splash_page.dart';
 import 'src/core/injector/injection_container.dart' as di;
 
@@ -23,11 +29,28 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider<AuthCubit>(
+          create: (_) => di.sl<AuthCubit>()..appStarted(),
+        ),
+        BlocProvider<UserCubit>(
+          create: (_) => di.sl<UserCubit>(),
+        ),
         BlocProvider<MoviesBloc>(
           create: (_) => MoviesBloc(
             getMoviesByGenreUsecase: di.sl(),
             getNowMoviesUsecase: di.sl(),
           )..add(const StartMoviesEvent(0, "")),
+        ),
+        BlocProvider<MoviesBloc>(
+          create: (_) => MoviesBloc(
+            getMoviesByGenreUsecase: di.sl(),
+            getNowMoviesUsecase: di.sl(),
+          )..add(const StartMoviesEvent(0, "")),
+        ),
+        BlocProvider<SearchBloc>(
+          create: (_) => SearchBloc(
+            getMoviesBySearchUsecase: di.sl(),
+          ),
         ),
         BlocProvider<UpcomingMoviesBloc>(
           create: (_) => UpcomingMoviesBloc(
@@ -70,16 +93,14 @@ class MyApp extends StatelessWidget {
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
         home: SplashPage(),
-        /* initialRoute: '/',
+        /*initialRoute: '/',
         onGenerateRoute: OnGenerateRoute.route,
         routes: {
           "/": (context) {
             return BlocBuilder<AuthCubit, AuthState>(
                 builder: (context, authState) {
               if (authState is Authenticated) {
-                return HomePage(
-                  uid: authState.uid,
-                );
+                return const InitialPage();
               }
               if (authState is UnAuthenticated) {
                 return const SignInPage();
