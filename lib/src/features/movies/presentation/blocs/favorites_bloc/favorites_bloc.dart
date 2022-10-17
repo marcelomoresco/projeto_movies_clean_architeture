@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/entities/favorites_entity.dart';
+import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/entities/movies_details_entity.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/entities/movies_entity.dart';
 
 part 'favorites_event.dart';
@@ -30,6 +31,7 @@ class FavoritesBloc extends Bloc<FavoritesEvent, FavoritesState> {
     final state = this.state;
     if (state is FavoritesLoadedState) {
       try {
+        print(event.movie);
         emit(
           FavoritesLoadedState(
             favorites: FavoritesEntity(

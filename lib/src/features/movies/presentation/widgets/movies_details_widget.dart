@@ -2,7 +2,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/entities/movies_entity.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/cast_movie_bloc/cast_movie_bloc.dart';
+import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/favorites_bloc/favorites_bloc.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/similar_movies/similar_movies_bloc.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/widgets/loading_widget.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/widgets/similar_movies_widget.dart';
@@ -12,9 +14,11 @@ import 'cast_movie_detail_widget.dart';
 
 class MoviesDetailsWidget extends StatelessWidget {
   final MoviesDetailsEntity movie;
+  final MoviesEntity movieEntity;
   const MoviesDetailsWidget({
     Key? key,
     required this.movie,
+    required this.movieEntity,
   }) : super(key: key);
 
   @override
@@ -143,28 +147,52 @@ class MoviesDetailsWidget extends StatelessWidget {
                 height: 10.0,
               ),
               Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
-                    "Duração: ",
-                    style: TextStyle(
-                        fontSize: 15.0,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white),
+                  Row(
+                    children: [
+                      const Text(
+                        "Duração: ",
+                        style: TextStyle(
+                            fontSize: 15.0,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
+                      ),
+                      const SizedBox(
+                        width: 5.0,
+                      ),
+                      Text(
+                        movie.runtime.toString() + " Minutos",
+                        style: const TextStyle(
+                            fontSize: 15.0,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
+                      ),
+                    ],
                   ),
-                  const SizedBox(
-                    width: 5.0,
-                  ),
-                  Text(
-                    movie.runtime.toString() + " Minutos",
-                    style: const TextStyle(
-                        fontSize: 15.0,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white),
-                  ),
-                  const SizedBox(
-                    width: 10.0,
-                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(40),
+                        color: Colors.red),
+                    child: IconButton(
+                      onPressed: () {
+                        context.read<FavoritesBloc>().add(
+                              AddFavoritesEvent(movie: movieEntity),
+                            );
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text(
+                              "Adicionado aos favoritos!",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            backgroundColor: Colors.green,
+                          ),
+                        );
+                      },
+                      icon: const Icon(Icons.favorite_border_sharp,
+                          color: Colors.white),
+                    ),
+                  )
                 ],
               ),
               const SizedBox(

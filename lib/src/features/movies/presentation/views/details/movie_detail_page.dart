@@ -49,7 +49,10 @@ class MovieDetailPage extends StatelessWidget {
                   child: Text(state.errorMessage),
                 );
               } else if (state is MovieDetailLoadedState) {
-                return MoviesDetailsWidget(movie: state.movieDetails);
+                return MoviesDetailsWidget(
+                  movie: state.movieDetails,
+                  movieEntity: movie,
+                );
               } else {
                 return const Center(
                   child: Text("Algo de errado aconteceu.....!"),

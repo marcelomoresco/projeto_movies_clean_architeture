@@ -51,7 +51,6 @@ Future<void> initialize() async {
   sl.registerFactory(() => GenreBloc(getGenreListUsecase: sl()));
   sl.registerFactory(() => CastMovieBloc(getCastListUsecase: sl()));
   sl.registerFactory(() => SearchBloc(getMoviesBySearchUsecase: sl()));
-  sl.registerFactory(() => FavoritesBloc());
 
   //usecase
 

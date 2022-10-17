@@ -15,6 +15,16 @@ class SearchPage extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Colors.black,
+      appBar: AppBar(
+        title: const Text("Pesquise seu filme"),
+        centerTitle: true,
+        elevation: 0,
+        backgroundColor: Colors.black,
+        leading: const Icon(
+          Icons.menu,
+          color: Colors.white,
+        ),
+      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(18.0),

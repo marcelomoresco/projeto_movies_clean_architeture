@@ -58,16 +58,6 @@ class _InitialPageState extends State<InitialPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Talk Movie"),
-        backgroundColor: Colors.black,
-        centerTitle: true,
-        elevation: 0,
-        leading: const Icon(
-          Icons.menu,
-          color: Colors.white,
-        ),
-      ),
       body: PageView(
           controller: pageController,
           physics: const NeverScrollableScrollPhysics(),

@@ -44,18 +44,27 @@ class SimilarMoviesWidget extends StatelessWidget {
                         SizedBox(
                           height: 160.0,
                           child: AspectRatio(
-                              aspectRatio: 2 / 3,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(5.0),
-                                child: moviesList[index].posterPath == null ||
-                                        moviesList[index].posterPath.isEmpty
-                                    ? Text("Personagem sem imagem")
-                                    : CachedNetworkImage(
-                                        fit: BoxFit.cover,
-                                        imageUrl:
-                                            "https://image.tmdb.org/t/p/w300/" +
-                                                moviesList[index].posterPath),
-                              )),
+                            aspectRatio: 2 / 3,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(5.0),
+                              child: moviesList[index].posterPath == null ||
+                                      moviesList[index].posterPath.isEmpty
+                                  ? Text("Personagem sem imagem")
+                                  : CachedNetworkImage(
+                                      fit: BoxFit.cover,
+                                      imageUrl:
+                                          "https://image.tmdb.org/t/p/w300/" +
+                                              moviesList[index].posterPath,
+                                      placeholder: (context, url) =>
+                                          const SizedBox(
+                                        width: 180,
+                                        height: 190,
+                                        child: Center(
+                                            child: CircularProgressIndicator()),
+                                      ),
+                                    ),
+                            ),
+                          ),
                         ),
                       ],
                     ),
