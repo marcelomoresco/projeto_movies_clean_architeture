@@ -10,9 +10,9 @@ class FavoritesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: const Text("Favoritos")),
-        body: BlocBuilder<FavoritesBloc, FavoritesState>(
-            builder: (context, state) {
+      appBar: AppBar(title: const Text("Favoritos")),
+      body: BlocBuilder<FavoritesBloc, FavoritesState>(
+        builder: (context, state) {
           if (state is FavoritesLoadingState) {
             return const LoadingWidget();
           } else if (state is FavoritesErrorState) {
@@ -33,6 +33,8 @@ class FavoritesPage extends StatelessWidget {
           } else {
             return Container();
           }
-        }));
+        },
+      ),
+    );
   }
 }
