@@ -11,7 +11,14 @@ class SearchInitialState extends SearchState {}
 
 class SearchLoadingState extends SearchState {}
 
-class SearchLoadedState extends SearchState {}
+class SearchLoadedState extends SearchState {
+  final List<MoviesEntity> moviesList;
+
+  const SearchLoadedState({required this.moviesList});
+
+  @override
+  List<Object> get props => [moviesList];
+}
 
 class SearchErrorState extends SearchState {
   final String errorMessage;
