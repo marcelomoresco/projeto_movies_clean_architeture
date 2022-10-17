@@ -24,4 +24,6 @@ abstract class IMoviesRepository {
   Future<Either<Failure, List<PersonEntity>>> getTrendingPerson();
   //Requst de Detalhes dos filmes
   Future<Either<Failure, MoviesDetailsEntity>> getMoviesDetail(int movieId);
+
+  Future<Either<Failure, List<MoviesEntity>>> getMovieBySearch(String query);
 }

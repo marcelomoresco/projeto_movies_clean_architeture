@@ -105,4 +105,17 @@ class MoviesRepositoryImplementation implements IMoviesRepository {
       return Left(ServerFailure());
     }
   }
+
+  @override
+  Future<Either<Failure, List<MoviesEntity>>> getMovieBySearch(
+      String query) async {
+    try {
+      final moviesSearched =
+          await moviesRemoteDatasource.getMoviesBySeach(query);
+
+      return Right(moviesSearched);
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
 }

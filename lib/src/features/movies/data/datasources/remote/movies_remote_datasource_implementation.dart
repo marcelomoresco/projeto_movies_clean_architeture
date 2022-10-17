@@ -135,4 +135,22 @@ class MoviesRemoteDatasourceImplementation implements IMoviesRemoteDatasource {
       throw ServerException();
     }
   }
+
+  @override
+  Future<List<MoviesEntity>> getMoviesBySeach(String query) async {
+    final response = await _dio
+        .get('$mainUrl/search/movie?api_key=$apiKey&page=1&query=$query');
+    print(query);
+    print(response.data);
+    if (response.statusCode == 200) {
+      var searchMovies = response.data['results'] as List;
+      return List<MoviesModel>.from(
+        searchMovies.map(
+          (movie) => MoviesModel.fromJson(movie),
+        ),
+      );
+    } else {
+      throw ServerException();
+    }
+  }
 }

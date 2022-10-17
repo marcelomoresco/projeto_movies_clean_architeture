@@ -2,12 +2,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/entities/cast_entity.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/cast_movie_bloc/cast_movie_bloc.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/similar_movies/similar_movies_bloc.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/widgets/loading_widget.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/widgets/similar_movies_widget.dart';
-
+import 'package:intl/intl.dart';
 import '../../domain/entities/movies_details_entity.dart';
 import 'cast_movie_detail_widget.dart';
 
@@ -20,6 +19,8 @@ class MoviesDetailsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    DateTime dateTime = DateTime.parse(movie.releaseDate);
+
     return ListView(
       padding: EdgeInsets.zero,
       children: [
@@ -101,7 +102,7 @@ class MoviesDetailsWidget extends StatelessWidget {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    "Data de Lançamento: ${movie.releaseDate}",
+                                    DateFormat("dd/MM/yyyy").format(dateTime),
                                     style: const TextStyle(
                                         fontSize: 12.0,
                                         fontWeight: FontWeight.bold,
@@ -274,7 +275,7 @@ class MoviesDetailsWidget extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("Receita(\$):",
+                  const Text("Receita(\$):",
                       style: TextStyle(fontSize: 14.0, color: Colors.white)),
                   Text("\$ ${movie.revenue}",
                       style: const TextStyle(
