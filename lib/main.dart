@@ -5,6 +5,7 @@ import 'package:projeto_movies_clean_arciteture/src/features/login/presentation/
 import 'package:projeto_movies_clean_arciteture/src/features/login/presentation/blocs/user_cubit/user_cubit.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/login/presentation/views/login/sign_in_page.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/cast_movie_bloc/cast_movie_bloc.dart';
+import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/favorites_bloc/favorites_bloc.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/genre_bloc/genre_bloc.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/movie_detail/movie_detail_bloc.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/movies_bloc/movies_bloc.dart';
@@ -51,6 +52,12 @@ class MyApp extends StatelessWidget {
           create: (_) => SearchBloc(
             getMoviesBySearchUsecase: di.sl(),
           ),
+        ),
+        BlocProvider<FavoritesBloc>(
+          create: (_) => FavoritesBloc()
+            ..add(
+              StartFavoritesEvent(),
+            ),
         ),
         BlocProvider<UpcomingMoviesBloc>(
           create: (_) => UpcomingMoviesBloc(

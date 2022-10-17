@@ -16,6 +16,7 @@ import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/useca
 import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/usecases/get_trending_person_usecase.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/usecases/get_upcoming_movies_usecase.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/cast_movie_bloc/cast_movie_bloc.dart';
+import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/favorites_bloc/favorites_bloc.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/genre_bloc/genre_bloc.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/movie_detail/movie_detail_bloc.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/movies_bloc/movies_bloc.dart';
@@ -50,6 +51,7 @@ Future<void> initialize() async {
   sl.registerFactory(() => GenreBloc(getGenreListUsecase: sl()));
   sl.registerFactory(() => CastMovieBloc(getCastListUsecase: sl()));
   sl.registerFactory(() => SearchBloc(getMoviesBySearchUsecase: sl()));
+  sl.registerFactory(() => FavoritesBloc());
 
   //usecase
 
