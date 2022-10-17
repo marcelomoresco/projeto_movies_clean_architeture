@@ -20,8 +20,11 @@ import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/movie_detail/movie_detail_bloc.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/movies_bloc/movies_bloc.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/person_bloc/person_bloc.dart';
+import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/search_bloc/search_bloc.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/similar_movies/similar_movies_bloc.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/upcoming_movies_bloc/upcoming_movies_bloc.dart';
+
+import '../../features/movies/domain/usecases/get_movies_by_search_usecase.dart';
 
 final sl = GetIt.instance;
 
@@ -46,6 +49,7 @@ Future<void> initialize() async {
   sl.registerFactory(() => PersonBloc(getTrendingPersonUsecase: sl()));
   sl.registerFactory(() => GenreBloc(getGenreListUsecase: sl()));
   sl.registerFactory(() => CastMovieBloc(getCastListUsecase: sl()));
+  sl.registerFactory(() => SearchBloc(getMoviesBySearchUsecase: sl()));
 
   //usecase
 
@@ -72,6 +76,9 @@ Future<void> initialize() async {
   );
   sl.registerLazySingleton<GetTrendingPersonUsecase>(
     () => GetTrendingPersonUsecase(moviesRepository: sl()),
+  );
+  sl.registerLazySingleton<GetMoviesBySearchUsecase>(
+    () => GetMoviesBySearchUsecase(moviesRepository: sl()),
   );
 
   //repository
