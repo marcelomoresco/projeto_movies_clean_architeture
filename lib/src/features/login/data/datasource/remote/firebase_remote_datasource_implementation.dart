@@ -49,4 +49,10 @@ class FirebaseRemoteDatasourceImplementation
   Future<void> signUp(UserEntity user) async =>
       firebaseAuth.createUserWithEmailAndPassword(
           email: user.email!, password: user.password!);
+
+  @override
+  Future<void> sendForgotPassword() {
+    // TODO: implement sendForgotPassword
+    throw UnimplementedError();
+  }
 }

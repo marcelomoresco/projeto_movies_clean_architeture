@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:projeto_movies_clean_arciteture/src/features/login/presentation/views/login/sign_in_page.dart';
 
 import '../../../domain/entities/user_entity.dart';
 import '../../blocs/user_cubit/user_cubit.dart';
@@ -28,6 +29,20 @@ class _SignUpPageState extends State<SignUpPage> {
               password: _passwordController.text,
             ),
           );
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            "Registro feito com sucesso",
+            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+          ),
+          backgroundColor: Colors.green,
+        ),
+      );
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (_) => const SignInPage(),
+        ),
+      );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(

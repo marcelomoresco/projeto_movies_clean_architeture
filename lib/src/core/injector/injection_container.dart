@@ -1,7 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/login/data/datasource/remote/firebase_remote_datasource.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/login/data/datasource/remote/firebase_remote_datasource_implementation.dart';
-import 'package:projeto_movies_clean_arciteture/src/features/login/presentation/blocs/auth_cubit/auth_cubit.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/login/presentation/blocs/user_cubit/user_cubit.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/data/datasources/remote/movies_remote_datasource.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/data/datasources/remote/movies_remote_datasource_implementation.dart';
@@ -31,8 +30,6 @@ final sl = GetIt.instance;
 
 Future<void> initialize() async {
   //bloc
-  sl.registerFactory(() => AuthCubit(
-      getCurrentUIdUsecase: sl(), isSignInUsecase: sl(), signOutUsecase: sl()));
   sl.registerFactory(
     () => UserCubit(
       signInUsecase: sl(),

@@ -2,11 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
-import 'package:projeto_movies_clean_arciteture/src/features/login/presentation/blocs/auth_cubit/auth_cubit.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/login/presentation/blocs/user_cubit/user_cubit.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/views/home/home_page.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../movies/presentation/views/initial/initial_page.dart';
 import '../../../domain/entities/user_entity.dart';
 import '../forgot/forgot_password_page.dart';
 import '../register/sign_up_page.dart';
@@ -50,6 +50,11 @@ class _SignInPageState extends State<SignInPage> {
             email: _emailController.text,
             password: _passwordController.text,
           ));
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (_) => const InitialPage(),
+        ),
+      );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text(
@@ -65,36 +70,7 @@ class _SignInPageState extends State<SignInPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldGlobalKey,
-      body: BlocConsumer<UserCubit, UserState>(
-        builder: (context, userState) {
-          if (userState is UserLoadedState) {
-            return BlocBuilder(builder: (context, state) {
-              if (state is Authenticated) {
-                return const HomePage();
-              } else {
-                return _bodyWidget();
-              }
-            });
-          }
-          return _bodyWidget();
-        },
-        listener: (context, userState) {
-          if (userState is UserLoadingState) {
-            BlocProvider.of<AuthCubit>(context).loggedIn();
-          } else if (userState is UserFailureState) {
-            const snackBar = SnackBar(
-              content: Text(
-                "E-mail inválido",
-                style: TextStyle(
-                  color: Colors.white,
-                ),
-              ),
-              backgroundColor: Colors.red,
-            );
-            ScaffoldMessenger.of(context).showSnackBar(snackBar);
-          }
-        },
-      ),
+      body: _bodyWidget(),
     );
   }
 
@@ -276,8 +252,12 @@ class _SignInPageState extends State<SignInPage> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (_) => SignUpPage()));
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => const SignUpPage(),
+                          ),
+                        );
                       },
                       child: const Text(
                         "Registrar Agora",
@@ -286,10 +266,10 @@ class _SignInPageState extends State<SignInPage> {
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 15,
                 ),
-                Container(
+                SizedBox(
                   width: 250,
                   child: ElevatedButton.icon(
                       icon: const Icon(Icons.g_mobiledata_outlined,
@@ -304,7 +284,7 @@ class _SignInPageState extends State<SignInPage> {
                           style: TextStyle(color: Colors.black)),
                       style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.yellow,
-                          minimumSize: Size(double.infinity, 50))),
+                          minimumSize: const Size(double.infinity, 50))),
                 )
               ],
             ),
