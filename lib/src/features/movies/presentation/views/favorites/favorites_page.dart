@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/entities/movies_entity.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/favorites_bloc/favorites_bloc.dart';
@@ -44,110 +45,115 @@ class FavoritesPage extends StatelessWidget {
                       itemBuilder: (context, index) {
                         MoviesEntity movie = state.favorites.movies[index];
                         DateTime dateTime = DateTime.parse(movie.releaseDate);
-                        return Padding(
-                          padding: const EdgeInsets.all(18.0),
-                          child: Container(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
+                        return Slidable(
+                          key: ValueKey(index),
+                          endActionPane: ActionPane(
+                              motion: const ScrollMotion(),
                               children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(5.0),
-                                  child: CachedNetworkImage(
-                                    imageUrl:
-                                        'https://image.tmdb.org/t/p/original/${movie.posterPath}',
-                                    height:
-                                        MediaQuery.of(context).size.height / 4,
-                                    fit: BoxFit.cover,
-                                    placeholder: (context, url) => const Center(
-                                        child: CircularProgressIndicator()),
-                                  ),
-                                ),
-                                SizedBox(width: 60),
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(movie.title,
-                                        style: const TextStyle(
-                                            color: Colors.white, fontSize: 22)),
-                                    Text(
-                                        DateFormat("dd/MM/yyyy")
-                                            .format(dateTime),
-                                        style: const TextStyle(
-                                            color: Colors.white, fontSize: 12)),
-                                    Row(
-                                      children: [
-                                        const Icon(
-                                          Icons.star,
-                                          color: Colors.yellow,
-                                          size: 14,
-                                        ),
-                                        const Icon(
-                                          Icons.star,
-                                          color: Colors.yellow,
-                                          size: 14,
-                                        ),
-                                        const Icon(
-                                          Icons.star,
-                                          color: Colors.yellow,
-                                          size: 14,
-                                        ),
-                                        const Icon(
-                                          Icons.star,
-                                          color: Colors.yellow,
-                                          size: 14,
-                                        ),
-                                        const Icon(
-                                          Icons.star,
-                                          color: Colors.yellow,
-                                          size: 14,
-                                        ),
-                                        SizedBox(
-                                          width: 5,
-                                        ),
-                                        Text(
-                                          movie.voteAverage,
-                                          style: const TextStyle(
+                                SlidableAction(
+                                  backgroundColor: Colors.red,
+                                  icon: Icons.delete,
+                                  label: "Deletar",
+                                  onPressed: (_) {
+                                    context.read<FavoritesBloc>().add(
+                                          RemoveFavoritesEvent(
+                                            movie: movie,
+                                          ),
+                                        );
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        backgroundColor: Colors.red,
+                                        content: Text(
+                                          "Removido dos favoritos",
+                                          style: TextStyle(
                                             color: Colors.white,
-                                            fontSize: 16,
                                           ),
                                         ),
-                                      ],
-                                    ),
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        color: Colors.red,
-                                        borderRadius: BorderRadius.circular(40),
                                       ),
-                                      child: IconButton(
-                                          icon: const Icon(
-                                            Icons.remove,
-                                            color: Colors.white,
-                                            size: 20,
-                                          ),
-                                          onPressed: () {
-                                            context.read<FavoritesBloc>().add(
-                                                  RemoveFavoritesEvent(
-                                                    movie: movie,
-                                                  ),
-                                                );
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(
-                                              const SnackBar(
-                                                backgroundColor: Colors.red,
-                                                content: Text(
-                                                  "Removido dos favoritos",
-                                                  style: TextStyle(
-                                                    color: Colors.white,
-                                                  ),
-                                                ),
-                                              ),
-                                            );
-                                          }),
-                                    )
-                                  ],
+                                    );
+                                  },
                                 ),
-                              ],
+                              ]),
+                          child: Padding(
+                            padding: const EdgeInsets.all(18.0),
+                            child: Container(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(5.0),
+                                    child: CachedNetworkImage(
+                                      imageUrl:
+                                          'https://image.tmdb.org/t/p/original/${movie.posterPath}',
+                                      height:
+                                          MediaQuery.of(context).size.height /
+                                              4,
+                                      fit: BoxFit.cover,
+                                      placeholder: (context, url) =>
+                                          const Center(
+                                              child:
+                                                  CircularProgressIndicator()),
+                                    ),
+                                  ),
+                                  SizedBox(width: 60),
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(movie.title,
+                                          style: const TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 22)),
+                                      Text(
+                                          DateFormat("dd/MM/yyyy")
+                                              .format(dateTime),
+                                          style: const TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 12)),
+                                      Row(
+                                        children: [
+                                          const Icon(
+                                            Icons.star,
+                                            color: Colors.yellow,
+                                            size: 14,
+                                          ),
+                                          const Icon(
+                                            Icons.star,
+                                            color: Colors.yellow,
+                                            size: 14,
+                                          ),
+                                          const Icon(
+                                            Icons.star,
+                                            color: Colors.yellow,
+                                            size: 14,
+                                          ),
+                                          const Icon(
+                                            Icons.star,
+                                            color: Colors.yellow,
+                                            size: 14,
+                                          ),
+                                          const Icon(
+                                            Icons.star,
+                                            color: Colors.yellow,
+                                            size: 14,
+                                          ),
+                                          SizedBox(
+                                            width: 5,
+                                          ),
+                                          Text(
+                                            movie.voteAverage,
+                                            style: const TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 16,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         );

@@ -32,6 +32,16 @@ class UserCubit extends Cubit<UserState> {
     }
   }
 
+  Future<void> submitForgotPassword({required UserEntity user}) async {
+    emit(UserLoadingState());
+    try {
+      await signInUsecase.call(user);
+      emit(UserLoadedState());
+    } catch (_) {
+      emit(UserFailureState());
+    }
+  }
+
   Future<void> submitSignUp({required UserEntity user}) async {
     emit(UserLoadingState());
     try {
