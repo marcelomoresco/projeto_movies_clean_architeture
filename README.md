@@ -1,16 +1,18 @@
-# projeto_movies_clean_arciteture
+<h1 align="center">App TalkMovie</h1>
 
-A new Flutter project.
+<p align="center">Esse projeto é um app para estudar a arquitetura.</p>
 
-## Getting Started
+<p align="center">Status - Em Desenvolvimento</p>
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+<br>
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+<!-- GIF-->
+![ezgif com-gif-maker (13)](https://user-images.githubusercontent.com/85464545/196581682-8a724bf5-51cf-4c4e-b1ed-dcc397b004ca.gif)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+### Autor
+
+Made with 💜 by Marcelo Moresco👋
+
+[![LinkedIn Badge](https://img.shields.io/badge/-marcelomoresco-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/marcelo-adriel-moresco-a32104179/)](https://www.linkedin.com/in/marcelo-adriel-moresco-a32104179/)
