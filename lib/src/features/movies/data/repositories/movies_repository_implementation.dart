@@ -55,7 +55,6 @@ class MoviesRepositoryImplementation implements IMoviesRepository {
       int movieId) async {
     try {
       final movies = await moviesRemoteDatasource.getMoviesDetail(movieId);
-      print(movies);
       return Right(movies);
     } on ServerException {
       return Left(ServerFailure());

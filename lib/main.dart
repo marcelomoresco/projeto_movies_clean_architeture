@@ -38,12 +38,6 @@ class MyApp extends StatelessWidget {
             getNowMoviesUsecase: di.sl(),
           )..add(const StartMoviesEvent(0, "")),
         ),
-        BlocProvider<MoviesBloc>(
-          create: (_) => MoviesBloc(
-            getMoviesByGenreUsecase: di.sl(),
-            getNowMoviesUsecase: di.sl(),
-          )..add(const StartMoviesEvent(0, "")),
-        ),
         BlocProvider<SearchBloc>(
           create: (_) => SearchBloc(
             getMoviesBySearchUsecase: di.sl(),
@@ -76,11 +70,6 @@ class MyApp extends StatelessWidget {
           create: (_) => SimilarMoviesBloc(
             getSimilarMoviesUsecase: di.sl(),
           ),
-        ),
-        BlocProvider<GenreBloc>(
-          create: (_) => GenreBloc(
-            getGenreListUsecase: di.sl(),
-          )..add(const StartGenreEvent()),
         ),
         BlocProvider<GenreBloc>(
           create: (_) => GenreBloc(

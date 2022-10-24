@@ -53,8 +53,9 @@ class TrendingPersonMoviesWidget extends StatelessWidget {
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(15),
                             child: CachedNetworkImage(
-                              imageUrl:
-                                  'https://image.tmdb.org/t/p/w200${person.profilePath}',
+                              imageUrl: person.profilePath == null
+                                  ? 'https://core360.com.br/shop/skin/frontend/base/default/lib/jlukic_semanticui/examples/assets/images/wireframe/image.png'
+                                  : 'https://image.tmdb.org/t/p/w200${person.profilePath}',
                               height: 120,
                               placeholder: (context, url) => Container(
                                 width: 80,
