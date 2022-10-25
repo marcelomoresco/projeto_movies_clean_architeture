@@ -47,14 +47,12 @@ class SimilarMoviesWidget extends StatelessWidget {
                             aspectRatio: 2 / 3,
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(5.0),
-                              child: moviesList[index].posterPath == null ||
-                                      moviesList[index].posterPath.isEmpty
-                                  ? Text("Personagem sem imagem")
+                              child: moviesList[index].posterPath == null
+                                  ? const Text("Personagem sem imagem")
                                   : CachedNetworkImage(
                                       fit: BoxFit.cover,
                                       imageUrl:
-                                          "https://image.tmdb.org/t/p/w300/" +
-                                              moviesList[index].posterPath,
+                                          "https://image.tmdb.org/t/p/w300/${moviesList[index].posterPath}",
                                       placeholder: (context, url) =>
                                           const SizedBox(
                                         width: 180,

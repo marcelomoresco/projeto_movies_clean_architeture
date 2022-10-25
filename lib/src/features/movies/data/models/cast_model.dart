@@ -3,7 +3,7 @@ import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/entit
 class CastModel extends CastEntity {
   const CastModel({
     required String name,
-    required String profilePath,
+    String? profilePath,
     required String character,
   }) : super(
           name: name,
