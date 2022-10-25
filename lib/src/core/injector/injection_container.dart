@@ -1,7 +1,14 @@
 import 'package:get_it/get_it.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/login/data/datasource/remote/firebase_remote_datasource.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/login/data/datasource/remote/firebase_remote_datasource_implementation.dart';
+import 'package:projeto_movies_clean_arciteture/src/features/login/domain/usecases/get_create_current_user_usecase.dart';
+import 'package:projeto_movies_clean_arciteture/src/features/login/domain/usecases/get_current_uid_usecase.dart';
+import 'package:projeto_movies_clean_arciteture/src/features/login/domain/usecases/is_sign_in_usecase.dart';
+import 'package:projeto_movies_clean_arciteture/src/features/login/domain/usecases/sign_in_usecase.dart';
+import 'package:projeto_movies_clean_arciteture/src/features/login/domain/usecases/sign_out_usecase.dart';
+import 'package:projeto_movies_clean_arciteture/src/features/login/domain/usecases/sign_up_usecase.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/login/presentation/blocs/user_cubit/user_cubit.dart';
+import 'package:projeto_movies_clean_arciteture/src/features/login/presentation/views/forgot/forgot_password_page.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/data/datasources/remote/movies_remote_datasource.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/data/datasources/remote/movies_remote_datasource_implementation.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/data/repositories/movies_repository_implementation.dart';
@@ -77,6 +84,28 @@ Future<void> initialize() async {
   );
   sl.registerLazySingleton<GetMoviesBySearchUsecase>(
     () => GetMoviesBySearchUsecase(moviesRepository: sl()),
+  );
+
+  //login usecase
+  sl.registerLazySingleton<SignInUsecase>(
+    () => SignInUsecase(firebaseRepository: sl()),
+  );
+
+  sl.registerLazySingleton<SignOutUsecase>(
+    () => SignOutUsecase(firebaseRepository: sl()),
+  );
+
+  sl.registerLazySingleton<SignUpUsecase>(
+    () => SignUpUsecase(firebaseRepository: sl()),
+  );
+  sl.registerLazySingleton<IsSignInUsecase>(
+    () => IsSignInUsecase(firebaseRepository: sl()),
+  );
+  sl.registerLazySingleton<GetCurrentUIdUsecase>(
+    () => GetCurrentUIdUsecase(firebaseRepository: sl()),
+  );
+  sl.registerLazySingleton<GetCreateCurrentUserUsecase>(
+    () => GetCreateCurrentUserUsecase(firebaseRepository: sl()),
   );
 
   //repository
