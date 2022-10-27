@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/widgets/loading_widget.dart';
 
+import '../../blocs/movie_detail/movie_detail_bloc.dart';
 import '../../blocs/search_bloc/search_bloc.dart';
 import '../../widgets/search_widget.dart';
+import '../details/movie_detail_page.dart';
 
 class SearchPage extends StatelessWidget {
   const SearchPage({super.key});
@@ -55,67 +57,82 @@ class SearchPage extends StatelessWidget {
                               final movie = state.moviesList[index];
                               return Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Row(
-                                  children: [
-                                    ClipRRect(
-                                      child: CachedNetworkImage(
-                                        imageUrl:
-                                            'https://image.tmdb.org/t/p/original/${movie.posterPath}',
-                                        fit: BoxFit.cover,
-                                        imageBuilder: (context, imageProvider) {
-                                          return Container(
-                                            width: 110,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    context
+                                        .read<MovieDetailBloc>()
+                                        .add(GetMovieDetailsEvent(movie.id));
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            MovieDetailPage(movie: movie),
+                                      ),
+                                    );
+                                  },
+                                  child: Row(
+                                    children: [
+                                      ClipRRect(
+                                        child: CachedNetworkImage(
+                                          imageUrl:
+                                              'https://image.tmdb.org/t/p/original/${movie.posterPath}',
+                                          fit: BoxFit.cover,
+                                          imageBuilder:
+                                              (context, imageProvider) {
+                                            return Container(
+                                              width: 110,
+                                              height: 120,
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    const BorderRadius.all(
+                                                  Radius.circular(12),
+                                                ),
+                                                image: DecorationImage(
+                                                  image: imageProvider,
+                                                  fit: BoxFit.cover,
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                          placeholder: (context, url) =>
+                                              const SizedBox(
+                                            width: 180,
                                             height: 120,
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  const BorderRadius.all(
-                                                Radius.circular(12),
-                                              ),
-                                              image: DecorationImage(
-                                                image: imageProvider,
-                                                fit: BoxFit.cover,
-                                              ),
-                                            ),
-                                          );
-                                        },
-                                        placeholder: (context, url) =>
-                                            const SizedBox(
-                                          width: 180,
-                                          height: 120,
-                                          child: Center(
-                                              child:
-                                                  CircularProgressIndicator()),
+                                            child: Center(
+                                                child:
+                                                    CircularProgressIndicator()),
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    Column(
-                                      children: [
-                                        Text(
-                                          movie.originalTitle,
-                                          style: const TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 20,
-                                              color: Colors.white),
-                                        ),
-                                        const SizedBox(
-                                          height: 15,
-                                        ),
-                                        Text(
-                                          movie.releaseDate,
-                                          style: const TextStyle(
-                                              color: Colors.white),
-                                        ),
-                                        const SizedBox(
-                                          height: 15,
-                                        ),
-                                        Text(
-                                          movie.voteAverage,
-                                          style: const TextStyle(
-                                              color: Colors.white),
-                                        )
-                                      ],
-                                    )
-                                  ],
+                                      Column(
+                                        children: [
+                                          Text(
+                                            movie.originalTitle,
+                                            style: const TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 20,
+                                                color: Colors.white),
+                                          ),
+                                          const SizedBox(
+                                            height: 15,
+                                          ),
+                                          Text(
+                                            movie.releaseDate,
+                                            style: const TextStyle(
+                                                color: Colors.white),
+                                          ),
+                                          const SizedBox(
+                                            height: 15,
+                                          ),
+                                          Text(
+                                            movie.voteAverage,
+                                            style: const TextStyle(
+                                                color: Colors.white),
+                                          )
+                                        ],
+                                      )
+                                    ],
+                                  ),
                                 ),
                               );
                             }),
