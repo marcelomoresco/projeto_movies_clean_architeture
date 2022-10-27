@@ -7,8 +7,8 @@ class MoviesEntity extends Equatable {
   final String originalTitle;
   final String overview;
   final double popularity;
-  final String posterPath;
-  final String backdropPath;
+  final String? posterPath;
+  final String? backdropPath;
   final String releaseDate;
   final String title;
   final bool video;

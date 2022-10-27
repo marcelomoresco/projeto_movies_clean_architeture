@@ -13,6 +13,7 @@ import 'package:http/http.dart' as http;
 import '../../../../../core/error/exceptions.dart';
 import '../../models/movie_model.dart';
 import '../../models/movies_details_model.dart';
+import 'dart:developer' as developer;
 
 class MoviesRemoteDatasourceImplementation implements IMoviesRemoteDatasource {
   final apiKey = 'ce7533c109968faa724d1787f65b8a21';
@@ -47,6 +48,7 @@ class MoviesRemoteDatasourceImplementation implements IMoviesRemoteDatasource {
 
     if (response.statusCode == 200) {
       var genres = response.data['genres'] as List;
+
       List<GenreEntity> genreList =
           genres.map((g) => GenreModel.fromJson(g)).toList();
       return genreList;
@@ -115,11 +117,15 @@ class MoviesRemoteDatasourceImplementation implements IMoviesRemoteDatasource {
   Future<List<PersonEntity>> getTrendingPerson() async {
     final response =
         await _dio.get('$mainUrl/trending/person/week?api_key=$apiKey');
+    if (response.statusCode == 200) {
+      var persons = response.data['results'] as List;
 
-    var persons = response.data['results'] as List;
-    List<PersonEntity> personList =
-        persons.map((p) => PersonModel.fromJson(p)).toList();
-    return personList;
+      final personList = persons.map((p) => PersonModel.fromJson(p)).toList();
+
+      return personList;
+    } else {
+      throw ServerException();
+    }
   }
 
   @override

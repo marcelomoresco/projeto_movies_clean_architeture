@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
-
-import '../home/home_page.dart';
-import '../initial/initial_page.dart';
+import 'package:projeto_movies_clean_arciteture/src/features/login/presentation/views/login/sign_in_page.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -16,7 +13,7 @@ class _SplashPageState extends State<SplashPage> {
     await Future.delayed(const Duration(seconds: 4));
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(
-        builder: (_) => const InitialPage(),
+        builder: (_) => const SignInPage(),
       ),
     );
   }

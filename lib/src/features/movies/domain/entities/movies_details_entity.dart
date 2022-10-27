@@ -7,8 +7,8 @@ class MoviesDetailsEntity extends Equatable {
   final int id;
   final double popularity;
   final String title;
-  final String backPoster;
-  final String poster;
+  final String? backPoster;
+  final String? poster;
   final String overview;
   final double voteAverage;
   final int voteCount;
@@ -23,8 +23,8 @@ class MoviesDetailsEntity extends Equatable {
     required this.id,
     required this.popularity,
     required this.title,
-    required this.backPoster,
-    required this.poster,
+    this.backPoster,
+    this.poster,
     required this.overview,
     required this.voteAverage,
     required this.voteCount,

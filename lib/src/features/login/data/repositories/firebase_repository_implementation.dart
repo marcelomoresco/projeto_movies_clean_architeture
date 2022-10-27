@@ -24,11 +24,6 @@ class FirebaseRepositoryImplementation implements FirebaseRepository {
   }
 
   @override
-  Future<void> sendForgotPassword() {
-    return remoteDatasource.sendForgotPassword();
-  }
-
-  @override
   Future<void> signIn(UserEntity user) async {
     return remoteDatasource.signIn(user);
   }
@@ -41,5 +36,10 @@ class FirebaseRepositoryImplementation implements FirebaseRepository {
   @override
   Future<void> signUp(UserEntity user) async {
     return remoteDatasource.signUp(user);
+  }
+
+  @override
+  Future<void> sendForgotPassword(UserEntity user) {
+    return remoteDatasource.sendForgotPassword(user);
   }
 }

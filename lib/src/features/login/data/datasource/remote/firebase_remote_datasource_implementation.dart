@@ -51,8 +51,7 @@ class FirebaseRemoteDatasourceImplementation
           email: user.email!, password: user.password!);
 
   @override
-  Future<void> sendForgotPassword() {
-    // TODO: implement sendForgotPassword
+  Future<void> sendForgotPassword(UserEntity user) {
     throw UnimplementedError();
   }
 }

@@ -35,11 +35,14 @@ class MoviesDetailsWidget extends StatelessWidget {
               Stack(
                 children: [
                   AspectRatio(
-                      aspectRatio: 3 / 2,
-                      child: CachedNetworkImage(
-                          fit: BoxFit.cover,
-                          imageUrl: "https://image.tmdb.org/t/p/original/" +
-                              movie.backPoster)),
+                    aspectRatio: 3 / 2,
+                    child: CachedNetworkImage(
+                      fit: BoxFit.cover,
+                      imageUrl: movie.backPoster == null
+                          ? "https://core360.com.br/shop/skin/frontend/base/default/lib/jlukic_semanticui/examples/assets/images/wireframe/image.png"
+                          : "https://image.tmdb.org/t/p/original/${movie.backPoster}",
+                    ),
+                  ),
                 ],
               ),
               AspectRatio(
@@ -78,9 +81,9 @@ class MoviesDetailsWidget extends StatelessWidget {
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(5.0),
                                     child: CachedNetworkImage(
-                                        imageUrl:
-                                            "https://image.tmdb.org/t/p/w200/" +
-                                                movie.poster),
+                                        imageUrl: movie.poster == null
+                                            ? "https://core360.com.br/shop/skin/frontend/base/default/lib/jlukic_semanticui/examples/assets/images/wireframe/image.png"
+                                            : "https://image.tmdb.org/t/p/w200/${movie.poster}"),
                                   )),
                             ),
                           ],
