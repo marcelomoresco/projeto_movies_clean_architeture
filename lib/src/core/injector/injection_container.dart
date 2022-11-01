@@ -1,6 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/login/data/datasource/remote/firebase_remote_datasource.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/login/data/datasource/remote/firebase_remote_datasource_implementation.dart';
+import 'package:projeto_movies_clean_arciteture/src/features/login/data/repositories/firebase_repository_implementation.dart';
+import 'package:projeto_movies_clean_arciteture/src/features/login/domain/repositories/firebase_repository.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/login/domain/usecases/get_create_current_user_usecase.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/login/domain/usecases/get_current_uid_usecase.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/login/domain/usecases/is_sign_in_usecase.dart';
@@ -112,10 +116,11 @@ Future<void> initialize() async {
   sl.registerLazySingleton<IMoviesRepository>(
     () => MoviesRepositoryImplementation(moviesRemoteDatasource: sl()),
   );
-  //datasources
 
-  sl.registerLazySingleton<IMoviesRemoteDatasource>(
-    () => MoviesRemoteDatasourceImplementation(),
+  sl.registerLazySingleton<FirebaseRepository>(
+    () => FirebaseRepositoryImplementation(
+      remoteDatasource: sl(),
+    ),
   );
 
   sl.registerLazySingleton<IFirebaseRemoteDatasource>(
@@ -123,6 +128,11 @@ Future<void> initialize() async {
       firebaseAuth: sl(),
       firebaseFirestore: sl(),
     ),
+  );
+  //datasources
+
+  sl.registerLazySingleton<IMoviesRemoteDatasource>(
+    () => MoviesRemoteDatasourceImplementation(),
   );
 
   //core
