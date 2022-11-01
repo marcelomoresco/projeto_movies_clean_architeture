@@ -1,7 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:dartz/dartz.dart';
 import 'package:projeto_movies_clean_arciteture/src/core/error/exceptions.dart';
-
 import 'package:projeto_movies_clean_arciteture/src/core/error/failures.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/data/datasources/remote/movies_remote_datasource.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/entities/cast_entity.dart';
