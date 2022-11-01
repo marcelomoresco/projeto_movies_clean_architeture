@@ -138,4 +138,14 @@ Future<void> initialize() async {
   //core
 
   //external
+
+  final auth = FirebaseAuth.instance;
+  final firebaseFirestore = FirebaseFirestore.instance;
+
+  sl.registerLazySingleton(
+    () => auth,
+  );
+  sl.registerLazySingleton(
+    () => firebaseFirestore,
+  );
 }
