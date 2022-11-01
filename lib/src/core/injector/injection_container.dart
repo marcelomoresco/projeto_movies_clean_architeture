@@ -43,6 +43,7 @@ Future<void> initialize() async {
   //bloc
   sl.registerFactory(
     () => UserCubit(
+      forgotPasswordUsecase: sl(),
       signInUsecase: sl(),
       signUpUsecase: sl(),
       signOutUsecase: sl(),
