@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,6 +7,7 @@ import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/entit
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/cast_movie_bloc/cast_movie_bloc.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/favorites_bloc/favorites_bloc.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/similar_movies/similar_movies_bloc.dart';
+import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/views/favorites/favorites_page.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/widgets/loading_widget.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/widgets/similar_movies_widget.dart';
 import 'package:intl/intl.dart';
@@ -182,15 +184,25 @@ class MoviesDetailsWidget extends StatelessWidget {
                         context.read<FavoritesBloc>().add(
                               AddFavoritesEvent(movie: movieEntity),
                             );
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text(
-                              "Adicionado aos favoritos!",
-                              style: TextStyle(color: Colors.white),
-                            ),
-                            backgroundColor: Colors.green,
-                          ),
-                        );
+                        AwesomeDialog(
+                          context: context,
+                          animType: AnimType.scale,
+                          dialogType: DialogType.success,
+                          title: 'Favoritado com Sucesso',
+                          desc:
+                              'Você pode ver todos os filmes favoritos clicando no botão abaixo!!',
+                          headerAnimationLoop: false,
+                          btnCancelOnPress: () {},
+                          btnCancelText: "Ver Filmes",
+                          btnOkText: "Ir para favoritos",
+                          btnOkOnPress: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (_) => const FavoritesPage(),
+                              ),
+                            );
+                          },
+                        ).show();
                       },
                       icon: const Icon(Icons.favorite_border_sharp,
                           color: Colors.white),
