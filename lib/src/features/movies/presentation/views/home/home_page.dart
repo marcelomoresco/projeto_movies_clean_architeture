@@ -1,6 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:projeto_movies_clean_arciteture/src/features/login/presentation/blocs/user_cubit/user_cubit.dart';
+import 'package:projeto_movies_clean_arciteture/src/features/login/presentation/views/login/sign_in_page.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/upcoming_movies_bloc/upcoming_movies_bloc.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/widgets/loading_widget.dart';
 import '../../blocs/person_bloc/person_bloc.dart';
@@ -22,9 +24,19 @@ class HomePage extends StatelessWidget {
         centerTitle: true,
         elevation: 0,
         backgroundColor: Colors.black,
-        leading: const Icon(
-          Icons.menu,
-          color: Colors.white,
+        leading: IconButton(
+          icon: const Icon(
+            Icons.logout,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            context.read<UserCubit>().signOut();
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (_) => const SignInPage(),
+              ),
+            );
+          },
         ),
       ),
       backgroundColor: Colors.black,

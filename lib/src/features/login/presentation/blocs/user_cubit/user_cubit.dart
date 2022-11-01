@@ -55,4 +55,14 @@ class UserCubit extends Cubit<UserState> {
       emit(UserFailureState());
     }
   }
+
+  Future<void> signOut() async {
+    emit(UserLoadingState());
+    try {
+      await signOutUsecase.call();
+      emit(UserLoadedState());
+    } catch (_) {
+      emit(UserFailureState());
+    }
+  }
 }
