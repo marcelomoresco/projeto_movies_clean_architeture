@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "748275847045",
+    "project_id": "movie-app-27c66",
+    "storage_bucket": "movie-app-27c66.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:748275847045:android:b7f5a44c9b56e4b0247eec",
+        "android_client_info": {
+          "package_name": "com.example.projeto_movies_clean_arciteture"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "748275847045-jhpg4lss32lkutbmgo1144pe642vg5ma.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAkvuuXtytlaigr6q8q4Wm65YERptoyYM4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "748275847045-jhpg4lss32lkutbmgo1144pe642vg5ma.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
