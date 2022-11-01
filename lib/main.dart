@@ -1,8 +1,7 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:projeto_movies_clean_arciteture/src/core/consts/routes/on_generate_route.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/login/presentation/blocs/user_cubit/user_cubit.dart';
-import 'package:projeto_movies_clean_arciteture/src/features/login/presentation/views/login/sign_in_page.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/cast_movie_bloc/cast_movie_bloc.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/favorites_bloc/favorites_bloc.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/genre_bloc/genre_bloc.dart';
@@ -12,13 +11,14 @@ import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/search_bloc/search_bloc.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/similar_movies/similar_movies_bloc.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/upcoming_movies_bloc/upcoming_movies_bloc.dart';
-import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/views/initial/initial_page.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/views/splash/splash_page.dart';
 import 'src/core/injector/injection_container.dart' as di;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   await di.initialize();
+
   runApp(const MyApp());
 }
 
