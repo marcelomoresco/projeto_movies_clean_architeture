@@ -1,3 +1,4 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/login/presentation/views/login/sign_in_page.dart';
@@ -53,15 +54,7 @@ class _SignUpPageState extends State<SignUpPage> {
               password: _passwordController.text,
             ),
           );
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text(
-            "Registro feito com sucesso",
-            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-          ),
-          backgroundColor: Colors.green,
-        ),
-      );
+
       Navigator.of(context).push(
         MaterialPageRoute(
           builder: (_) => const SignInPage(),
@@ -176,7 +169,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                 hintStyle: const TextStyle(fontSize: 14)),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
-                                return "Por favor isnira um nome ";
+                                return "Por favor insira um nome ";
                               } else if (value.length < 4) {
                                 return "Insira um nome ate 4 caracteres";
                               }
@@ -242,8 +235,8 @@ class _SignUpPageState extends State<SignUpPage> {
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return "Por favor isnira uma senha ";
-                              } else if (value.length < 8) {
-                                return "Insira uma senha de pelo menos 8 caracteres";
+                              } else if (value.length < 7) {
+                                return "Insira uma senha de pelo menos 7 caracteres";
                               }
                               return null;
                             },
@@ -273,9 +266,9 @@ class _SignUpPageState extends State<SignUpPage> {
                                   hintStyle: const TextStyle(fontSize: 14)),
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
-                                  return "Insira uma senha de pelo menos 8 caracteres";
-                                } else if (value.length < 8) {
-                                  return "Por favor isnira uma senha ";
+                                  return "Insira uma senha de pelo menos 7 caracteres";
+                                } else if (value.length < 7) {
+                                  return "Por favor insira uma senha ";
                                 } else if (value != _passwordController.text) {
                                   return "Sennha incompatível";
                                 }
@@ -310,6 +303,29 @@ class _SignUpPageState extends State<SignUpPage> {
                               onPressed: () {
                                 if (_formKey.currentState!.validate()) {
                                   submitSignUp();
+                                  AwesomeDialog(
+                                    context: context,
+                                    animType: AnimType.scale,
+                                    dialogType: DialogType.success,
+                                    title: 'Registro Concluído',
+                                    desc:
+                                        'Agora você consegue ver os melhores filmes apenas indo até o login!',
+                                    headerAnimationLoop: false,
+                                    btnCancelOnPress: () {},
+                                    btnOkOnPress: () {},
+                                  ).show();
+                                } else {
+                                  AwesomeDialog(
+                                    context: context,
+                                    animType: AnimType.scale,
+                                    dialogType: DialogType.error,
+                                    title: 'Erro ao se registrar',
+                                    desc:
+                                        'Verifique os campos e tente novamente!',
+                                    headerAnimationLoop: false,
+                                    btnCancelOnPress: () {},
+                                    btnOkOnPress: () {},
+                                  ).show();
                                 }
                               },
                               child: GestureDetector(

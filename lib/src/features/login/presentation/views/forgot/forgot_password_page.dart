@@ -1,3 +1,4 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/login/domain/entities/user_entity.dart';
@@ -194,15 +195,29 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                                 onPressed: () {
                                   if (_formKey.currentState!.validate()) {
                                     submitForgotPassword();
-                                    const snackBar = SnackBar(
-                                      backgroundColor: Colors.green,
-                                      content: Text(
-                                        "E-mail Enviado com Sucesso",
-                                        style: TextStyle(color: Colors.white),
-                                      ),
-                                    );
-                                    ScaffoldMessenger.of(context)
-                                        .showSnackBar(snackBar);
+                                    AwesomeDialog(
+                                      context: context,
+                                      animType: AnimType.scale,
+                                      dialogType: DialogType.success,
+                                      title: 'Senha Enviada',
+                                      desc:
+                                          'Verifique seu e-mail e mude sua senha!',
+                                      headerAnimationLoop: false,
+                                      btnCancelOnPress: () {},
+                                      btnOkOnPress: () {},
+                                    ).show();
+                                  } else {
+                                    AwesomeDialog(
+                                      context: context,
+                                      animType: AnimType.scale,
+                                      dialogType: DialogType.error,
+                                      title: 'Erro ao enviar senha',
+                                      desc:
+                                          'Algo aconteceu e não foi possível enviar a senha!',
+                                      headerAnimationLoop: false,
+                                      btnCancelOnPress: () {},
+                                      btnOkOnPress: () {},
+                                    ).show();
                                   }
                                 },
                                 child: GestureDetector(

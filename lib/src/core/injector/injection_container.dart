@@ -5,6 +5,7 @@ import 'package:projeto_movies_clean_arciteture/src/features/login/data/datasour
 import 'package:projeto_movies_clean_arciteture/src/features/login/data/datasource/remote/firebase_remote_datasource_implementation.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/login/data/repositories/firebase_repository_implementation.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/login/domain/repositories/firebase_repository.dart';
+import 'package:projeto_movies_clean_arciteture/src/features/login/domain/usecases/forgot_password_usecase.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/login/domain/usecases/get_create_current_user_usecase.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/login/domain/usecases/get_current_uid_usecase.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/login/domain/usecases/is_sign_in_usecase.dart';
@@ -111,6 +112,12 @@ Future<void> initialize() async {
   );
   sl.registerLazySingleton<GetCreateCurrentUserUsecase>(
     () => GetCreateCurrentUserUsecase(firebaseRepository: sl()),
+  );
+
+  sl.registerLazySingleton<ForgotPasswordUsecase>(
+    () => ForgotPasswordUsecase(
+      firebaseRepository: sl(),
+    ),
   );
 
   //repository
