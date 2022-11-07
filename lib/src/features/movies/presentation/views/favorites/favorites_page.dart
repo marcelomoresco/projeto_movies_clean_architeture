@@ -1,3 +1,4 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -5,8 +6,12 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/entities/movies_entity.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/favorites_bloc/favorites_bloc.dart';
+<<<<<<< HEAD
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/movie_detail/movie_detail_bloc.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/views/details/movie_detail_page.dart';
+=======
+import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/views/initial/initial_page.dart';
+>>>>>>> 0390bbdb426987c77c4cc1dd2d1bd161433fc07f
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/widgets/loading_widget.dart';
 
 import '../../../domain/entities/movies_details_entity.dart';
@@ -47,6 +52,7 @@ class FavoritesPage extends StatelessWidget {
                       itemBuilder: (context, index) {
                         MoviesEntity movie = state.favorites.movies[index];
                         DateTime dateTime = DateTime.parse(movie.releaseDate);
+<<<<<<< HEAD
                         return GestureDetector(
                           onTap: () {
                             context
@@ -64,6 +70,50 @@ class FavoritesPage extends StatelessWidget {
                             key: ValueKey(index),
                             endActionPane: ActionPane(
                                 motion: const ScrollMotion(),
+=======
+                        return Slidable(
+                          key: ValueKey(index),
+                          endActionPane: ActionPane(
+                              motion: const ScrollMotion(),
+                              children: [
+                                SlidableAction(
+                                  backgroundColor: Colors.red,
+                                  icon: Icons.delete,
+                                  label: "Deletar",
+                                  onPressed: (_) {
+                                    context.read<FavoritesBloc>().add(
+                                          RemoveFavoritesEvent(
+                                            movie: movie,
+                                          ),
+                                        );
+                                    AwesomeDialog(
+                                      context: context,
+                                      animType: AnimType.scale,
+                                      dialogType: DialogType.success,
+                                      title: 'Deletado com Sucesso',
+                                      desc:
+                                          'Você deletou com sucesso o filme ${movie.originalTitle}!!',
+                                      headerAnimationLoop: false,
+                                      btnCancelOnPress: () {},
+                                      btnCancelText: "Ver Favoritos",
+                                      btnOkText: "Ir para Home",
+                                      btnOkOnPress: () {
+                                        Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                            builder: (_) => const InitialPage(),
+                                          ),
+                                        );
+                                      },
+                                    ).show();
+                                  },
+                                ),
+                              ]),
+                          child: Padding(
+                            padding: const EdgeInsets.all(18.0),
+                            child: Container(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+>>>>>>> 0390bbdb426987c77c4cc1dd2d1bd161433fc07f
                                 children: [
                                   SlidableAction(
                                     backgroundColor: Colors.red,

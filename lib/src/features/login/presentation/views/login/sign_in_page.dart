@@ -1,3 +1,4 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -233,6 +234,15 @@ class _SignInPageState extends State<SignInPage> {
                         ElevatedButton.styleFrom(backgroundColor: Colors.black),
                     onPressed: () {
                       submitSignIn();
+                      AwesomeDialog(
+                        context: context,
+                        animType: AnimType.scale,
+                        dialogType: DialogType.success,
+                        title: 'Login Concluído',
+                        desc: 'Agora você consegue ver os melhores filmes!',
+                        headerAnimationLoop: false,
+                        btnOkOnPress: () {},
+                      ).show();
                     },
                     child: GestureDetector(
                       child: const Text("Login",
@@ -275,6 +285,16 @@ class _SignInPageState extends State<SignInPage> {
                       icon: const Icon(Icons.g_mobiledata_outlined,
                           color: Colors.red),
                       onPressed: () {
+                        AwesomeDialog(
+                          context: context,
+                          animType: AnimType.scale,
+                          dialogType: DialogType.info,
+                          title: 'Em Manutenção',
+                          desc:
+                              'Será feito o login com google nas proximas versões',
+                          headerAnimationLoop: false,
+                          btnOkOnPress: () {},
+                        ).show();
                         /*final provider = Provider.of<GoogleSignInProvider>(
                             context,
                             listen: false);

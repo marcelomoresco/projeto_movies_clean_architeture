@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/login/domain/entities/user_entity.dart';
 
 import '../../domain/repositories/firebase_repository.dart';
@@ -10,36 +11,78 @@ class FirebaseRepositoryImplementation implements FirebaseRepository {
 
   @override
   Future<void> getCreateCurrentUser(UserEntity user) {
-    return remoteDatasource.getCreateCurrentUser(user);
+    try {
+      return remoteDatasource.getCreateCurrentUser(user);
+    } on PlatformException {
+      throw Exception("Erro de plataforma");
+    } catch (e) {
+      throw Exception("Erro de plataforma $e");
+    }
   }
 
   @override
   Future<String> getCurrentUId() {
-    return remoteDatasource.getCurrentUId();
+    try {
+      return remoteDatasource.getCurrentUId();
+    } on PlatformException {
+      throw Exception("Erro de plataforma");
+    } catch (e) {
+      throw Exception("Erro de plataforma $e");
+    }
   }
 
   @override
   Future<bool> isSignIn() {
-    return remoteDatasource.isSignIn();
+    try {
+      return remoteDatasource.isSignIn();
+    } on PlatformException {
+      throw Exception("Erro de plataforma");
+    } catch (e) {
+      throw Exception("Erro de plataforma $e");
+    }
   }
 
   @override
   Future<void> signIn(UserEntity user) async {
-    return remoteDatasource.signIn(user);
+    try {
+      return remoteDatasource.signIn(user);
+    } on PlatformException {
+      throw Exception("Erro de plataforma");
+    } catch (e) {
+      throw Exception("Erro de plataforma $e");
+    }
   }
 
   @override
   Future<void> signOut() async {
-    return remoteDatasource.signOut();
+    try {
+      return remoteDatasource.signOut();
+    } on PlatformException {
+      throw Exception("Erro de plataforma");
+    } catch (e) {
+      throw Exception("Erro de plataforma $e");
+    }
   }
 
   @override
   Future<void> signUp(UserEntity user) async {
-    return remoteDatasource.signUp(user);
+    try {
+      return remoteDatasource.signUp(user);
+    } on PlatformException {
+      throw Exception("Erro de plataforma");
+    } catch (e) {
+      throw Exception("Erro de plataforma $e");
+    }
   }
 
   @override
   Future<void> sendForgotPassword(UserEntity user) {
-    return remoteDatasource.sendForgotPassword(user);
+    try {
+      return remoteDatasource.sendForgotPassword(user);
+    } on PlatformException {
+      throw Exception("Erro de plataforma");
+    } catch (e) {
+      throw Exception("Erro de plataforma $e");
+    }
   }
 }
