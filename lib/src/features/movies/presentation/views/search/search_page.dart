@@ -106,12 +106,15 @@ class SearchPage extends StatelessWidget {
                                       ),
                                       Column(
                                         children: [
-                                          Text(
-                                            movie.originalTitle,
-                                            style: const TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 20,
-                                                color: Colors.white),
+                                          SingleChildScrollView(
+                                            scrollDirection: Axis.horizontal,
+                                            child: Text(
+                                              movie.originalTitle,
+                                              style: const TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 20,
+                                                  color: Colors.white),
+                                            ),
                                           ),
                                           const SizedBox(
                                             height: 15,
