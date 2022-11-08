@@ -14,7 +14,6 @@ class InitialPage extends StatefulWidget {
 
 class _InitialPageState extends State<InitialPage>
     with SingleTickerProviderStateMixin {
-  ScrollController? _scrollController;
   AnimationController? _animationController;
 
   int currentIndex = 0;
@@ -22,35 +21,12 @@ class _InitialPageState extends State<InitialPage>
 
   @override
   void initState() {
-    _scrollController = ScrollController();
-    _scrollController!.addListener(() {
-      switch (_scrollController!.position.userScrollDirection) {
-        case ScrollDirection.idle:
-          print("Parado");
-          break;
-        case ScrollDirection.forward:
-          _animationController!.forward();
-          break;
-        case ScrollDirection.reverse:
-          _animationController!.reverse();
-          break;
-      }
-    });
-
-    _animationController = AnimationController(
-      vsync: this,
-      duration: kThemeAnimationDuration,
-      value: 1,
-    );
-
     super.initState();
     pageController = PageController(initialPage: currentIndex);
   }
 
   @override
   void dispose() {
-    _scrollController!.dispose();
-    _animationController!.dispose();
     super.dispose();
     pageController.dispose();
   }

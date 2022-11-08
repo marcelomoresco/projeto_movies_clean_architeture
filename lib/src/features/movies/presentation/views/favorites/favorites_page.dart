@@ -148,7 +148,7 @@ class FavoritesPage extends StatelessWidget {
                                                               CircularProgressIndicator()),
                                                 ),
                                               ),
-                                              SizedBox(width: 60),
+                                              const SizedBox(width: 60),
                                               Column(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.start,
@@ -192,7 +192,7 @@ class FavoritesPage extends StatelessWidget {
                                                         color: Colors.yellow,
                                                         size: 14,
                                                       ),
-                                                      SizedBox(
+                                                      const SizedBox(
                                                         width: 5,
                                                       ),
                                                       Text(
