@@ -72,10 +72,7 @@ class FavoritesPage extends StatelessWidget {
                                       label: "Deletar",
                                       onPressed: (_) {
                                         context.read<FavoritesBloc>().add(
-                                              RemoveFavoritesEvent(
-                                                movie: movie,
-                                              ),
-                                            );
+                                            RemoveFavoritesEvent(movie: movie));
                                         AwesomeDialog(
                                           context: context,
                                           animType: AnimType.scale,
@@ -111,10 +108,8 @@ class FavoritesPage extends StatelessWidget {
                                         label: "Deletar",
                                         onPressed: (_) {
                                           context.read<FavoritesBloc>().add(
-                                                RemoveFavoritesEvent(
-                                                  movie: movie,
-                                                ),
-                                              );
+                                              RemoveFavoritesEvent(
+                                                  movie: movie));
                                           ScaffoldMessenger.of(context)
                                               .showSnackBar(
                                             const SnackBar(

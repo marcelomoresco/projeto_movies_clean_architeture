@@ -113,7 +113,7 @@ class _SignInPageState extends State<SignInPage> {
                     spreadRadius: 5,
                     blurRadius: 15,
                   )
-                ]),
+                ],),
             child: Column(
               children: [
                 const Padding(
