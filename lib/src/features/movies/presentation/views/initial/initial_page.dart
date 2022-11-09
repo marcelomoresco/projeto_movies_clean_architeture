@@ -42,47 +42,41 @@ class _InitialPageState extends State<InitialPage>
             SearchPage(),
             FavoritesPage(),
           ]),
-      bottomNavigationBar: FadeTransition(
-        opacity: _animationController!,
-        child: ScaleTransition(
-          scale: _animationController!,
-          child: BottomNavigationBar(
-            selectedLabelStyle: const TextStyle(
-              fontWeight: FontWeight.bold,
-            ),
-            unselectedLabelStyle: const TextStyle(
-              fontWeight: FontWeight.bold,
-            ),
-            unselectedItemColor: Colors.white,
-            selectedItemColor: Colors.blue,
-            backgroundColor: Colors.black,
-            currentIndex: currentIndex,
-            items: const [
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                label: 'Home',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.search),
-                label: 'Pesquisar',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.bookmark_outline),
-                label: 'Favoritos',
-              ),
-            ],
-            onTap: (index) {
-              setState(() {
-                currentIndex = index;
-                pageController.animateToPage(
-                  currentIndex,
-                  duration: const Duration(milliseconds: 300),
-                  curve: Curves.easeInOut,
-                );
-              });
-            },
-          ),
+      bottomNavigationBar: BottomNavigationBar(
+        selectedLabelStyle: const TextStyle(
+          fontWeight: FontWeight.bold,
         ),
+        unselectedLabelStyle: const TextStyle(
+          fontWeight: FontWeight.bold,
+        ),
+        unselectedItemColor: Colors.white,
+        selectedItemColor: Colors.blue,
+        backgroundColor: Colors.black,
+        currentIndex: currentIndex,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search),
+            label: 'Pesquisar',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.bookmark_outline),
+            label: 'Favoritos',
+          ),
+        ],
+        onTap: (index) {
+          setState(() {
+            currentIndex = index;
+            pageController.animateToPage(
+              currentIndex,
+              duration: const Duration(milliseconds: 300),
+              curve: Curves.easeInOut,
+            );
+          });
+        },
       ),
     );
   }
