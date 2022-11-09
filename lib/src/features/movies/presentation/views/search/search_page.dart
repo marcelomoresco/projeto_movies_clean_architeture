@@ -109,7 +109,10 @@ class SearchPage extends StatelessWidget {
                                           SingleChildScrollView(
                                             scrollDirection: Axis.horizontal,
                                             child: Text(
-                                              movie.originalTitle,
+                                              movie.originalTitle.length > 12
+                                                  ? movie.originalTitle
+                                                      .characters.first
+                                                  : movie.originalTitle,
                                               style: const TextStyle(
                                                   fontWeight: FontWeight.bold,
                                                   fontSize: 20,
