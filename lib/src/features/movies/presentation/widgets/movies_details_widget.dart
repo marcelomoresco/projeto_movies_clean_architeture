@@ -189,19 +189,8 @@ class MoviesDetailsWidget extends StatelessWidget {
                           animType: AnimType.scale,
                           dialogType: DialogType.success,
                           title: 'Favoritado com Sucesso',
-                          desc:
-                              'Você pode ver todos os filmes favoritos clicando no botão abaixo!!',
-                          headerAnimationLoop: false,
-                          btnCancelOnPress: () {},
-                          btnCancelText: "Ver Filmes",
-                          btnOkText: "Ir para favoritos",
-                          btnOkOnPress: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (_) => const FavoritesPage(),
-                              ),
-                            );
-                          },
+                          btnOkText: "Ok",
+                          btnOkOnPress: () {},
                         ).show();
                       },
                       icon: const Icon(Icons.favorite_border_sharp,

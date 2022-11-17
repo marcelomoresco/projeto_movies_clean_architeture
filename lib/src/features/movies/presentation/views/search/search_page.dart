@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/widgets/loading_widget.dart';
 
 import '../../blocs/movie_detail/movie_detail_bloc.dart';
@@ -55,6 +56,9 @@ class SearchPage extends StatelessWidget {
                             itemCount: state.moviesList.length,
                             itemBuilder: (context, index) {
                               final movie = state.moviesList[index];
+                              DateTime dateTime =
+                                  DateTime.parse(movie.releaseDate);
+
                               return Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: GestureDetector(
@@ -96,7 +100,7 @@ class SearchPage extends StatelessWidget {
                                           },
                                           placeholder: (context, url) =>
                                               const SizedBox(
-                                            width: 180,
+                                            width: 140,
                                             height: 120,
                                             child: Center(
                                                 child:
@@ -104,37 +108,78 @@ class SearchPage extends StatelessWidget {
                                           ),
                                         ),
                                       ),
+                                      SizedBox(
+                                        width: 30,
+                                      ),
                                       Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
-                                          SingleChildScrollView(
-                                            scrollDirection: Axis.horizontal,
+                                          SizedBox(
+                                            width: 160,
                                             child: Text(
-                                              movie.originalTitle.length > 12
-                                                  ? movie.originalTitle
-                                                      .characters.first
-                                                  : movie.originalTitle,
+                                              movie.title,
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 3,
                                               style: const TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 20,
-                                                  color: Colors.white),
+                                                color: Colors.white,
+                                                fontSize: 22,
+                                              ),
                                             ),
                                           ),
                                           const SizedBox(
                                             height: 15,
                                           ),
                                           Text(
-                                            movie.releaseDate,
-                                            style: const TextStyle(
-                                                color: Colors.white),
-                                          ),
+                                              DateFormat("dd/MM/yyyy")
+                                                  .format(dateTime),
+                                              style: const TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 12)),
                                           const SizedBox(
                                             height: 15,
                                           ),
-                                          Text(
-                                            movie.voteAverage,
-                                            style: const TextStyle(
-                                                color: Colors.white),
-                                          )
+                                          Row(
+                                            children: [
+                                              const Icon(
+                                                Icons.star,
+                                                color: Colors.yellow,
+                                                size: 14,
+                                              ),
+                                              const Icon(
+                                                Icons.star,
+                                                color: Colors.yellow,
+                                                size: 14,
+                                              ),
+                                              const Icon(
+                                                Icons.star,
+                                                color: Colors.yellow,
+                                                size: 14,
+                                              ),
+                                              const Icon(
+                                                Icons.star,
+                                                color: Colors.yellow,
+                                                size: 14,
+                                              ),
+                                              const Icon(
+                                                Icons.star,
+                                                color: Colors.yellow,
+                                                size: 14,
+                                              ),
+                                              const SizedBox(
+                                                width: 5,
+                                              ),
+                                              Text(
+                                                movie.voteAverage,
+                                                style: const TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 16,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
                                         ],
                                       )
                                     ],

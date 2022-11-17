@@ -77,141 +77,112 @@ class FavoritesPage extends StatelessWidget {
                                           context: context,
                                           animType: AnimType.scale,
                                           dialogType: DialogType.success,
-                                          title: 'Deletado com Sucesso',
-                                          desc:
-                                              'Você deletou com sucesso o filme ${movie.originalTitle}!!',
+                                          title: 'Removido com Sucesso',
                                           headerAnimationLoop: false,
-                                          btnCancelOnPress: () {},
-                                          btnCancelText: "Ver Favoritos",
-                                          btnOkText: "Ir para Home",
-                                          btnOkOnPress: () {
-                                            Navigator.of(context).push(
-                                              MaterialPageRoute(
-                                                builder: (_) =>
-                                                    const InitialPage(),
-                                              ),
-                                            );
-                                          },
+                                          btnOkOnPress: () {},
                                         ).show();
                                       },
                                     ),
                                   ]),
                               child: Padding(
                                 padding: const EdgeInsets.all(18.0),
-                                child: Container(
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      SlidableAction(
-                                        backgroundColor: Colors.red,
-                                        icon: Icons.delete,
-                                        label: "Deletar",
-                                        onPressed: (_) {
-                                          context.read<FavoritesBloc>().add(
-                                              RemoveFavoritesEvent(
-                                                  movie: movie));
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(
-                                            const SnackBar(
-                                              backgroundColor: Colors.red,
-                                              content: Text(
-                                                "Removido dos favoritos",
-                                                style: TextStyle(
-                                                  color: Colors.white,
-                                                ),
-                                              ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(18.0),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(5.0),
+                                            child: CachedNetworkImage(
+                                              imageUrl:
+                                                  'https://image.tmdb.org/t/p/original/${movie.posterPath}',
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height /
+                                                  4,
+                                              fit: BoxFit.cover,
+                                              placeholder: (context, url) =>
+                                                  const Center(
+                                                      child:
+                                                          CircularProgressIndicator()),
                                             ),
-                                          );
-                                        },
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(18.0),
-                                        child: Container(
-                                          child: Row(
+                                          ),
+                                          const SizedBox(width: 20),
+                                          Column(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
                                             children: [
-                                              ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                                child: CachedNetworkImage(
-                                                  imageUrl:
-                                                      'https://image.tmdb.org/t/p/original/${movie.posterPath}',
-                                                  height: MediaQuery.of(context)
-                                                          .size
-                                                          .height /
-                                                      4,
-                                                  fit: BoxFit.cover,
-                                                  placeholder: (context, url) =>
-                                                      const Center(
-                                                          child:
-                                                              CircularProgressIndicator()),
+                                              SizedBox(
+                                                width: 165,
+                                                child: Text(
+                                                  movie.title,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  maxLines: 3,
+                                                  style: const TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 22,
+                                                  ),
                                                 ),
                                               ),
-                                              const SizedBox(width: 60),
-                                              Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
+                                              Text(
+                                                  DateFormat("dd/MM/yyyy")
+                                                      .format(dateTime),
+                                                  style: const TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 12)),
+                                              Row(
                                                 children: [
-                                                  Text(movie.title,
-                                                      style: const TextStyle(
-                                                          color: Colors.white,
-                                                          fontSize: 22)),
+                                                  const Icon(
+                                                    Icons.star,
+                                                    color: Colors.yellow,
+                                                    size: 14,
+                                                  ),
+                                                  const Icon(
+                                                    Icons.star,
+                                                    color: Colors.yellow,
+                                                    size: 14,
+                                                  ),
+                                                  const Icon(
+                                                    Icons.star,
+                                                    color: Colors.yellow,
+                                                    size: 14,
+                                                  ),
+                                                  const Icon(
+                                                    Icons.star,
+                                                    color: Colors.yellow,
+                                                    size: 14,
+                                                  ),
+                                                  const Icon(
+                                                    Icons.star,
+                                                    color: Colors.yellow,
+                                                    size: 14,
+                                                  ),
+                                                  const SizedBox(
+                                                    width: 5,
+                                                  ),
                                                   Text(
-                                                      DateFormat("dd/MM/yyyy")
-                                                          .format(dateTime),
-                                                      style: const TextStyle(
-                                                          color: Colors.white,
-                                                          fontSize: 12)),
-                                                  Row(
-                                                    children: [
-                                                      const Icon(
-                                                        Icons.star,
-                                                        color: Colors.yellow,
-                                                        size: 14,
-                                                      ),
-                                                      const Icon(
-                                                        Icons.star,
-                                                        color: Colors.yellow,
-                                                        size: 14,
-                                                      ),
-                                                      const Icon(
-                                                        Icons.star,
-                                                        color: Colors.yellow,
-                                                        size: 14,
-                                                      ),
-                                                      const Icon(
-                                                        Icons.star,
-                                                        color: Colors.yellow,
-                                                        size: 14,
-                                                      ),
-                                                      const Icon(
-                                                        Icons.star,
-                                                        color: Colors.yellow,
-                                                        size: 14,
-                                                      ),
-                                                      const SizedBox(
-                                                        width: 5,
-                                                      ),
-                                                      Text(
-                                                        movie.voteAverage,
-                                                        style: const TextStyle(
-                                                          color: Colors.white,
-                                                          fontSize: 16,
-                                                        ),
-                                                      ),
-                                                    ],
+                                                    movie.voteAverage,
+                                                    style: const TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 16,
+                                                    ),
                                                   ),
                                                 ],
                                               ),
                                             ],
                                           ),
-                                        ),
+                                        ],
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ));
