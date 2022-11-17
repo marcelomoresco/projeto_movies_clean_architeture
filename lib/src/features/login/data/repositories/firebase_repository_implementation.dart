@@ -1,5 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/login/domain/entities/user_entity.dart';
+import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/entities/review_entity.dart';
 
 import '../../domain/repositories/firebase_repository.dart';
 import '../datasource/remote/firebase_remote_datasource.dart';
@@ -84,5 +85,25 @@ class FirebaseRepositoryImplementation implements FirebaseRepository {
     } catch (e) {
       throw Exception("Erro de plataforma $e");
     }
+  }
+
+  @override
+  Future<void> addNewReview(ReviewEntity review) async {
+    return await remoteDatasource.addNewReview(review);
+  }
+
+  @override
+  Future<void> deleteReview(ReviewEntity review) async {
+    return await remoteDatasource.deleteReview(review);
+  }
+
+  @override
+  Stream<List<ReviewEntity>> getReview(String uid) {
+    return remoteDatasource.getReviews(uid);
+  }
+
+  @override
+  Future<void> updateReview(ReviewEntity review) async {
+    return await remoteDatasource.updateReview(review);
   }
 }
