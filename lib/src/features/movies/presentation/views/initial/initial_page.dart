@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/views/review_app/review_app_page.dart';
 
 import '../favorites/favorites_page.dart';
 import '../home/home_page.dart';
@@ -41,6 +42,7 @@ class _InitialPageState extends State<InitialPage>
             HomePage(),
             SearchPage(),
             FavoritesPage(),
+            ReviewAppPage(),
           ]),
       bottomNavigationBar: BottomNavigationBar(
         selectedLabelStyle: const TextStyle(
@@ -65,6 +67,10 @@ class _InitialPageState extends State<InitialPage>
           BottomNavigationBarItem(
             icon: Icon(Icons.bookmark_outline),
             label: 'Favoritos',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.reviews, color: Colors.yellow),
+            label: 'Review',
           ),
         ],
         onTap: (index) {
