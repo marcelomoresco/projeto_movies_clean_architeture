@@ -55,6 +55,7 @@ dependencies:
   flutter_slidable:
   firebase_storage:
   awesome_dialog:
+  rxdart: ^0.27.7
 
 dev_dependencies:
   flutter_test:

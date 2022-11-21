@@ -56,6 +56,16 @@ class UserCubit extends Cubit<UserState> {
     }
   }
 
+  Future<void> getCreateCurrentUser({required UserEntity user}) async {
+    emit(UserLoadingState());
+    try {
+      await signUpUsecase.call(user);
+      await getCreateCurrentUserUsecase.call(user);
+    } catch (_) {
+      emit(UserFailureState());
+    }
+  }
+
   Future<void> signOut() async {
     emit(UserLoadingState());
     try {

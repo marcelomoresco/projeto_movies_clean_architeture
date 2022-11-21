@@ -36,3 +36,25 @@ class ReviewErrorState extends ReviewState {
   @override
   List<Object> get props => [errorMessage];
 }
+
+class ReviewDeleteSuccessState extends ReviewState {
+  final String title;
+
+  const ReviewDeleteSuccessState({
+    required this.title,
+  });
+
+  @override
+  List<Object> get props => [title];
+}
+
+class ReviewUpdateSuccessState extends ReviewState {
+  final String title;
+
+  const ReviewUpdateSuccessState({
+    required this.title,
+  });
+
+  @override
+  List<Object> get props => [title];
+}
