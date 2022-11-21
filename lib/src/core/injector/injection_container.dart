@@ -26,6 +26,10 @@ import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/useca
 import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/usecases/get_similar_moives.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/usecases/get_trending_person_usecase.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/usecases/get_upcoming_movies_usecase.dart';
+import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/usecases/review/add_review_usecase.dart';
+import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/usecases/review/delete_review_usecase.dart';
+import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/usecases/review/get_reviews_usecase.dart';
+import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/usecases/review/update_review_usecase.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/cast_movie_bloc/cast_movie_bloc.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/favorites_bloc/favorites_bloc.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/genre_bloc/genre_bloc.dart';
@@ -35,6 +39,7 @@ import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/search_bloc/search_bloc.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/similar_movies/similar_movies_bloc.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/upcoming_movies_bloc/upcoming_movies_bloc.dart';
+import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/cubits/review/review_cubit.dart';
 
 import '../../features/movies/domain/usecases/get_movies_by_search_usecase.dart';
 
@@ -52,6 +57,15 @@ Future<void> initialize() async {
     ),
   );
 
+  sl.registerFactory(
+    () => ReviewCubit(
+      updateReviewUsecase: sl(),
+      addReviewUsecase: sl(),
+      deleteReviewUsecase: sl(),
+      getReviewsUsecase: sl(),
+    ),
+  );
+
   sl.registerFactory(() =>
       MoviesBloc(getMoviesByGenreUsecase: sl(), getNowMoviesUsecase: sl()));
   sl.registerFactory(() => MovieDetailBloc(getMoviesDetailsUsecase: sl()));
@@ -64,6 +78,20 @@ Future<void> initialize() async {
 
   //usecase
 
+  // review usecase
+  sl.registerLazySingleton<GetReviewsUsecase>(
+      () => GetReviewsUsecase(firebaseRepository: sl()));
+
+  sl.registerLazySingleton<AddReviewUsecase>(
+      () => AddReviewUsecase(firebaseRepository: sl()));
+
+  sl.registerLazySingleton<DeleteReviewUsecase>(
+      () => DeleteReviewUsecase(firebaseRepository: sl()));
+
+  sl.registerLazySingleton<UpdateReviewUsecase>(
+      () => UpdateReviewUsecase(firebaseRepository: sl()));
+
+  //
   sl.registerLazySingleton<GetCastListUsecase>(
     () => GetCastListUsecase(moviesRepository: sl()),
   );

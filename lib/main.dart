@@ -11,6 +11,7 @@ import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/search_bloc/search_bloc.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/similar_movies/similar_movies_bloc.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/upcoming_movies_bloc/upcoming_movies_bloc.dart';
+import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/cubits/review/review_cubit.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/views/splash/splash_page.dart';
 import 'src/core/injector/injection_container.dart' as di;
 
@@ -31,6 +32,9 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider<UserCubit>(
           create: (_) => di.sl<UserCubit>(),
+        ),
+        BlocProvider<ReviewCubit>(
+          create: (_) => di.sl<ReviewCubit>(),
         ),
         BlocProvider<MoviesBloc>(
           create: (_) => MoviesBloc(
