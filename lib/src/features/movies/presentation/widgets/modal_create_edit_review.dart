@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/entities/review_entity.dart';
@@ -9,15 +10,10 @@ import 'package:rxdart/rxdart.dart';
 
 class ModalCardEditCreateReview extends StatefulWidget {
   const ModalCardEditCreateReview(
-      {Key? key,
-      required this.reviewEntity,
-      required this.idReview,
-      required this.isEdit,
-      required this.child})
+      {Key? key, this.reviewEntity, required this.isEdit, required this.child})
       : super(key: key);
 
   final ReviewEntity? reviewEntity;
-  final int idReview;
   final bool isEdit;
   final Widget child;
 
@@ -30,6 +26,8 @@ class _ModalCardEditCreateReviewState extends State<ModalCardEditCreateReview> {
   late BehaviorSubject<String> value;
   late TextEditingController controllerReview;
   late TextEditingController controllerName;
+
+  final uid = FirebaseAuth.instance.currentUser!.uid;
 
   @override
   void initState() {
@@ -120,7 +118,7 @@ class _ModalCardEditCreateReviewState extends State<ModalCardEditCreateReview> {
                               onPressed: checkButton()
                                   ? () {
                                       context.read<ReviewCubit>().updateReview(
-                                          review: widget.reviewEntity!);
+                                          widget.reviewEntity!, uid);
                                     }
                                   : null,
                               child: const Text(
@@ -137,9 +135,9 @@ class _ModalCardEditCreateReviewState extends State<ModalCardEditCreateReview> {
                             ),
                             onPressed: () {
                               Navigator.of(context).pop();
-                              context.read<ReviewCubit>().deleteReview(
-                                    review: widget.reviewEntity!,
-                                  );
+                              context
+                                  .read<ReviewCubit>()
+                                  .deleteReview(widget.reviewEntity!, uid);
                             },
                           ),
                           const SizedBox(
@@ -159,12 +157,13 @@ class _ModalCardEditCreateReviewState extends State<ModalCardEditCreateReview> {
                             onPressed: snap.data!.isNotEmpty
                                 ? () {
                                     context.read<ReviewCubit>().addReview(
-                                          review: ReviewEntity(
+                                          ReviewEntity(
                                             review: controllerReview.text,
                                             createAt: Timestamp.fromDate(
                                               DateTime.now(),
                                             ),
                                           ),
+                                          uid,
                                         );
                                   }
                                 : null,
