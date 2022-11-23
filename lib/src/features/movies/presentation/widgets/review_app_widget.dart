@@ -22,49 +22,7 @@ class ReviewAppWidget extends StatelessWidget {
           "Veja os reviews do nosso app e deixe seu review",
           style: TextStyle(color: Colors.white),
         ),
-<<<<<<< HEAD
         Card(),
-=======
-        GestureDetector(
-          onTap: () {
-            ModalCardEditCreateReview(
-              isEdit: false,
-              child: Card(
-                color: Colors.white,
-                elevation: 1,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: Row(children: [
-                  const Icon(
-                    Icons.star,
-                    color: Colors.yellow,
-                    size: 24,
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
-                      Text(
-                        "Deixe sua review",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Text("Clique aqui e reixe sua review"),
-                    ],
-                  )
-                ]),
-              ),
-            );
-          },
-        ),
->>>>>>> 931486a3cdad55680cfd1930e8d4aedb34aea7de
         ListView.builder(
           scrollDirection: Axis.vertical,
           itemCount: reviews.length,

@@ -17,7 +17,7 @@ class _ReviewAppPageState extends State<ReviewAppPage> {
 
   @override
   void initState() {
-    context.read<ReviewCubit>().getReviews(uid: firebaseAuth.currentUser!.uid);
+    context.read<ReviewCubit>().getReviews();
     super.initState();
   }
 
