@@ -1,11 +1,25 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/cubits/review/review_cubit.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/widgets/modal_create_edit_review.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/widgets/review_app_widget.dart';
 
-class ReviewAppPage extends StatelessWidget {
+class ReviewAppPage extends StatefulWidget {
   const ReviewAppPage({super.key});
+
+  @override
+  State<ReviewAppPage> createState() => _ReviewAppPageState();
+}
+
+class _ReviewAppPageState extends State<ReviewAppPage> {
+  FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+
+  @override
+  void initState() {
+    context.read<ReviewCubit>().getReviews(uid: firebaseAuth.currentUser!.uid);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
