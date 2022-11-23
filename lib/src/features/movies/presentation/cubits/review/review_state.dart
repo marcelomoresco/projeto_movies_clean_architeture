@@ -5,7 +5,7 @@ abstract class ReviewState extends Equatable {
   const ReviewState();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class ReviewInitial extends ReviewState {}
@@ -23,7 +23,7 @@ class ReviewLoadedState extends ReviewState {
   });
 
   @override
-  List<Object> get props => [reviews];
+  List<Object?> get props => [reviews];
 }
 
 class ReviewErrorState extends ReviewState {

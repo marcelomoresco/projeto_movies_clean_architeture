@@ -27,7 +27,6 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBody: true,
       appBar: AppBar(
         title: const Text("Talk Movie"),
         centerTitle: true,
@@ -37,13 +36,11 @@ class _HomePageState extends State<HomePage> {
           children: [
             IconButton(
               icon: const Icon(
-                Icons.reviews,
+                Icons.star,
                 color: Colors.yellow,
               ),
               onPressed: () {
-                context
-                    .read<ReviewCubit>()
-                    .getReviews(uid: firebaseAuth.currentUser!.uid);
+                context.read<ReviewCubit>().getReviews();
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (_) => const ReviewAppPage(),

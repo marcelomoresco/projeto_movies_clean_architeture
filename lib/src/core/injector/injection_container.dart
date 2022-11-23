@@ -59,6 +59,7 @@ Future<void> initialize() async {
 
   sl.registerFactory(
     () => ReviewCubit(
+      getCurrentUIdUsecase: sl(),
       updateReviewUsecase: sl(),
       addReviewUsecase: sl(),
       deleteReviewUsecase: sl(),

@@ -21,6 +21,7 @@ class ReviewAppWidget extends StatelessWidget {
           "Veja os reviews do nosso app e deixe seu review",
           style: TextStyle(color: Colors.white),
         ),
+        Card(),
         ListView.builder(
           scrollDirection: Axis.vertical,
           itemCount: reviews.length,
