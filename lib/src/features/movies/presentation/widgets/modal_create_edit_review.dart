@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -87,7 +88,19 @@ class ModalCardEditCreateReview {
                           onPressed: () {
                             context
                                 .read<ReviewCubit>()
-                                .updateReview(reviewEntity!);
+                                .updateReview(
+                                  ReviewEntity(
+                                    review: controllerReview.text,
+                                  ),
+                                )
+                                .then((value) => AwesomeDialog(
+                                      context: context,
+                                      animType: AnimType.scale,
+                                      dialogType: DialogType.success,
+                                      title: 'Editado com Sucesso',
+                                      headerAnimationLoop: false,
+                                      btnOkOnPress: () {},
+                                    ).show());
                           },
                           child: const Text(
                             "Salvar Review",
@@ -122,7 +135,24 @@ class ModalCardEditCreateReview {
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.black),
-                        onPressed: () {},
+                        onPressed: () {
+                          context
+                              .read<ReviewCubit>()
+                              .addReview(
+                                ReviewEntity(
+                                  nameReview: controllerName.text.trim(),
+                                  review: controllerReview.text,
+                                ),
+                              )
+                              .then((value) => AwesomeDialog(
+                                    context: context,
+                                    animType: AnimType.scale,
+                                    dialogType: DialogType.success,
+                                    title: 'Criado com Sucesso',
+                                    headerAnimationLoop: false,
+                                    btnOkOnPress: () {},
+                                  ).show());
+                        },
                         child: const Text(
                           "Criar Review",
                           style: TextStyle(color: Colors.white),
