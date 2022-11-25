@@ -18,6 +18,7 @@ import 'dart:developer' as developer;
 class MoviesRemoteDatasourceImplementation implements IMoviesRemoteDatasource {
   final apiKey = 'ce7533c109968faa724d1787f65b8a21';
   final mainUrl = 'https://api.themoviedb.org/3';
+  final sessionId = 'f1d321a989bbb4aacc7452aebb13c3c8d7c71d84';
   final Dio _dio = Dio();
 
   @override
@@ -156,6 +157,16 @@ class MoviesRemoteDatasourceImplementation implements IMoviesRemoteDatasource {
         ),
       );
     } else {
+      throw ServerException();
+    }
+  }
+
+  @override
+  Future<void> postRatingMovie(int movieId, int rate) async {
+    final response = await _dio.post(
+        "$mainUrl/movie/$movieId/rating?api_key=$apiKey&session_id=$sessionId",
+        data: {'value': rate});
+    if (response.statusCode != 201) {
       throw ServerException();
     }
   }

@@ -26,6 +26,7 @@ import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/useca
 import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/usecases/get_similar_moives.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/usecases/get_trending_person_usecase.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/usecases/get_upcoming_movies_usecase.dart';
+import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/usecases/post_review_movie_usecase.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/usecases/review/add_review_usecase.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/usecases/review/delete_review_usecase.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/usecases/review/get_reviews_usecase.dart';
@@ -59,6 +60,7 @@ Future<void> initialize() async {
 
   sl.registerFactory(
     () => ReviewCubit(
+      postRatingMovieUseCase: sl(),
       updateReviewUsecase: sl(),
       addReviewUsecase: sl(),
       deleteReviewUsecase: sl(),
@@ -90,6 +92,9 @@ Future<void> initialize() async {
 
   sl.registerLazySingleton<UpdateReviewUsecase>(
       () => UpdateReviewUsecase(firebaseRepository: sl()));
+
+  sl.registerLazySingleton<PostRatingMovieUseCase>(
+      () => PostRatingMovieUseCase(moviesRepository: sl()));
 
   //
   sl.registerLazySingleton<GetCastListUsecase>(
