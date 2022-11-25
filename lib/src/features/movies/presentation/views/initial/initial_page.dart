@@ -52,24 +52,27 @@ class _InitialPageState extends State<InitialPage>
           fontWeight: FontWeight.bold,
         ),
         unselectedItemColor: Colors.white,
-        selectedItemColor: Colors.blue,
+        selectedItemColor: Colors.black,
         backgroundColor: Colors.black,
         currentIndex: currentIndex,
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
+            icon: Icon(Icons.home, color: Colors.black),
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.search),
+            icon: Icon(Icons.search, color: Colors.black),
             label: 'Pesquisar',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.bookmark_outline),
+            icon: Icon(Icons.bookmark_outline, color: Colors.black),
             label: 'Favoritos',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.reviews, color: Colors.yellow),
+            icon: Icon(
+              Icons.reviews,
+              color: Colors.black,
+            ),
             label: 'Review',
           ),
         ],

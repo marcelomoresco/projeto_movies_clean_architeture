@@ -60,6 +60,7 @@ Future<void> initialize() async {
 
   sl.registerFactory(
     () => ReviewCubit(
+      getCurrentUIdUsecase: sl(),
       postRatingMovieUseCase: sl(),
       updateReviewUsecase: sl(),
       addReviewUsecase: sl(),

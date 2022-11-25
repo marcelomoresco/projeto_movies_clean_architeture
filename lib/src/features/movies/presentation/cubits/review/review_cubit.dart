@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:projeto_movies_clean_arciteture/src/features/login/domain/usecases/get_current_uid_usecase.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/entities/review_entity.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/usecases/post_review_movie_usecase.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/usecases/review/add_review_usecase.dart';
@@ -17,7 +18,9 @@ class ReviewCubit extends Cubit<ReviewState> {
   final DeleteReviewUsecase deleteReviewUsecase;
   final GetReviewsUsecase getReviewsUsecase;
   final PostRatingMovieUseCase postRatingMovieUseCase;
+  final GetCurrentUIdUsecase getCurrentUIdUsecase;
   ReviewCubit({
+    required this.getCurrentUIdUsecase,
     required this.updateReviewUsecase,
     required this.postRatingMovieUseCase,
     required this.addReviewUsecase,
@@ -33,10 +36,10 @@ class ReviewCubit extends Cubit<ReviewState> {
     }
   }
 
-  Future<void> addReview(ReviewEntity review, String uid) async {
+  Future<void> addReview(ReviewEntity review) async {
     try {
       await addReviewUsecase.call(review);
-      await getReviews(uid: uid);
+      await getReviews();
     } on SocketException catch (_) {
       emit(const ReviewErrorState(errorMessage: "Acorreu um erro!"));
     } catch (_) {
@@ -44,10 +47,10 @@ class ReviewCubit extends Cubit<ReviewState> {
     }
   }
 
-  Future<void> deleteReview(ReviewEntity review, String uid) async {
+  Future<void> deleteReview(ReviewEntity review) async {
     try {
       await deleteReviewUsecase.call(review);
-      await getReviews(uid: uid);
+      await getReviews();
     } on SocketException catch (_) {
       emit(const ReviewErrorState(errorMessage: "Acorreu um erro!"));
     } catch (_) {
@@ -55,10 +58,11 @@ class ReviewCubit extends Cubit<ReviewState> {
     }
   }
 
-  Future<void> updateReview(ReviewEntity review, String uid) async {
+  Future<void> updateReview(ReviewEntity review) async {
     try {
       await updateReviewUsecase.call(review);
-      await getReviews(uid: uid);
+
+      await getReviews();
     } on SocketException catch (_) {
       emit(const ReviewErrorState(errorMessage: "Acorreu um erro!"));
     } catch (_) {
@@ -66,10 +70,10 @@ class ReviewCubit extends Cubit<ReviewState> {
     }
   }
 
-  Future<void> getReviews({required String uid}) async {
+  Future<void> getReviews() async {
     try {
       emit(ReviewLoadingState());
-      Future.delayed(const Duration(seconds: 1));
+      final uid = await getCurrentUIdUsecase();
       getReviewsUsecase.call(uid).listen((reviews) {
         emit(ReviewLoadedState(reviews: reviews));
       });

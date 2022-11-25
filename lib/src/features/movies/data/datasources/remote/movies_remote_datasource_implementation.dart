@@ -23,8 +23,8 @@ class MoviesRemoteDatasourceImplementation implements IMoviesRemoteDatasource {
 
   @override
   Future<List<CastEntity>> getCastList(int movieId) async {
-    final response =
-        await _dio.get('$mainUrl/movie/$movieId/credits?api_key=$apiKey');
+    final response = await _dio
+        .get('$mainUrl/movie/$movieId/credits?api_key=$apiKey&language=pt-BR');
     if (response.statusCode == 200) {
       var list = response.data['cast'] as List;
       List<CastEntity> castList = list
@@ -45,7 +45,7 @@ class MoviesRemoteDatasourceImplementation implements IMoviesRemoteDatasource {
   @override
   Future<List<GenreEntity>> getGenreList() async {
     final response = await _dio
-        .get('$mainUrl/genre/movie/list?api_key=$apiKey&language=en-US');
+        .get('$mainUrl/genre/movie/list?api_key=$apiKey&language=pt-BR');
 
     if (response.statusCode == 200) {
       var genres = response.data['genres'] as List;
@@ -60,8 +60,8 @@ class MoviesRemoteDatasourceImplementation implements IMoviesRemoteDatasource {
 
   @override
   Future<List<MoviesEntity>> getMovieByGenre(int movieId) async {
-    final response = await _dio
-        .get("$mainUrl/discover/movie?with_genres=$movieId&api_key=$apiKey");
+    final response = await _dio.get(
+        "$mainUrl/discover/movie?with_genres=$movieId&api_key=$apiKey&language=pt-BR");
 
     if (response.statusCode == 200) {
       var movies = response.data['results'] as List;
@@ -75,8 +75,8 @@ class MoviesRemoteDatasourceImplementation implements IMoviesRemoteDatasource {
 
   @override
   Future<MoviesDetailsEntity> getMoviesDetail(int movieId) async {
-    final response = await _dio
-        .get('https://api.themoviedb.org/3/movie/$movieId?api_key=$apiKey');
+    final response = await _dio.get(
+        'https://api.themoviedb.org/3/movie/$movieId?api_key=$apiKey&language=pt-BR');
     if (response.statusCode == 200) {
       MoviesDetailsEntity movieDetail =
           MoviesDetailsModel.fromJson(response.data);
@@ -90,7 +90,7 @@ class MoviesRemoteDatasourceImplementation implements IMoviesRemoteDatasource {
   @override
   Future<List<MoviesEntity>> getNowMovies() async {
     final response = await _dio.get(
-        '$mainUrl/movie/now_playing?api_key=$apiKey&language=en-US&page=1');
+        '$mainUrl/movie/now_playing?api_key=$apiKey&language=pt-BR&page=1');
     if (response.statusCode == 200) {
       var nowMovies = response.data['results'] as List;
       return List<MoviesModel>.from(
@@ -103,7 +103,7 @@ class MoviesRemoteDatasourceImplementation implements IMoviesRemoteDatasource {
   @override
   Future<List<MoviesEntity>> getSimilarMovies(int movieId) async {
     final response = await _dio.get(
-        "$mainUrl/movie/$movieId/similar?api_key=$apiKey&language=en-US&page=1");
+        "$mainUrl/movie/$movieId/similar?api_key=$apiKey&language=pt-BR&page=1");
 
     if (response.statusCode == 200) {
       var similarMovies = response.data['results'] as List;
@@ -132,7 +132,7 @@ class MoviesRemoteDatasourceImplementation implements IMoviesRemoteDatasource {
   @override
   Future<List<MoviesEntity>> getUpcomingMovies() async {
     final response = await _dio
-        .get("$mainUrl/movie/upcoming?api_key=$apiKey&language=en-US&page=1");
+        .get("$mainUrl/movie/upcoming?api_key=$apiKey&language=pt-BR&page=1");
 
     if (response.statusCode == 200) {
       var upcomingMovies = response.data['results'] as List;
@@ -145,10 +145,8 @@ class MoviesRemoteDatasourceImplementation implements IMoviesRemoteDatasource {
 
   @override
   Future<List<MoviesEntity>> getMoviesBySeach(String query) async {
-    final response = await _dio
-        .get('$mainUrl/search/movie?api_key=$apiKey&page=1&query=$query');
-    print(query);
-    print(response.data);
+    final response = await _dio.get(
+        '$mainUrl/search/movie?api_key=$apiKey&page=1&query=$query&language=pt-BR');
     if (response.statusCode == 200) {
       var searchMovies = response.data['results'] as List;
       return List<MoviesModel>.from(
