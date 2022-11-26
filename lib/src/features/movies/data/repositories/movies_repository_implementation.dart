@@ -126,4 +126,13 @@ class MoviesRepositoryImplementation implements IMoviesRepository {
       print("Erro de server exception");
     }
   }
+
+  @override
+  Future<void> deleteRatingMovie(int movieId) async {
+    try {
+      final movies = await moviesRemoteDatasource.deleteRatingMovie(movieId);
+    } on ServerException {
+      print("Erro de server exception");
+    }
+  }
 }

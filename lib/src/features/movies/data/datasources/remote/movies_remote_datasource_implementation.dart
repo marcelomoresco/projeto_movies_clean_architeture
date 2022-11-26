@@ -168,4 +168,13 @@ class MoviesRemoteDatasourceImplementation implements IMoviesRemoteDatasource {
       throw ServerException();
     }
   }
+
+  @override
+  Future<void> deleteRatingMovie(int movieId) async {
+    final response = await _dio.delete(
+        "$mainUrl/movie/$movieId/rating?api_key=$apiKey&session_id=$sessionId");
+    if (response.statusCode != 200) {
+      throw ServerException();
+    }
+  }
 }

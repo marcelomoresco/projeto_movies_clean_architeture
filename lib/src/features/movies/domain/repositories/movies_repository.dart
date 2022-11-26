@@ -28,4 +28,6 @@ abstract class IMoviesRepository {
   Future<Either<Failure, List<MoviesEntity>>> getMovieBySearch(String query);
 
   Future<void> postRatingMovie(int movieId, int rate);
+    Future<void> deleteRatingMovie(int movieId);
+
 }
