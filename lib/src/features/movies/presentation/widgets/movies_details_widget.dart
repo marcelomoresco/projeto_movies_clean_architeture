@@ -9,6 +9,7 @@ import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/similar_movies/similar_movies_bloc.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/views/favorites/favorites_page.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/widgets/loading_widget.dart';
+import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/widgets/modal_add_rating.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/widgets/similar_movies_widget.dart';
 import 'package:intl/intl.dart';
 import '../../domain/entities/movies_details_entity.dart';
@@ -198,6 +199,25 @@ class MoviesDetailsWidget extends StatelessWidget {
                     ),
                   )
                 ],
+              ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width - 90,
+                height: 48,
+                child: ElevatedButton(
+                  style:
+                      ElevatedButton.styleFrom(backgroundColor: Colors.yellow),
+                  onPressed: () {
+                    ModalAddRating(movieModel: movie).modalBottomSheet(context);
+                  },
+                  child: const Text(
+                    "Deixe seu rating",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
               ),
               const SizedBox(
                 height: 20.0,

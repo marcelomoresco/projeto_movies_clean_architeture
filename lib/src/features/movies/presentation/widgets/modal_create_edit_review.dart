@@ -23,6 +23,16 @@ class ModalCardEditCreateReview {
   TextEditingController controllerName = TextEditingController();
   TextEditingController controllerReview = TextEditingController();
 
+  bool checkButton() {
+    if (controllerName.text.isEmpty || controllerName.text == null) {
+      return false;
+    }
+    if (controllerReview.text.isEmpty || controllerReview.text == null) {
+      return false;
+    }
+    return true;
+  }
+
   Future<void> modalBottomSheet(BuildContext context) {
     return showModalBottomSheet(
       context: context,
@@ -51,7 +61,8 @@ class ModalCardEditCreateReview {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(isEdit ? "Editar Review" : "Criar Review",
-                        style: const TextStyle()),
+                        style: const TextStyle(
+                            fontSize: 24, fontWeight: FontWeight.bold)),
                     IconButton(
                         onPressed: () {
                           Navigator.of(context).pop();
@@ -64,15 +75,40 @@ class ModalCardEditCreateReview {
                 ),
                 TextFormField(
                   textCapitalization: TextCapitalization.words,
-                  decoration: const InputDecoration(
-                    hintText: "Seu nome",
+                  decoration: InputDecoration(
+                    prefixIcon: const Icon(Icons.person),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey.shade500),
+                      borderRadius: BorderRadius.circular(25),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey.shade500),
+                      borderRadius: BorderRadius.circular(25),
+                    ),
+                    contentPadding: const EdgeInsets.all(10),
+                    hintText: "Seu Nome",
+                    hintStyle: const TextStyle(fontSize: 14),
                   ),
                   controller: controllerName,
                 ),
                 TextFormField(
                   textCapitalization: TextCapitalization.words,
-                  decoration: const InputDecoration(
-                    hintText: "Seu review sobre o app",
+                  decoration: InputDecoration(
+                    prefixIcon: const Icon(
+                      Icons.star,
+                      color: Colors.yellow,
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey.shade500),
+                      borderRadius: BorderRadius.circular(25),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey.shade500),
+                      borderRadius: BorderRadius.circular(25),
+                    ),
+                    contentPadding: const EdgeInsets.all(10),
+                    hintText: "Seu review",
+                    hintStyle: const TextStyle(fontSize: 14),
                   ),
                   controller: controllerReview,
                 ),
@@ -93,14 +129,16 @@ class ModalCardEditCreateReview {
                                     review: controllerReview.text,
                                   ),
                                 )
-                                .then((value) => AwesomeDialog(
-                                      context: context,
-                                      animType: AnimType.scale,
-                                      dialogType: DialogType.success,
-                                      title: 'Editado com Sucesso',
-                                      headerAnimationLoop: false,
-                                      btnOkOnPress: () {},
-                                    ).show());
+                                .then(
+                                  (value) => AwesomeDialog(
+                                    context: context,
+                                    animType: AnimType.scale,
+                                    dialogType: DialogType.success,
+                                    title: 'Editado com Sucesso',
+                                    headerAnimationLoop: false,
+                                    btnOkOnPress: () {},
+                                  ).show(),
+                                );
                           },
                           child: const Text(
                             "Salvar Review",
@@ -135,24 +173,28 @@ class ModalCardEditCreateReview {
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.black),
-                        onPressed: () {
-                          context
-                              .read<ReviewCubit>()
-                              .addReview(
-                                ReviewEntity(
-                                  nameReview: controllerName.text.trim(),
-                                  review: controllerReview.text,
-                                ),
-                              )
-                              .then((value) => AwesomeDialog(
-                                    context: context,
-                                    animType: AnimType.scale,
-                                    dialogType: DialogType.success,
-                                    title: 'Criado com Sucesso',
-                                    headerAnimationLoop: false,
-                                    btnOkOnPress: () {},
-                                  ).show());
-                        },
+                        onPressed: checkButton()
+                            ? () {
+                                context
+                                    .read<ReviewCubit>()
+                                    .addReview(
+                                      ReviewEntity(
+                                        nameReview: controllerName.text.trim(),
+                                        review: controllerReview.text,
+                                      ),
+                                    )
+                                    .then(
+                                      (value) => AwesomeDialog(
+                                        context: context,
+                                        animType: AnimType.scale,
+                                        dialogType: DialogType.success,
+                                        title: 'Criado com Sucesso',
+                                        headerAnimationLoop: false,
+                                        btnOkOnPress: () {},
+                                      ).show(),
+                                    );
+                              }
+                            : null,
                         child: const Text(
                           "Criar Review",
                           style: TextStyle(color: Colors.white),

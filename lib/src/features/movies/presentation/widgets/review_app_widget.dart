@@ -8,30 +8,44 @@ class ReviewAppWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        const Text(
-          "Reviews do APP",
-          style: TextStyle(color: Colors.white),
-        ),
-        const SizedBox(
-          height: 50,
-        ),
-        const Text(
-          "Veja os reviews do nosso app e deixe seu review",
-          style: TextStyle(color: Colors.white),
-        ),
-        Card(),
-        ListView.builder(
-          scrollDirection: Axis.vertical,
-          itemCount: reviews.length,
-          itemBuilder: (context, index) {
-            final review = reviews[index];
-            return Container();
-          },
-        ),
-      ],
+    return SizedBox(
+      height: MediaQuery.of(context).size.height - 90,
+      child: ListView.builder(
+        scrollDirection: Axis.vertical,
+        itemCount: reviews.length,
+        itemBuilder: (context, index) {
+          final review = reviews[index];
+          return Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+              color: Colors.white,
+            ),
+            child: Column(
+              children: [
+                Text(
+                  review.nameReview!,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                    color: Colors.black,
+                  ),
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                Text(
+                  review.review!,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15,
+                    color: Colors.black,
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 }
