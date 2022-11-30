@@ -62,6 +62,7 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<MovieDetailBloc>(
           create: (_) => MovieDetailBloc(
+            getRatingUsecase: di.sl(),
             getMoviesDetailsUsecase: di.sl(),
           ),
         ),

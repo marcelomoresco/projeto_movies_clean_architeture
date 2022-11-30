@@ -4,12 +4,14 @@ import 'package:dio/dio.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/data/datasources/remote/movies_remote_datasource.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/data/models/genre_model.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/data/models/person_model.dart';
+import 'package:projeto_movies_clean_arciteture/src/features/movies/data/models/rating_model.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/entities/person_entity.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/entities/movies_entity.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/entities/movies_details_entity.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/entities/genre_entity.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/entities/cast_entity.dart';
 import 'package:http/http.dart' as http;
+import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/entities/rating_entity.dart';
 import '../../../../../core/error/exceptions.dart';
 import '../../models/movie_model.dart';
 import '../../models/movies_details_model.dart';
@@ -174,6 +176,22 @@ class MoviesRemoteDatasourceImplementation implements IMoviesRemoteDatasource {
     final response = await _dio.delete(
         "$mainUrl/movie/$movieId/rating?api_key=$apiKey&session_id=$sessionId");
     if (response.statusCode != 200) {
+      throw ServerException();
+    }
+  }
+
+  @override
+  Future<List<RatingEntity>> getRating() async {
+    final response = await _dio.get(
+        '$mainUrl/rated/movie?api_key=$apiKey&session_id=$sessionId&sort_by=created_at.asc&page=1');
+    if (response.statusCode == 200) {
+      var rating = response.data['results'] as List;
+      return List<RatingEntity>.from(
+        rating.map(
+          (movie) => RatingModel.fromJson(movie),
+        ),
+      );
+    } else {
       throw ServerException();
     }
   }

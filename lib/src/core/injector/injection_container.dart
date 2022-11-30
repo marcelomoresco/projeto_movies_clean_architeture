@@ -24,6 +24,7 @@ import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/useca
 import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/usecases/get_movies_by_genre_usecase.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/usecases/get_movies_details_usecase.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/usecases/get_now_playing_movies_usecase.dart';
+import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/usecases/get_rating_usecase.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/usecases/get_similar_moives.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/usecases/get_trending_person_usecase.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/usecases/get_upcoming_movies_usecase.dart';
@@ -73,7 +74,8 @@ Future<void> initialize() async {
 
   sl.registerFactory(() =>
       MoviesBloc(getMoviesByGenreUsecase: sl(), getNowMoviesUsecase: sl()));
-  sl.registerFactory(() => MovieDetailBloc(getMoviesDetailsUsecase: sl()));
+  sl.registerFactory(() =>
+      MovieDetailBloc(getMoviesDetailsUsecase: sl(), getRatingUsecase: sl()));
   sl.registerFactory(() => SimilarMoviesBloc(getSimilarMoviesUsecase: sl()));
   sl.registerFactory(() => UpcomingMoviesBloc(getUpcomingMoviesUsecase: sl()));
   sl.registerFactory(() => PersonBloc(getTrendingPersonUsecase: sl()));
@@ -84,6 +86,9 @@ Future<void> initialize() async {
   //usecase
 
   // review usecase
+  sl.registerLazySingleton<GetRatingUsecase>(
+      () => GetRatingUsecase(moviesRepository: sl()));
+
   sl.registerLazySingleton<GetReviewsUsecase>(
       () => GetReviewsUsecase(firebaseRepository: sl()));
 

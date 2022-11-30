@@ -4,6 +4,7 @@ import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/entit
 import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/entities/movies_details_entity.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/entities/movies_entity.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/entities/person_entity.dart';
+import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/entities/rating_entity.dart';
 
 import '../../../../core/error/failures.dart';
 
@@ -27,7 +28,8 @@ abstract class IMoviesRepository {
 
   Future<Either<Failure, List<MoviesEntity>>> getMovieBySearch(String query);
 
-  Future<void> postRatingMovie(int movieId, int rate);
-    Future<void> deleteRatingMovie(int movieId);
+  Future<Either<Failure, List<RatingEntity>>> getRating();
 
+  Future<void> postRatingMovie(int movieId, int rate);
+  Future<void> deleteRatingMovie(int movieId);
 }
