@@ -50,7 +50,7 @@ class MovieDetailPage extends StatelessWidget {
                 );
               } else if (state is MovieDetailLoadedState) {
                 return MoviesDetailsWidget(
-                  movie: state.movieDetails!,
+                  movie: state.movieDetails,
                   movieEntity: movie,
                 );
               } else {

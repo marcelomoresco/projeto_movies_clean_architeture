@@ -85,6 +85,7 @@ class _HomePageState extends State<HomePage> {
                 return Container();
               }
             }),
+            Tooltip(),
 
             // Categorias
             const BuildWidgetCategory(),

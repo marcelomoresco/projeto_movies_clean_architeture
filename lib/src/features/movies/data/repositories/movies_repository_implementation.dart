@@ -8,6 +8,7 @@ import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/entit
 import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/entities/movies_details_entity.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/entities/movies_entity.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/entities/person_entity.dart';
+import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/entities/rating_entity.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/repositories/movies_repository.dart';
 
 class MoviesRepositoryImplementation implements IMoviesRepository {
@@ -133,6 +134,16 @@ class MoviesRepositoryImplementation implements IMoviesRepository {
       final movies = await moviesRemoteDatasource.deleteRatingMovie(movieId);
     } on ServerException {
       print("Erro de server exception");
+    }
+  }
+
+  @override
+  Future<List<RatingEntity>> getRating() async {
+    try {
+      final movies = await moviesRemoteDatasource.getRating();
+      return movies;
+    } on ServerException {
+      throw ServerFailure();
     }
   }
 }

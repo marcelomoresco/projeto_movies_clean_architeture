@@ -13,29 +13,11 @@ part 'movie_detail_state.dart';
 
 class MovieDetailBloc extends Bloc<MovieDetailEvent, MovieDetailState> {
   final GetMoviesDetailsUsecase getMoviesDetailsUsecase;
-  final GetRatingUsecase getRatingUsecase;
 
   MovieDetailBloc({
-    required this.getRatingUsecase,
     required this.getMoviesDetailsUsecase,
   }) : super(MovieDetailInitialState()) {
     on<GetMovieDetailsEvent>(_getMovieDetailsEvent);
-    on<GetRatingEvent>(_getRatingEvent);
-  }
-
-  Future<void> _getRatingEvent(
-      GetRatingEvent event, Emitter<MovieDetailState> emit) async {
-    emit(MovieDetailLoadingState());
-    final result = await getRatingUsecase(NoParams());
-    result.fold(
-        (failed) async => emit(
-              const MovieDetailErrorState(
-                  errorMessage: "Erro ao pegar informações de rating!"),
-            ), (rating) async {
-      emit(
-        MovieDetailLoadedState(ratingList: rating),
-      );
-    });
   }
 
   Future<void> _getMovieDetailsEvent(

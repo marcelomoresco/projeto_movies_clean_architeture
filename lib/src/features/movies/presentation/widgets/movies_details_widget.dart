@@ -7,6 +7,7 @@ import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/entit
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/cast_movie_bloc/cast_movie_bloc.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/favorites_bloc/favorites_bloc.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/similar_movies/similar_movies_bloc.dart';
+import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/cubits/review/review_cubit.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/views/favorites/favorites_page.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/widgets/loading_widget.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/widgets/modal_add_rating.dart';
@@ -15,7 +16,7 @@ import 'package:intl/intl.dart';
 import '../../domain/entities/movies_details_entity.dart';
 import 'cast_movie_detail_widget.dart';
 
-class MoviesDetailsWidget extends StatelessWidget {
+class MoviesDetailsWidget extends StatefulWidget {
   final MoviesDetailsEntity movie;
   final MoviesEntity movieEntity;
   const MoviesDetailsWidget({
@@ -25,8 +26,19 @@ class MoviesDetailsWidget extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<MoviesDetailsWidget> createState() => _MoviesDetailsWidgetState();
+}
+
+class _MoviesDetailsWidgetState extends State<MoviesDetailsWidget> {
+  @override
+  void initState() {
+    context.read<ReviewCubit>().getRating(widget.movie);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    DateTime dateTime = DateTime.parse(movie.releaseDate);
+    DateTime dateTime = DateTime.parse(widget.movie.releaseDate);
 
     return ListView(
       padding: EdgeInsets.zero,
@@ -41,9 +53,9 @@ class MoviesDetailsWidget extends StatelessWidget {
                     aspectRatio: 3 / 2,
                     child: CachedNetworkImage(
                       fit: BoxFit.cover,
-                      imageUrl: movie.backPoster == null
+                      imageUrl: widget.movie.backPoster == null
                           ? "https://core360.com.br/shop/skin/frontend/base/default/lib/jlukic_semanticui/examples/assets/images/wireframe/image.png"
-                          : "https://image.tmdb.org/t/p/original/${movie.backPoster}",
+                          : "https://image.tmdb.org/t/p/original/${widget.movie.backPoster}",
                     ),
                   ),
                 ],
@@ -84,9 +96,9 @@ class MoviesDetailsWidget extends StatelessWidget {
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(5.0),
                                     child: CachedNetworkImage(
-                                        imageUrl: movie.poster == null
+                                        imageUrl: widget.movie.poster == null
                                             ? "https://core360.com.br/shop/skin/frontend/base/default/lib/jlukic_semanticui/examples/assets/images/wireframe/image.png"
-                                            : "https://image.tmdb.org/t/p/w200/${movie.poster}"),
+                                            : "https://image.tmdb.org/t/p/w200/${widget.movie.poster}"),
                                   )),
                             ),
                           ],
@@ -101,7 +113,7 @@ class MoviesDetailsWidget extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               Text(
-                                movie.title,
+                                widget.movie.title,
                                 style: const TextStyle(
                                     fontSize: 25.0,
                                     fontWeight: FontWeight.bold,
@@ -168,7 +180,7 @@ class MoviesDetailsWidget extends StatelessWidget {
                         width: 5.0,
                       ),
                       Text(
-                        movie.runtime.toString() + " Minutos",
+                        widget.movie.runtime.toString() + " Minutos",
                         style: const TextStyle(
                             fontSize: 15.0,
                             fontWeight: FontWeight.bold,
@@ -183,7 +195,7 @@ class MoviesDetailsWidget extends StatelessWidget {
                     child: IconButton(
                       onPressed: () {
                         context.read<FavoritesBloc>().add(
-                              AddFavoritesEvent(movie: movieEntity),
+                              AddFavoritesEvent(movie: widget.movieEntity),
                             );
                         AwesomeDialog(
                           context: context,
@@ -200,24 +212,50 @@ class MoviesDetailsWidget extends StatelessWidget {
                   )
                 ],
               ),
-              SizedBox(
-                width: MediaQuery.of(context).size.width - 90,
-                height: 48,
-                child: ElevatedButton(
-                  style:
-                      ElevatedButton.styleFrom(backgroundColor: Colors.yellow),
-                  onPressed: () {
-                    ModalAddRating(movieModel: movie).modalBottomSheet(context);
-                  },
-                  child: const Text(
-                    "Deixe seu rating",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  ModalAddRating(
+                    movieModel: widget.movie,
+                    child: Container(
+                      width: 100,
+                      height: 48,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        color: Colors.yellow,
+                      ),
+                      child: const Text(
+                        "Deixe seu rating",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
                   ),
-                ),
+                  BlocBuilder<ReviewCubit, ReviewState>(
+                    builder: (context, state) {
+                      if (state is RatingLoadedState) {
+                        return Text(
+                          state.message,
+                          style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20),
+                        );
+                      } else {
+                        return const Text(
+                          "Você ainda não avaliou",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20),
+                        );
+                      }
+                    },
+                  )
+                ],
               ),
               const SizedBox(
                 height: 20.0,
@@ -230,7 +268,7 @@ class MoviesDetailsWidget extends StatelessWidget {
               const SizedBox(
                 height: 10.0,
               ),
-              Text(movie.overview,
+              Text(widget.movie.overview,
                   style: const TextStyle(
                       height: 1.5,
                       fontSize: 12.0,
@@ -299,7 +337,7 @@ class MoviesDetailsWidget extends StatelessWidget {
                 children: [
                   const Text("Status:",
                       style: TextStyle(fontSize: 14.0, color: Colors.white)),
-                  Text(movie.status,
+                  Text(widget.movie.status,
                       style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 14.0,
@@ -314,7 +352,7 @@ class MoviesDetailsWidget extends StatelessWidget {
                 children: [
                   const Text("Orçamento:",
                       style: TextStyle(fontSize: 14.0, color: Colors.white)),
-                  Text("\$ ${movie.budget} doláres",
+                  Text("\$ ${widget.movie.budget} doláres",
                       style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 14.0,
@@ -329,7 +367,7 @@ class MoviesDetailsWidget extends StatelessWidget {
                 children: [
                   const Text("Receita(\$):",
                       style: TextStyle(fontSize: 14.0, color: Colors.white)),
-                  Text("\$ ${movie.revenue}",
+                  Text("\$ ${widget.movie.revenue}",
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Colors.white,

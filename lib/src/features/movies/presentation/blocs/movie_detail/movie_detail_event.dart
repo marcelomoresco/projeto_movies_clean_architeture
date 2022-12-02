@@ -18,14 +18,3 @@ class GetMovieDetailsEvent extends MovieDetailEvent {
   @override
   List<Object> get props => [];
 }
-
-class GetRatingEvent extends MovieDetailEvent {
-  final RatingEntity rating;
-
-  const GetRatingEvent({
-    required this.rating,
-  });
-
-  @override
-  List<Object> get props => [rating];
-}

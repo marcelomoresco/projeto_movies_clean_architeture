@@ -62,6 +62,7 @@ Future<void> initialize() async {
 
   sl.registerFactory(
     () => ReviewCubit(
+      getRatingUsecase: sl(),
       deleteRatingMovieUseCase: sl(),
       getCurrentUIdUsecase: sl(),
       postRatingMovieUseCase: sl(),
@@ -74,8 +75,7 @@ Future<void> initialize() async {
 
   sl.registerFactory(() =>
       MoviesBloc(getMoviesByGenreUsecase: sl(), getNowMoviesUsecase: sl()));
-  sl.registerFactory(() =>
-      MovieDetailBloc(getMoviesDetailsUsecase: sl(), getRatingUsecase: sl()));
+  sl.registerFactory(() => MovieDetailBloc(getMoviesDetailsUsecase: sl()));
   sl.registerFactory(() => SimilarMoviesBloc(getSimilarMoviesUsecase: sl()));
   sl.registerFactory(() => UpcomingMoviesBloc(getUpcomingMoviesUsecase: sl()));
   sl.registerFactory(() => PersonBloc(getTrendingPersonUsecase: sl()));

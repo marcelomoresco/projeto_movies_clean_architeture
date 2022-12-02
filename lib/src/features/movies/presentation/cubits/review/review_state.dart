@@ -18,12 +18,25 @@ class ReviewLoadingState extends ReviewState {
 class ReviewLoadedState extends ReviewState {
   final List<ReviewEntity> reviews;
 
-  const ReviewLoadedState({
+  ReviewLoadedState({
     required this.reviews,
   });
 
   @override
   List<Object?> get props => [reviews];
+}
+
+class RatingLoadedState extends ReviewState {
+  //final List<RatingEntity> ratings;
+  String message;
+
+  RatingLoadedState({
+    // required this.ratings,
+    required this.message,
+  });
+
+  @override
+  List<Object?> get props => [message];
 }
 
 class ReviewErrorState extends ReviewState {

@@ -1,20 +1,37 @@
 import 'dart:async';
 
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/entities/movies_details_entity.dart';
-import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/movie_detail/movie_detail_bloc.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/cubits/review/review_cubit.dart';
 
-class ModalAddRating {
-  ModalAddRating({
-    Key? key,
+class ModalAddRating extends StatefulWidget {
+  const ModalAddRating({
+    super.key,
     required this.movieModel,
+    required this.child,
   });
 
   final MoviesDetailsEntity movieModel;
+  final Widget child;
+
+  @override
+  State<ModalAddRating> createState() => _ModalAddRatingState();
+}
+
+class _ModalAddRatingState extends State<ModalAddRating> {
+  int ratingInt = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        modalBottomSheet(context);
+      },
+      child: widget.child,
+    );
+  }
 
   Future<void> modalBottomSheet(BuildContext context) {
     return showModalBottomSheet(
@@ -46,7 +63,7 @@ class ModalAddRating {
                     const Text(
                       "Qual o rating para esse filme?",
                       style: TextStyle(
-                        fontSize: 24,
+                        fontSize: 22,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -62,7 +79,7 @@ class ModalAddRating {
                   height: 16,
                 ),
                 RatingBar.builder(
-                  initialRating: 3,
+                  initialRating: 0,
                   minRating: 1,
                   direction: Axis.horizontal,
                   allowHalfRating: false,
@@ -70,40 +87,76 @@ class ModalAddRating {
                   itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
                   itemBuilder: (context, _) => const Icon(
                     Icons.star,
-                    color: Colors.amber,
+                    color: Colors.yellow,
                   ),
                   onRatingUpdate: (rating) {
-                    AlertDialog(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      title: const Text("Tem certeza disso?"),
-                      content: const Text(
-                          "Apos deixar esse rating você conseguirá deletar ele ainda."),
-                      actions: [
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.green),
-                          onPressed: () {
-                            context
-                                .read<ReviewCubit>()
-                                .postRatingMovie(
-                                    movieModel.id, rating.toInt(), context)
-                                .then(
-                                  (value) =>
-                                      context.read<MovieDetailBloc>().add(
-                                            GetMovieDetailsEvent(movieModel.id),
-                                          ),
-                                );
-                          },
-                          child: const Text(
-                            "Add Rating",
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        ),
-                      ],
-                    );
+                    setState(() {
+                      if (rating == 5) {
+                        ratingInt = 10;
+                      } else if (rating == 4) {
+                        ratingInt = 8;
+                      } else if (rating == 3) {
+                        ratingInt = 6;
+                      } else if (rating == 2) {
+                        ratingInt = 4;
+                      } else if (rating == 1) {
+                        ratingInt = 2;
+                      }
+                    });
                   },
+                ),
+                const SizedBox(
+                  height: 60,
+                ),
+                Row(
+                  children: [
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.green),
+                      onPressed: () {
+                        context
+                            .read<ReviewCubit>()
+                            .postRatingMovie(
+                                widget.movieModel.id, ratingInt, context)
+                            .then(
+                              (value) => context
+                                  .read<ReviewCubit>()
+                                  .getRating(widget.movieModel),
+                            )
+                            .then(
+                              (value) => Navigator.of(context).pop(),
+                            );
+                      },
+                      child: const Text(
+                        "Add Rating",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.green),
+                      onPressed: () {
+                        context
+                            .read<ReviewCubit>()
+                            .deleteRatingMovie(widget.movieModel.id, context)
+                            .then(
+                              (value) => context
+                                  .read<ReviewCubit>()
+                                  .getRating(widget.movieModel),
+                            )
+                            .then(
+                              (value) => Navigator.of(context).pop(),
+                            );
+                      },
+                      child: const Text(
+                        "Deletar Rating",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 30,
                 ),
               ],
             ),
