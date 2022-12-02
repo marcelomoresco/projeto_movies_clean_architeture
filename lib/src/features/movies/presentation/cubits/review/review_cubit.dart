@@ -132,7 +132,14 @@ class ReviewCubit extends Cubit<ReviewState> {
     try {
       emit(ReviewLoadingState());
       final uid = await getCurrentUIdUsecase();
+      print(uid);
       getReviewsUsecase.call(uid).listen((reviews) {
+        print(reviews);
+        print(reviews);
+        print(reviews);
+        print(reviews);
+        print(reviews);
+        print(reviews);
         emit(ReviewLoadedState(reviews: reviews));
       });
     } on SocketException catch (_) {
