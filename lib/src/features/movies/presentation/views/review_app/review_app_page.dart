@@ -14,11 +14,8 @@ class ReviewAppPage extends StatefulWidget {
 }
 
 class _ReviewAppPageState extends State<ReviewAppPage> {
-  FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-
   @override
   void initState() {
-    context.read<ReviewCubit>().getReviews();
     super.initState();
   }
 
@@ -68,75 +65,7 @@ class _ReviewAppPageState extends State<ReviewAppPage> {
                 ),
               ),
             ),
-            StreamBuilder(
-              stream:
-                  FirebaseFirestore.instance.collection('reviews').snapshots(),
-              builder: (BuildContext context,
-                  AsyncSnapshot<QuerySnapshot> snapshot) {
-                print(snapshot);
-                print(FirebaseFirestore.instance.collection('reviews'));
-                print(FirebaseFirestore.instance.collection('reviews'));
-                print(FirebaseFirestore.instance.collection('reviews'));
-                print(FirebaseFirestore.instance.collection('reviews'));
-                if (snapshot.hasData) {
-                  return SizedBox(
-                    height: MediaQuery.of(context).size.height,
-                    width: MediaQuery.of(context).size.width,
-                    child: ListView(
-                      shrinkWrap: true,
-                      children: snapshot.data!.docs.map((document) {
-                        return Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            color: Colors.white,
-                          ),
-                          child: Column(
-                            children: [
-                              Text(
-                                document['nameReview'],
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18,
-                                  color: Colors.white,
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 15,
-                              ),
-                              Text(
-                                document['review'],
-                                style: const TextStyle(
-                                  fontSize: 15,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ],
-                          ),
-                        );
-                      }).toList(),
-                    ),
-                  );
-                } else {
-                  return Column(
-                    children: const [
-                      SizedBox(
-                        height: 90,
-                      ),
-                      Center(
-                        child: Text(
-                          "Ainda não temos review!",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                          ),
-                        ),
-                      ),
-                    ],
-                  );
-                }
-              },
-            ),
-
+            //FAZER AQUI
             /*BlocBuilder<ReviewCubit, ReviewState>(
               builder: (context, state) {
                 if (state is ReviewLoadedState) {
