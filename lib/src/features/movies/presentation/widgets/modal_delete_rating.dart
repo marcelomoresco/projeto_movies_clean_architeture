@@ -100,11 +100,6 @@ class ModalDeleteRating {
                           .read<ReviewCubit>()
                           .deleteRatingMovie(moviesDetailsEntity.id, context)
                           .then(
-                            (value) => context
-                                .read<ReviewCubit>()
-                                .getRating(moviesDetailsEntity),
-                          )
-                          .then(
                             (value) => Navigator.of(context).pop(),
                           );
                     },

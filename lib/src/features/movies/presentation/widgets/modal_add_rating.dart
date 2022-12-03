@@ -69,10 +69,6 @@ class _ModalAddRatingState extends State<ModalAddRating> {
                     ),
                     IconButton(
                       onPressed: () {
-                        context
-                            .read<ReviewCubit>()
-                            .getRating(widget.movieModel);
-
                         Navigator.of(context).pop();
                       },
                       icon: const Icon(Icons.close),
@@ -121,13 +117,8 @@ class _ModalAddRatingState extends State<ModalAddRating> {
                       onPressed: () {
                         context
                             .read<ReviewCubit>()
-                            .postRatingMovie(
-                                widget.movieModel.id, ratingInt, context)
-                            .then(
-                              (value) => context
-                                  .read<ReviewCubit>()
-                                  .getRating(widget.movieModel),
-                            )
+                            .postRatingMovie(widget.movieModel.id, ratingInt,
+                                context, widget.movieModel)
                             .then(
                               (value) => Navigator.of(context).pop(),
                             );
@@ -144,11 +135,6 @@ class _ModalAddRatingState extends State<ModalAddRating> {
                         context
                             .read<ReviewCubit>()
                             .deleteRatingMovie(widget.movieModel.id, context)
-                            .then(
-                              (value) => context
-                                  .read<ReviewCubit>()
-                                  .getRating(widget.movieModel),
-                            )
                             .then(
                               (value) => Navigator.of(context).pop(),
                             );

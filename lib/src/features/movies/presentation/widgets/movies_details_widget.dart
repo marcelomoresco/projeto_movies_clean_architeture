@@ -243,29 +243,12 @@ class _MoviesDetailsWidgetState extends State<MoviesDetailsWidget> {
                     builder: (context, state) {
                       if (state is RatingLoadedState) {
                         print('LOADED');
-                        String checkRating() {
-                          for (int i = 0; i < state.ratings.length; i++) {
-                            if (state.ratings[i].id == widget.movie.id) {
-                              setState(() {
-                                message =
-                                    "Você colocou o rating de ${state.ratings[i].rating}";
-                              });
-                              return message;
-                            } else {
-                              setState(() {
-                                message = "Você ainda adicionou a nota";
-                              });
-                              return message;
-                            }
-                          }
-                          return "Você ainda adicionou a nota";
-                        }
 
                         return Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Text(
-                              checkRating(),
+                              "Você ainda não tem rating",
                               style: const TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
