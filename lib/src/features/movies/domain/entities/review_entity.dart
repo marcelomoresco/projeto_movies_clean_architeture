@@ -17,6 +17,14 @@ class ReviewEntity extends Equatable {
     this.uid,
   });
 
+  Map<String, dynamic> toJson() => {
+        'uid': uid,
+        'nameReview': nameReview,
+        'review': review,
+        'createAt': createAt,
+        'reviewId': reviewId,
+      };
+
   @override
   List<Object?> get props => [
         nameReview,

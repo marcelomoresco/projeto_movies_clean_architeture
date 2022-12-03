@@ -187,6 +187,14 @@ class _ModalCreateEditReviewState extends State<ModalCreateEditReview> {
                                             btnOkOnPress: () {},
                                           ).show(),
                                         );
+                                    final docReview = FirebaseFirestore.instance
+                                        .collection('reviews')
+                                        .doc();
+
+                                    docReview.update({
+                                      'nameReview': controllerName.text,
+                                      'review': controllerReview.text,
+                                    });
                                   }
                                 : null,
                             child: const Text(
@@ -200,10 +208,11 @@ class _ModalCreateEditReviewState extends State<ModalCreateEditReview> {
                       TextButton(
                         onPressed: checkButton()
                             ? () {
-                                Navigator.of(context).pop();
-                                context.read<ReviewCubit>().deleteReview(
-                                      widget.reviewEntity!,
-                                    );
+                                final docReview = FirebaseFirestore.instance
+                                    .collection('reviews')
+                                    .doc();
+
+                                docReview.delete();
                               }
                             : null,
                         child: const Text(
@@ -230,24 +239,6 @@ class _ModalCreateEditReviewState extends State<ModalCreateEditReview> {
                           ),
                           onPressed: checkButton()
                               ? () {
-                                  /*context
-                                      .read<ReviewCubit>()
-                                      .addReview(
-                                        ReviewEntity(
-                                          nameReview: controllerName.text,
-                                          review: controllerReview.text,
-                                        ),
-                                      )
-                                      .then(
-                                        (value) => AwesomeDialog(
-                                          context: context,
-                                          animType: AnimType.scale,
-                                          dialogType: DialogType.success,
-                                          title: 'Criado com Sucesso',
-                                          headerAnimationLoop: false,
-                                          btnOkOnPress: () {},
-                                        ).show(),
-                                      );*/
                                   FirebaseFirestore.instance
                                       .collection('reviews')
                                       .add(
@@ -255,6 +246,15 @@ class _ModalCreateEditReviewState extends State<ModalCreateEditReview> {
                                       'nameReview': controllerName.text,
                                       'review': controllerReview.text,
                                     },
+                                  ).then(
+                                    (value) => AwesomeDialog(
+                                      context: context,
+                                      animType: AnimType.scale,
+                                      dialogType: DialogType.success,
+                                      title: 'Criado com Sucesso',
+                                      headerAnimationLoop: false,
+                                      btnOkOnPress: () {},
+                                    ).show(),
                                   );
                                 }
                               : null,

@@ -16,13 +16,13 @@ class ReviewModel extends ReviewEntity {
           uid: uid,
         );
 
-  factory ReviewModel.fromSnapshot(DocumentSnapshot documentSnapshot) {
+  factory ReviewModel.fromSnapshot(Map<String, dynamic> json) {
     return ReviewModel(
-      nameReview: documentSnapshot.get('nameReview'),
-      reviewId: documentSnapshot.get('reviewId'),
-      review: documentSnapshot.get('review'),
-      uid: documentSnapshot.get('uid'),
-      createAt: documentSnapshot.get('createAt'),
+      nameReview: json['nameReview'],
+      reviewId: json['reviewId'],
+      review: json['review'],
+      uid: json['uid'],
+      createAt: json['createAt'],
     );
   }
 

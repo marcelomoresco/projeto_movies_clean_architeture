@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/login/domain/usecases/get_current_uid_usecase.dart';
@@ -94,6 +95,19 @@ class ReviewCubit extends Cubit<ReviewState> {
     } catch (e) {
       emit(const ReviewErrorState(errorMessage: "Erro ao fazer o delete"));
     }
+  }
+
+  Future<void> createReview(ReviewEntity reviewEntity) async {
+    final reviewUser = FirebaseFirestore.instance.collection("reviews").doc();
+    final uid = await getCurrentUIdUsecase();
+    final review = ReviewEntity(
+      reviewId: reviewUser.id,
+      uid: uid,
+      nameReview: reviewEntity.nameReview,
+      review: reviewEntity.review,
+    );
+    final json = review.toJson();
+    await reviewUser.set(json);
   }
 
   Future<void> addReview(ReviewEntity review) async {

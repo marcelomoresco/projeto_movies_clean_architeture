@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:projeto_movies_clean_arciteture/src/features/movies/data/models/review_model.dart';
+import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/entities/review_entity.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/cubits/review/review_cubit.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/widgets/modal_create_edit_review.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/widgets/review_app_widget.dart';
@@ -18,6 +20,15 @@ class _ReviewAppPageState extends State<ReviewAppPage> {
   void initState() {
     super.initState();
   }
+
+  Stream<List<ReviewEntity>> readReviews() =>
+      FirebaseFirestore.instance.collection('reviews').snapshots().map(
+            (snapshot) => snapshot.docs
+                .map(
+                  (doc) => ReviewModel.fromSnapshot(doc.data()),
+                )
+                .toList(),
+          );
 
   @override
   Widget build(BuildContext context) {
@@ -65,37 +76,33 @@ class _ReviewAppPageState extends State<ReviewAppPage> {
                 ),
               ),
             ),
-            //FAZER AQUI
-            /*BlocBuilder<ReviewCubit, ReviewState>(
-              builder: (context, state) {
-                if (state is ReviewLoadedState) {
-                  print("TAAQUI!!!");
-                  return ReviewAppWidget(reviews: state.reviews);
-                } else if (state is ReviewLoadingState) {
+            StreamBuilder<List<ReviewEntity>>(
+              stream: readReviews(),
+              builder: (context, snap) {
+                if (snap.hasData) {
+                  final review = snap.data!;
+                  return ListView(
+                    children: review.map(buildReview).toList(),
+                  );
+                } else if (snap.hasError) {
+                  return const Text("Algo deu errado!");
+                } else {
                   return const Center(
                     child: CircularProgressIndicator(),
                   );
-                } else if (state is ReviewErrorState) {
-                  return Center(
-                    child: Text(state.errorMessage),
-                  );
-                } else if (state is ReviewInitial) {
-                  return const Center(
-                    child: Text("Ainda não temos review no aplicativo!"),
-                  );
-                } else {
-                  return const Center(
-                    child: Text(
-                      "Ainda não temos review no aplicativo!",
-                      style: TextStyle(color: Colors.white, fontSize: 16),
-                    ),
-                  );
                 }
               },
-            ),*/
+            ),
           ],
         ),
       ),
+    );
+  }
+
+  Widget buildReview(ReviewEntity reviewEntity) {
+    return ListTile(
+      title: Text(reviewEntity.nameReview!),
+      subtitle: Text(reviewEntity.review!),
     );
   }
 }
