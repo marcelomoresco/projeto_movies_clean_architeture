@@ -156,8 +156,9 @@ class _ModalCreateEditReviewState extends State<ModalCreateEditReview> {
                     setState(() {});
                   },
                 ),
-                if (widget.isEdit)
-                  Column(
+                Visibility(
+                  visible: widget.isEdit,
+                  child: Column(
                     children: [
                       const SizedBox(
                         height: 24,
@@ -226,9 +227,11 @@ class _ModalCreateEditReviewState extends State<ModalCreateEditReview> {
                         height: 65,
                       ),
                     ],
-                  )
-                else
-                  Column(
+                  ),
+                ),
+                Visibility(
+                  visible: !widget.isEdit,
+                  child: Column(
                     children: [
                       const SizedBox(
                         height: 24,
@@ -270,7 +273,8 @@ class _ModalCreateEditReviewState extends State<ModalCreateEditReview> {
                         height: 64,
                       ),
                     ],
-                  )
+                  ),
+                )
               ],
             ),
           ),
