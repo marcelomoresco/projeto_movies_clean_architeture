@@ -51,35 +51,35 @@ class _ReviewAppPageState extends State<ReviewAppPage> {
             const SizedBox(
               height: 24,
             ),
-            GestureDetector(
-              onTap: () {
-                ModalCardEditCreateReview(isEdit: false)
-                    .modalBottomSheet(context);
-              },
+            ModalCreateEditReview(
+              isEdit: false,
               child: Container(
-                  height: 90,
-                  width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                    color: Colors.yellow,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: const [
-                      Icon(Icons.star, color: Colors.green, size: 48),
-                      Text("Deixe seu review agora mesmo",
-                          style: TextStyle(
-                            color: Colors.green,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
-                          ))
-                    ],
-                  )),
+                height: 90,
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  color: Colors.yellow,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: const [
+                    Icon(Icons.star, color: Colors.green, size: 48),
+                    Text(
+                      "Deixe seu review agora mesmo",
+                      style: TextStyle(
+                        color: Colors.green,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                      ),
+                    )
+                  ],
+                ),
+              ),
             ),
-            BlocConsumer<ReviewCubit, ReviewState>(
-              listener: (context, state) {},
+            BlocBuilder<ReviewCubit, ReviewState>(
               builder: (context, state) {
                 if (state is ReviewLoadedState) {
+                  print("TAAQUI!!!");
                   return ReviewAppWidget(reviews: state.reviews);
                 } else if (state is ReviewLoadingState) {
                   return const Center(
@@ -88,6 +88,10 @@ class _ReviewAppPageState extends State<ReviewAppPage> {
                 } else if (state is ReviewErrorState) {
                   return Center(
                     child: Text(state.errorMessage),
+                  );
+                } else if (state is ReviewInitial) {
+                  return const Center(
+                    child: Text("Ainda não temos review no aplicativo!"),
                   );
                 } else {
                   return const Center(

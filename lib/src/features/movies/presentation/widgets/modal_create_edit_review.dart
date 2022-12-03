@@ -1,36 +1,64 @@
 import 'dart:async';
 
 import 'package:awesome_dialog/awesome_dialog.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/entities/review_entity.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/cubits/review/review_cubit.dart';
 
-class ModalCardEditCreateReview {
-  ModalCardEditCreateReview({
-    Key? key,
+class ModalCreateEditReview extends StatefulWidget {
+  const ModalCreateEditReview({
+    super.key,
     this.reviewEntity,
-    this.idReview,
     required this.isEdit,
+    required this.child,
   });
-
-  final ReviewEntity? reviewEntity;
-  final int? idReview;
   final bool isEdit;
+  final ReviewEntity? reviewEntity;
+  final Widget child;
 
+  @override
+  State<ModalCreateEditReview> createState() => _ModalCreateEditReviewState();
+}
+
+class _ModalCreateEditReviewState extends State<ModalCreateEditReview> {
   TextEditingController controllerName = TextEditingController();
   TextEditingController controllerReview = TextEditingController();
 
+  @override
+  void initState() {
+    if (widget.isEdit) {
+      controllerName =
+          TextEditingController(text: widget.reviewEntity!.nameReview);
+      controllerReview =
+          TextEditingController(text: widget.reviewEntity!.review);
+    }
+    super.initState();
+  }
+
   bool checkButton() {
-    if (controllerName.text.isEmpty || controllerName.text == null) {
+    if (widget.isEdit) {
+      if (widget.reviewEntity!.nameReview != controllerName.text ||
+          widget.reviewEntity!.review != controllerReview.text) return true;
       return false;
+    } else {
+      if (controllerName.text.isEmpty) {
+        return false;
+      }
+      if (controllerReview.text.isEmpty) {
+        return false;
+      }
+      return true;
     }
-    if (controllerReview.text.isEmpty || controllerReview.text == null) {
-      return false;
-    }
-    return true;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+        onTap: () {
+          modalBottomSheet(context);
+        },
+        child: widget.child);
   }
 
   Future<void> modalBottomSheet(BuildContext context) {
@@ -60,7 +88,7 @@ class ModalCardEditCreateReview {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(isEdit ? "Editar Review" : "Criar Review",
+                    Text(widget.isEdit ? "Editar Review" : "Criar Review",
                         style: const TextStyle(
                             fontSize: 24, fontWeight: FontWeight.bold)),
                     IconButton(
@@ -90,6 +118,9 @@ class ModalCardEditCreateReview {
                     hintStyle: const TextStyle(fontSize: 14),
                   ),
                   controller: controllerName,
+                  onChanged: (value) {
+                    setState(() {});
+                  },
                 ),
                 TextFormField(
                   textCapitalization: TextCapitalization.words,
@@ -111,8 +142,11 @@ class ModalCardEditCreateReview {
                     hintStyle: const TextStyle(fontSize: 14),
                   ),
                   controller: controllerReview,
+                  onChanged: (value) {
+                    setState(() {});
+                  },
                 ),
-                if (isEdit)
+                if (widget.isEdit)
                   Column(
                     children: [
                       const SizedBox(
@@ -121,25 +155,27 @@ class ModalCardEditCreateReview {
                       ElevatedButton(
                           style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.black),
-                          onPressed: () {
-                            context
-                                .read<ReviewCubit>()
-                                .updateReview(
-                                  ReviewEntity(
-                                    review: controllerReview.text,
-                                  ),
-                                )
-                                .then(
-                                  (value) => AwesomeDialog(
-                                    context: context,
-                                    animType: AnimType.scale,
-                                    dialogType: DialogType.success,
-                                    title: 'Editado com Sucesso',
-                                    headerAnimationLoop: false,
-                                    btnOkOnPress: () {},
-                                  ).show(),
-                                );
-                          },
+                          onPressed: checkButton()
+                              ? () {
+                                  context
+                                      .read<ReviewCubit>()
+                                      .updateReview(
+                                        ReviewEntity(
+                                          review: controllerReview.text,
+                                        ),
+                                      )
+                                      .then(
+                                        (value) => AwesomeDialog(
+                                          context: context,
+                                          animType: AnimType.scale,
+                                          dialogType: DialogType.success,
+                                          title: 'Editado com Sucesso',
+                                          headerAnimationLoop: false,
+                                          btnOkOnPress: () {},
+                                        ).show(),
+                                      );
+                                }
+                              : null,
                           child: const Text(
                             "Salvar Review",
                             style: TextStyle(color: Colors.white),
@@ -148,16 +184,18 @@ class ModalCardEditCreateReview {
                         height: 25,
                       ),
                       TextButton(
+                        onPressed: checkButton()
+                            ? () {
+                                Navigator.of(context).pop();
+                                context.read<ReviewCubit>().deleteReview(
+                                      widget.reviewEntity!,
+                                    );
+                              }
+                            : null,
                         child: const Text(
                           "Deletar Review",
                           style: TextStyle(color: Colors.red),
                         ),
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                          context.read<ReviewCubit>().deleteReview(
-                                reviewEntity!,
-                              );
-                        },
                       ),
                       const SizedBox(
                         height: 65,
@@ -179,7 +217,7 @@ class ModalCardEditCreateReview {
                                     .read<ReviewCubit>()
                                     .addReview(
                                       ReviewEntity(
-                                        nameReview: controllerName.text.trim(),
+                                        nameReview: controllerName.text,
                                         review: controllerReview.text,
                                       ),
                                     )

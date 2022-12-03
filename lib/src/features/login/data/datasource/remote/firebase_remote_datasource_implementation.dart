@@ -60,7 +60,7 @@ class FirebaseRemoteDatasourceImplementation
   @override
   Future<void> addNewReview(ReviewEntity reviewEntity) async {
     final reviewCollection = firebaseFirestore
-        .collection("reviews")
+        .collection("users")
         .doc(reviewEntity.uid)
         .collection("reviews");
     final reviewId = reviewCollection.doc().id;
@@ -83,9 +83,9 @@ class FirebaseRemoteDatasourceImplementation
   @override
   Future<void> deleteReview(ReviewEntity reviewEntity) async {
     final noteCollection = firebaseFirestore
-        .collection("reviews")
+        .collection("users")
         .doc(reviewEntity.uid)
-        .collection("notes");
+        .collection("reviews");
 
     noteCollection.doc(reviewEntity.reviewId).get().then((note) {
       if (note.exists) {
@@ -97,10 +97,11 @@ class FirebaseRemoteDatasourceImplementation
 
   @override
   Stream<List<ReviewEntity>> getReviews(String uid) {
-    final noteCollectionRef =
-        firebaseFirestore.collection("reviews").doc(uid).collection("reviews");
+    final reviewCollectionRef =
+        firebaseFirestore.collection("users").doc(uid).collection("reviews");
+    print(reviewCollectionRef);
 
-    return noteCollectionRef.snapshots().map((querySnap) {
+    return reviewCollectionRef.snapshots().map((querySnap) {
       return querySnap.docs
           .map((docSnap) => ReviewModel.fromSnapshot(docSnap))
           .toList();
@@ -109,15 +110,16 @@ class FirebaseRemoteDatasourceImplementation
 
   @override
   Future<void> updateReview(ReviewEntity review) async {
-    Map<String, dynamic> noteMap = Map();
-    final noteCollectionRef = firebaseFirestore
-        .collection("reviews")
+    Map<String, dynamic> reviewMap = Map();
+    final reviewCollectionRef = firebaseFirestore
+        .collection("users")
         .doc(review.uid)
         .collection("reviews");
 
-    if (review.review != null) noteMap['note'] = review.review;
-    if (review.createAt != null) noteMap['time'] = review.createAt;
+    if (review.nameReview != null) reviewMap['nameReview'] = review.nameReview;
+    if (review.review != null) reviewMap['review'] = review.review;
+    if (review.createAt != null) reviewMap['createAt'] = review.createAt;
 
-    noteCollectionRef.doc(review.reviewId).update(noteMap);
+    reviewCollectionRef.doc(review.reviewId).update(reviewMap);
   }
 }

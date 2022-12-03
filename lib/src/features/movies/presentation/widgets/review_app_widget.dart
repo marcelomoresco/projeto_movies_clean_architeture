@@ -15,33 +15,37 @@ class ReviewAppWidget extends StatelessWidget {
         itemCount: reviews.length,
         itemBuilder: (context, index) {
           final review = reviews[index];
-          return Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-              color: Colors.white,
-            ),
-            child: Column(
-              children: [
-                Text(
-                  review.nameReview!,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
-                    color: Colors.black,
+          return ModalCreateEditReview(
+            isEdit: true,
+            reviewEntity: review,
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15),
+                color: Colors.white,
+              ),
+              child: Column(
+                children: [
+                  Text(
+                    review.nameReview!,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                      color: Colors.black,
+                    ),
                   ),
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                Text(
-                  review.review!,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 15,
-                    color: Colors.black,
+                  const SizedBox(
+                    height: 15,
                   ),
-                ),
-              ],
+                  Text(
+                    review.review!,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15,
+                      color: Colors.black,
+                    ),
+                  ),
+                ],
+              ),
             ),
           );
         },
