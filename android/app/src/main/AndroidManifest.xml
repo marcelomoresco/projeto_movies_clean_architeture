@@ -1,12 +1,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.projeto_movies_clean_arciteture">
+
+    <uses-permission android:name="ANDROID.PERMISSION.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+
    <application
         android:label="projeto_movies_clean_arciteture"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
-
-         <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
         <activity
             android:name=".MainActivity"
             android:exported="true"

@@ -102,7 +102,7 @@ class FirebaseRemoteDatasourceImplementation
 
     return reviewCollectionRef.snapshots().map((querySnap) {
       return querySnap.docs
-          .map((docSnap) => ReviewModel.fromSnapshot(docSnap))
+          .map((docSnap) => ReviewModel.fromSnapshot({}))
           .toList();
     });
   }

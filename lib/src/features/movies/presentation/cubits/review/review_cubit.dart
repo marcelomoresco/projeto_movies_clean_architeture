@@ -39,35 +39,19 @@ class ReviewCubit extends Cubit<ReviewState> {
     required this.getReviewsUsecase,
   }) : super(ReviewInitial());
 
-  Future<void> getRating(MoviesDetailsEntity moviesDetailsEntity) async {
+  Future<void> postRatingMovie(int movieId, int rate, BuildContext context,
+      MoviesDetailsEntity moviesDetailsEntity) async {
     try {
-      final rating = await getRatingUsecase();
-      String message = '';
-      for (int i = 0; i < rating.length; i++) {
-        if (rating[i].id == moviesDetailsEntity.id) {
-          message = "Você colocou ${rating[i].rating}";
-        } else {
-          message = "Você ainda não avaliou";
-        }
-      }
-      emit(RatingLoadedState(message: message));
-    } catch (e) {
-      emit(ReviewErrorState(errorMessage: e.toString()));
-    }
-  }
-
-  Future<void> postRatingMovie(
-      int movieId, int rate, BuildContext context) async {
-    try {
-      await postRatingMovieUseCase(movieId, rate);
-      AwesomeDialog(
-        context: context,
-        animType: AnimType.scale,
-        dialogType: DialogType.success,
-        title: 'Rating feito com Sucesso',
-        headerAnimationLoop: false,
-        btnOkOnPress: () {},
-      ).show();
+      await postRatingMovieUseCase(movieId, rate).then(
+        (value) => AwesomeDialog(
+          context: context,
+          animType: AnimType.scale,
+          dialogType: DialogType.success,
+          title: 'Rating feito com Sucesso',
+          headerAnimationLoop: false,
+          btnOkOnPress: () {},
+        ).show(),
+      );
     } catch (e) {
       AwesomeDialog(
         context: context,
@@ -148,14 +132,7 @@ class ReviewCubit extends Cubit<ReviewState> {
     try {
       emit(ReviewLoadingState());
       final uid = await getCurrentUIdUsecase();
-      print(uid);
       getReviewsUsecase.call(uid).listen((reviews) {
-        print(reviews);
-        print(reviews);
-        print(reviews);
-        print(reviews);
-        print(reviews);
-        print(reviews);
         emit(ReviewLoadedState(reviews: reviews));
       });
     } on SocketException catch (_) {

@@ -4,8 +4,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/entities/movies_entity.dart';
+import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/entities/rating_entity.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/cast_movie_bloc/cast_movie_bloc.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/favorites_bloc/favorites_bloc.dart';
+import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/rating_bloc/rating_bloc.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/similar_movies/similar_movies_bloc.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/cubits/review/review_cubit.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/views/favorites/favorites_page.dart';
@@ -34,6 +36,8 @@ class _MoviesDetailsWidgetState extends State<MoviesDetailsWidget> {
   void initState() {
     super.initState();
   }
+
+  String message = '';
 
   @override
   Widget build(BuildContext context) {
@@ -238,11 +242,30 @@ class _MoviesDetailsWidgetState extends State<MoviesDetailsWidget> {
                   BlocBuilder<ReviewCubit, ReviewState>(
                     builder: (context, state) {
                       if (state is RatingLoadedState) {
+                        print('LOADED');
+                        String checkRating() {
+                          for (int i = 0; i < state.ratings.length; i++) {
+                            if (state.ratings[i].id == widget.movie.id) {
+                              setState(() {
+                                message =
+                                    "Você colocou o rating de ${state.ratings[i].rating}";
+                              });
+                              return message;
+                            } else {
+                              setState(() {
+                                message = "Você ainda adicionou a nota";
+                              });
+                              return message;
+                            }
+                          }
+                          return "Você ainda adicionou a nota";
+                        }
+
                         return Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Text(
-                              state.message,
+                              checkRating(),
                               style: const TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
@@ -250,7 +273,7 @@ class _MoviesDetailsWidgetState extends State<MoviesDetailsWidget> {
                             ),
                           ],
                         );
-                      } else {
+                      } else if (state is RatingFailure) {
                         return Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: const [
@@ -263,6 +286,21 @@ class _MoviesDetailsWidgetState extends State<MoviesDetailsWidget> {
                             ),
                           ],
                         );
+                      } else if (state is RatingInitial) {
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: const [
+                            Text(
+                              "Avalie esse filme",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16),
+                            ),
+                          ],
+                        );
+                      } else {
+                        return Container();
                       }
                     },
                   )

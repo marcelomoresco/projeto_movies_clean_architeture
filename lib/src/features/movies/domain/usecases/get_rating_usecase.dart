@@ -1,3 +1,5 @@
+import 'package:dartz/dartz.dart';
+import 'package:projeto_movies_clean_arciteture/src/core/error/failures.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/entities/rating_entity.dart';
 
 import '../repositories/movies_repository.dart';
@@ -7,7 +9,7 @@ class GetRatingUsecase {
 
   const GetRatingUsecase({required this.moviesRepository});
 
-  Future<List<RatingEntity>> call() async {
+  Future<Either<Failure, List<RatingEntity>>> call() async {
     return await moviesRepository.getRating();
   }
 }
