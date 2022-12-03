@@ -5,13 +5,14 @@ import 'package:projeto_movies_clean_arciteture/src/core/injector/injection_cont
     as di;
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/cast_movie_bloc/cast_movie_bloc.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/similar_movies/similar_movies_bloc.dart';
+import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/cubits/review/review_cubit.dart';
 
 import '../../../domain/entities/movies_entity.dart';
 import '../../blocs/movie_detail/movie_detail_bloc.dart';
 import '../../widgets/loading_widget.dart';
 import '../../widgets/movies_details_widget.dart';
 
-class MovieDetailPage extends StatelessWidget {
+class MovieDetailPage extends StatefulWidget {
   final MoviesEntity movie;
 
   const MovieDetailPage({
@@ -20,19 +21,29 @@ class MovieDetailPage extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<MovieDetailPage> createState() => _MovieDetailPageState();
+}
+
+class _MovieDetailPageState extends State<MovieDetailPage> {
+  @override
+  void initState() {
+    // TODO: implement initState
+  }
+
+  @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
         BlocProvider<SimilarMoviesBloc>(
           create: (_) => SimilarMoviesBloc(getSimilarMoviesUsecase: di.sl())
             ..add(
-              StartSimilarMoviesEvent(movieId: movie.id),
+              StartSimilarMoviesEvent(movieId: widget.movie.id),
             ),
         ),
         BlocProvider<CastMovieBloc>(
           create: (_) => CastMovieBloc(getCastListUsecase: di.sl())
             ..add(
-              GetCastMovieEvent(movieId: movie.id),
+              GetCastMovieEvent(movieId: widget.movie.id),
             ),
         )
       ],
@@ -51,7 +62,7 @@ class MovieDetailPage extends StatelessWidget {
               } else if (state is MovieDetailLoadedState) {
                 return MoviesDetailsWidget(
                   movie: state.movieDetails,
-                  movieEntity: movie,
+                  movieEntity: widget.movie,
                 );
               } else {
                 return const Center(

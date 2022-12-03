@@ -166,6 +166,7 @@ class MoviesRemoteDatasourceImplementation implements IMoviesRemoteDatasource {
     final response = await _dio.post(
         "$mainUrl/movie/$movieId/rating?api_key=$apiKey&session_id=$sessionId",
         data: {'value': rate});
+    print(response.statusCode);
     if (response.statusCode != 201) {
       throw ServerException();
     }
@@ -183,7 +184,8 @@ class MoviesRemoteDatasourceImplementation implements IMoviesRemoteDatasource {
   @override
   Future<List<RatingEntity>> getRating() async {
     final response = await _dio.get(
-        '$mainUrl/rated/movie?api_key=$apiKey&session_id=$sessionId&sort_by=created_at.asc&page=1');
+        '$mainUrl/account/rated/movie?api_key=$apiKey&session_id=$sessionId&page=1');
+    print("CHEGUEI");
     if (response.statusCode == 200) {
       var rating = response.data['results'] as List;
       return List<RatingEntity>.from(

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/entities/review_entity.dart';
@@ -104,23 +105,29 @@ class _ModalCreateEditReviewState extends State<ModalCreateEditReview> {
                 TextFormField(
                   textCapitalization: TextCapitalization.words,
                   decoration: InputDecoration(
-                    prefixIcon: const Icon(Icons.person),
+                    prefixIcon: const Icon(Icons.person, color: Colors.black),
                     enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey.shade500),
-                      borderRadius: BorderRadius.circular(25),
+                      borderSide: const BorderSide(color: Colors.black),
+                      borderRadius: BorderRadius.circular(8),
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey.shade500),
-                      borderRadius: BorderRadius.circular(25),
+                      borderSide: const BorderSide(color: Colors.black),
+                      borderRadius: BorderRadius.circular(8),
                     ),
                     contentPadding: const EdgeInsets.all(10),
                     hintText: "Seu Nome",
-                    hintStyle: const TextStyle(fontSize: 14),
+                    hintStyle: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   controller: controllerName,
                   onChanged: (value) {
                     setState(() {});
                   },
+                ),
+                const SizedBox(
+                  height: 10,
                 ),
                 TextFormField(
                   textCapitalization: TextCapitalization.words,
@@ -130,16 +137,19 @@ class _ModalCreateEditReviewState extends State<ModalCreateEditReview> {
                       color: Colors.yellow,
                     ),
                     enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey.shade500),
-                      borderRadius: BorderRadius.circular(25),
+                      borderSide: BorderSide(color: Colors.black),
+                      borderRadius: BorderRadius.circular(8),
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey.shade500),
-                      borderRadius: BorderRadius.circular(25),
+                      borderSide: BorderSide(color: Colors.black),
+                      borderRadius: BorderRadius.circular(8),
                     ),
                     contentPadding: const EdgeInsets.all(10),
                     hintText: "Seu review",
-                    hintStyle: const TextStyle(fontSize: 14),
+                    hintStyle: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   controller: controllerReview,
                   onChanged: (value) {
@@ -152,34 +162,38 @@ class _ModalCreateEditReviewState extends State<ModalCreateEditReview> {
                       const SizedBox(
                         height: 24,
                       ),
-                      ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.black),
-                          onPressed: checkButton()
-                              ? () {
-                                  context
-                                      .read<ReviewCubit>()
-                                      .updateReview(
-                                        ReviewEntity(
-                                          review: controllerReview.text,
-                                        ),
-                                      )
-                                      .then(
-                                        (value) => AwesomeDialog(
-                                          context: context,
-                                          animType: AnimType.scale,
-                                          dialogType: DialogType.success,
-                                          title: 'Editado com Sucesso',
-                                          headerAnimationLoop: false,
-                                          btnOkOnPress: () {},
-                                        ).show(),
-                                      );
-                                }
-                              : null,
-                          child: const Text(
-                            "Salvar Review",
-                            style: TextStyle(color: Colors.white),
-                          )),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width,
+                        child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.green,
+                            ),
+                            onPressed: checkButton()
+                                ? () {
+                                    context
+                                        .read<ReviewCubit>()
+                                        .updateReview(
+                                          ReviewEntity(
+                                            review: controllerReview.text,
+                                          ),
+                                        )
+                                        .then(
+                                          (value) => AwesomeDialog(
+                                            context: context,
+                                            animType: AnimType.scale,
+                                            dialogType: DialogType.success,
+                                            title: 'Editado com Sucesso',
+                                            headerAnimationLoop: false,
+                                            btnOkOnPress: () {},
+                                          ).show(),
+                                        );
+                                  }
+                                : null,
+                            child: const Text(
+                              "Salvar Review",
+                              style: TextStyle(color: Colors.white),
+                            )),
+                      ),
                       const SizedBox(
                         height: 25,
                       ),
@@ -206,36 +220,48 @@ class _ModalCreateEditReviewState extends State<ModalCreateEditReview> {
                   Column(
                     children: [
                       const SizedBox(
-                        height: 50,
+                        height: 24,
                       ),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.black),
-                        onPressed: checkButton()
-                            ? () {
-                                context
-                                    .read<ReviewCubit>()
-                                    .addReview(
-                                      ReviewEntity(
-                                        nameReview: controllerName.text,
-                                        review: controllerReview.text,
-                                      ),
-                                    )
-                                    .then(
-                                      (value) => AwesomeDialog(
-                                        context: context,
-                                        animType: AnimType.scale,
-                                        dialogType: DialogType.success,
-                                        title: 'Criado com Sucesso',
-                                        headerAnimationLoop: false,
-                                        btnOkOnPress: () {},
-                                      ).show(),
-                                    );
-                              }
-                            : null,
-                        child: const Text(
-                          "Criar Review",
-                          style: TextStyle(color: Colors.white),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.green,
+                          ),
+                          onPressed: checkButton()
+                              ? () {
+                                  /*context
+                                      .read<ReviewCubit>()
+                                      .addReview(
+                                        ReviewEntity(
+                                          nameReview: controllerName.text,
+                                          review: controllerReview.text,
+                                        ),
+                                      )
+                                      .then(
+                                        (value) => AwesomeDialog(
+                                          context: context,
+                                          animType: AnimType.scale,
+                                          dialogType: DialogType.success,
+                                          title: 'Criado com Sucesso',
+                                          headerAnimationLoop: false,
+                                          btnOkOnPress: () {},
+                                        ).show(),
+                                      );*/
+                                  FirebaseFirestore.instance
+                                      .collection('reviews')
+                                      .add(
+                                    {
+                                      'nameReview': controllerName.text,
+                                      'review': controllerReview.text,
+                                    },
+                                  );
+                                }
+                              : null,
+                          child: const Text(
+                            "Criar Review",
+                            style: TextStyle(color: Colors.white),
+                          ),
                         ),
                       ),
                       const SizedBox(

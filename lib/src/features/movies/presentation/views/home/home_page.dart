@@ -36,20 +36,6 @@ class _HomePageState extends State<HomePage> {
           children: [
             IconButton(
               icon: const Icon(
-                Icons.star,
-                color: Colors.yellow,
-              ),
-              onPressed: () {
-                context.read<ReviewCubit>().getReviews();
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (_) => const ReviewAppPage(),
-                  ),
-                );
-              },
-            ),
-            IconButton(
-              icon: const Icon(
                 Icons.logout,
                 color: Colors.white,
               ),
@@ -85,11 +71,8 @@ class _HomePageState extends State<HomePage> {
                 return Container();
               }
             }),
-            Tooltip(),
-
             // Categorias
             const BuildWidgetCategory(),
-
             //Atores da Semana
             BlocBuilder<PersonBloc, PersonState>(
               builder: (context, state) {

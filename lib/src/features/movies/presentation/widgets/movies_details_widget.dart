@@ -32,7 +32,6 @@ class MoviesDetailsWidget extends StatefulWidget {
 class _MoviesDetailsWidgetState extends State<MoviesDetailsWidget> {
   @override
   void initState() {
-    context.read<ReviewCubit>().getRating(widget.movie);
     super.initState();
   }
 
@@ -218,18 +217,20 @@ class _MoviesDetailsWidgetState extends State<MoviesDetailsWidget> {
                   ModalAddRating(
                     movieModel: widget.movie,
                     child: Container(
-                      width: 100,
+                      width: 160,
                       height: 48,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8),
-                        color: Colors.yellow,
+                        color: Colors.amber,
                       ),
-                      child: const Text(
-                        "Deixe seu rating",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
+                      child: const Center(
+                        child: Text(
+                          "Deixe seu rating",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ),
@@ -237,20 +238,30 @@ class _MoviesDetailsWidgetState extends State<MoviesDetailsWidget> {
                   BlocBuilder<ReviewCubit, ReviewState>(
                     builder: (context, state) {
                       if (state is RatingLoadedState) {
-                        return Text(
-                          state.message,
-                          style: const TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20),
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              state.message,
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16),
+                            ),
+                          ],
                         );
                       } else {
-                        return const Text(
-                          "Você ainda não avaliou",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20),
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: const [
+                            Text(
+                              "Você ainda não avaliou",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16),
+                            ),
+                          ],
                         );
                       }
                     },

@@ -23,10 +23,6 @@ class SearchPage extends StatelessWidget {
         centerTitle: true,
         elevation: 0,
         backgroundColor: Colors.black,
-        leading: const Icon(
-          Icons.menu,
-          color: Colors.white,
-        ),
       ),
       body: SingleChildScrollView(
         child: Padding(

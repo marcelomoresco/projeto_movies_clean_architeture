@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -30,15 +31,6 @@ class _ReviewAppPageState extends State<ReviewAppPage> {
         elevation: 3,
         title: const Text("Reviews"),
         centerTitle: true,
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back,
-            color: Colors.white,
-          ),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -54,7 +46,7 @@ class _ReviewAppPageState extends State<ReviewAppPage> {
             ModalCreateEditReview(
               isEdit: false,
               child: Container(
-                height: 90,
+                height: 50,
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
@@ -63,11 +55,11 @@ class _ReviewAppPageState extends State<ReviewAppPage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: const [
-                    Icon(Icons.star, color: Colors.green, size: 48),
+                    Icon(Icons.star, color: Colors.black, size: 24),
                     Text(
                       "Deixe seu review agora mesmo",
                       style: TextStyle(
-                        color: Colors.green,
+                        color: Colors.black,
                         fontWeight: FontWeight.bold,
                         fontSize: 18,
                       ),
@@ -76,7 +68,76 @@ class _ReviewAppPageState extends State<ReviewAppPage> {
                 ),
               ),
             ),
-            BlocBuilder<ReviewCubit, ReviewState>(
+            StreamBuilder(
+              stream:
+                  FirebaseFirestore.instance.collection('reviews').snapshots(),
+              builder: (BuildContext context,
+                  AsyncSnapshot<QuerySnapshot> snapshot) {
+                print(snapshot);
+                print(FirebaseFirestore.instance.collection('reviews'));
+                print(FirebaseFirestore.instance.collection('reviews'));
+                print(FirebaseFirestore.instance.collection('reviews'));
+                print(FirebaseFirestore.instance.collection('reviews'));
+                if (snapshot.hasData) {
+                  return SizedBox(
+                    height: MediaQuery.of(context).size.height,
+                    width: MediaQuery.of(context).size.width,
+                    child: ListView(
+                      shrinkWrap: true,
+                      children: snapshot.data!.docs.map((document) {
+                        return Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            color: Colors.white,
+                          ),
+                          child: Column(
+                            children: [
+                              Text(
+                                document['nameReview'],
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 15,
+                              ),
+                              Text(
+                                document['review'],
+                                style: const TextStyle(
+                                  fontSize: 15,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      }).toList(),
+                    ),
+                  );
+                } else {
+                  return Column(
+                    children: const [
+                      SizedBox(
+                        height: 90,
+                      ),
+                      Center(
+                        child: Text(
+                          "Ainda não temos review!",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                }
+              },
+            ),
+
+            /*BlocBuilder<ReviewCubit, ReviewState>(
               builder: (context, state) {
                 if (state is ReviewLoadedState) {
                   print("TAAQUI!!!");
@@ -95,11 +156,14 @@ class _ReviewAppPageState extends State<ReviewAppPage> {
                   );
                 } else {
                   return const Center(
-                    child: Text("Algo deu muito errado!"),
+                    child: Text(
+                      "Ainda não temos review no aplicativo!",
+                      style: TextStyle(color: Colors.white, fontSize: 16),
+                    ),
                   );
                 }
               },
-            ),
+            ),*/
           ],
         ),
       ),

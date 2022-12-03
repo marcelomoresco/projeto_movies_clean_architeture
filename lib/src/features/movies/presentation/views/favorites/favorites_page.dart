@@ -19,14 +19,12 @@ class FavoritesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Favoritos"),
+        title: const Text(
+          "Favoritos",
+        ),
         centerTitle: true,
         elevation: 0,
         backgroundColor: Colors.black,
-        leading: const Icon(
-          Icons.menu,
-          color: Colors.white,
-        ),
       ),
       backgroundColor: Colors.black,
       body: SingleChildScrollView(

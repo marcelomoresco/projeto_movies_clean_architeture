@@ -69,6 +69,10 @@ class _ModalAddRatingState extends State<ModalAddRating> {
                     ),
                     IconButton(
                       onPressed: () {
+                        context
+                            .read<ReviewCubit>()
+                            .getRating(widget.movieModel);
+
                         Navigator.of(context).pop();
                       },
                       icon: const Icon(Icons.close),
@@ -109,6 +113,7 @@ class _ModalAddRatingState extends State<ModalAddRating> {
                   height: 60,
                 ),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
@@ -133,8 +138,8 @@ class _ModalAddRatingState extends State<ModalAddRating> {
                       ),
                     ),
                     ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.green),
+                      style:
+                          ElevatedButton.styleFrom(backgroundColor: Colors.red),
                       onPressed: () {
                         context
                             .read<ReviewCubit>()

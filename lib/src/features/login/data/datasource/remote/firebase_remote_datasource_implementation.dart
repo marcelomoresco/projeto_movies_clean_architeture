@@ -60,7 +60,7 @@ class FirebaseRemoteDatasourceImplementation
   @override
   Future<void> addNewReview(ReviewEntity reviewEntity) async {
     final reviewCollection = firebaseFirestore
-        .collection("users")
+        .collection("reviews")
         .doc(reviewEntity.uid)
         .collection("reviews");
     final reviewId = reviewCollection.doc().id;
@@ -83,7 +83,7 @@ class FirebaseRemoteDatasourceImplementation
   @override
   Future<void> deleteReview(ReviewEntity reviewEntity) async {
     final noteCollection = firebaseFirestore
-        .collection("users")
+        .collection("reviews")
         .doc(reviewEntity.uid)
         .collection("reviews");
 
@@ -98,8 +98,7 @@ class FirebaseRemoteDatasourceImplementation
   @override
   Stream<List<ReviewEntity>> getReviews(String uid) {
     final reviewCollectionRef =
-        firebaseFirestore.collection("users").doc(uid).collection("reviews");
-    print(reviewCollectionRef);
+        firebaseFirestore.collection("reviews").doc(uid).collection("reviews");
 
     return reviewCollectionRef.snapshots().map((querySnap) {
       return querySnap.docs
@@ -112,7 +111,7 @@ class FirebaseRemoteDatasourceImplementation
   Future<void> updateReview(ReviewEntity review) async {
     Map<String, dynamic> reviewMap = Map();
     final reviewCollectionRef = firebaseFirestore
-        .collection("users")
+        .collection("reviews")
         .doc(review.uid)
         .collection("reviews");
 
