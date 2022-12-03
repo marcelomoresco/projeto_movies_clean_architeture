@@ -137,11 +137,11 @@ class _ModalCreateEditReviewState extends State<ModalCreateEditReview> {
                       color: Colors.yellow,
                     ),
                     enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black),
+                      borderSide: const BorderSide(color: Colors.black),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black),
+                      borderSide: const BorderSide(color: Colors.black),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     contentPadding: const EdgeInsets.all(10),
@@ -194,7 +194,8 @@ class _ModalCreateEditReviewState extends State<ModalCreateEditReview> {
                                     docReview.update({
                                       'nameReview': controllerName.text,
                                       'review': controllerReview.text,
-                                    });
+                                    }).then(
+                                        (value) => Navigator.of(context).pop());
                                   }
                                 : null,
                             child: const Text(
@@ -212,7 +213,8 @@ class _ModalCreateEditReviewState extends State<ModalCreateEditReview> {
                                     .collection('reviews')
                                     .doc();
 
-                                docReview.delete();
+                                docReview.delete().then(
+                                    (value) => Navigator.of(context).pop());
                               }
                             : null,
                         child: const Text(
