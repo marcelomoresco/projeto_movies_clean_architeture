@@ -261,6 +261,8 @@ class _ModalCreateEditReviewState extends State<ModalCreateEditReview> {
                                       btnOkOnPress: () {},
                                     ).show(),
                                   );
+                                  controllerName.clear();
+                                  controllerReview.clear();
                                 }
                               : null,
                           child: const Text(
