@@ -40,9 +40,7 @@ class ReviewCubit extends Cubit<ReviewState> {
 
   Future<void> getRating(MoviesDetailsEntity moviesDetailsEntity) async {
     try {
-      print("TENTANDO");
       final rating = await getRatingUsecase();
-      print(rating);
       String message = '';
       for (int i = 0; i < rating.length; i++) {
         if (rating[i].id == moviesDetailsEntity.id) {
