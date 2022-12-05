@@ -28,7 +28,7 @@ abstract class IMoviesRepository {
 
   Future<Either<Failure, List<MoviesEntity>>> getMovieBySearch(String query);
 
-  Future<Either<Failure, List<RatingEntity>>> getRating();
+  Future<List<RatingEntity>> getRating();
 
   Future<void> postRatingMovie(int movieId, int rate);
   Future<void> deleteRatingMovie(int movieId);

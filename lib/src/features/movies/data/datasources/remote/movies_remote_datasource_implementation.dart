@@ -186,7 +186,6 @@ class MoviesRemoteDatasourceImplementation implements IMoviesRemoteDatasource {
     final response = await _dio.get(
       '$mainUrl/account/14196078/rated/movies?api_key=$apiKey&language=pt-BR&session_id=$sessionId&sort_by=created_at.asc&page=1',
     );
-    print("CHEGUEI");
     if (response.statusCode == 200) {
       var rating = response.data['results'] as List;
       return List<RatingEntity>.from(

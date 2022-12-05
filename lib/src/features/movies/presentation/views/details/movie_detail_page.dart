@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:projeto_movies_clean_arciteture/src/core/injector/injection_container.dart'
     as di;
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/cast_movie_bloc/cast_movie_bloc.dart';
-import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/rating_bloc/rating_bloc.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/similar_movies/similar_movies_bloc.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/cubits/review/review_cubit.dart';
 
@@ -47,13 +46,6 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
               GetCastMovieEvent(movieId: widget.movie.id),
             ),
         ),
-        BlocProvider<RatingBloc>(
-          create: (_) => RatingBloc(
-            getRatingUsecase: di.sl(),
-          )..add(
-              const GetRatings(),
-            ),
-        )
       ],
       child: WillPopScope(
         onWillPop: () async => true,

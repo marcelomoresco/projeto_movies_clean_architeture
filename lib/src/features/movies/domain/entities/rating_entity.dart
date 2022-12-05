@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 
 class RatingEntity extends Equatable {
   final int id;
-  final int rating;
+  final double rating;
 
   const RatingEntity({
     required this.id,

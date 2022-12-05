@@ -28,6 +28,7 @@ class ReviewCubit extends Cubit<ReviewState> {
   final DeleteRatingMovieUseCase deleteRatingMovieUseCase;
   final GetCurrentUIdUsecase getCurrentUIdUsecase;
   final GetRatingUsecase getRatingUsecase;
+  late String message;
   ReviewCubit({
     required this.getRatingUsecase,
     required this.getCurrentUIdUsecase,
@@ -39,19 +40,40 @@ class ReviewCubit extends Cubit<ReviewState> {
     required this.getReviewsUsecase,
   }) : super(ReviewInitial());
 
+  Future<void> getRating(MoviesDetailsEntity moviesDetailsEntity) async {
+    try {
+      emit(ReviewLoadingState());
+      final ratings = await getRatingUsecase();
+
+      for (int i = 0; i < ratings.length; i++) {
+        if (ratings[i].id == moviesDetailsEntity.id) {
+          message = "Seu rating é de ${ratings[i].rating}";
+        } else {
+          message = "";
+        }
+      }
+
+      emit(RatingLoadedState(message: message));
+    } catch (e) {
+      emit(const ReviewErrorState(errorMessage: "Erro ao dar get"));
+    }
+  }
+
   Future<void> postRatingMovie(int movieId, int rate, BuildContext context,
       MoviesDetailsEntity moviesDetailsEntity) async {
     try {
-      await postRatingMovieUseCase(movieId, rate).then(
-        (value) => AwesomeDialog(
-          context: context,
-          animType: AnimType.scale,
-          dialogType: DialogType.success,
-          title: 'Rating feito com Sucesso',
-          headerAnimationLoop: false,
-          btnOkOnPress: () {},
-        ).show(),
-      );
+      await postRatingMovieUseCase(movieId, rate)
+          .then(
+            (value) => AwesomeDialog(
+              context: context,
+              animType: AnimType.scale,
+              dialogType: DialogType.success,
+              title: 'Rating feito com Sucesso',
+              headerAnimationLoop: false,
+              btnOkOnPress: () {},
+            ).show(),
+          )
+          .then((value) async => await getRating(moviesDetailsEntity));
     } catch (e) {
       AwesomeDialog(
         context: context,
@@ -65,17 +87,21 @@ class ReviewCubit extends Cubit<ReviewState> {
     }
   }
 
-  Future<void> deleteRatingMovie(int movieId, BuildContext context) async {
+  Future<void> deleteRatingMovie(int movieId, BuildContext context,
+      MoviesDetailsEntity moviesDetailsEntity) async {
     try {
-      await deleteRatingMovieUseCase(movieId);
-      AwesomeDialog(
-        context: context,
-        animType: AnimType.scale,
-        dialogType: DialogType.success,
-        title: 'Rating Deletado com sucesso',
-        headerAnimationLoop: false,
-        btnOkOnPress: () {},
-      ).show();
+      await deleteRatingMovieUseCase(movieId).then(
+        (value) => AwesomeDialog(
+          context: context,
+          animType: AnimType.scale,
+          dialogType: DialogType.success,
+          title: 'Rating Deletado com sucesso',
+          headerAnimationLoop: false,
+          btnOkOnPress: () {},
+        ).show().then(
+              (value) async => await getRating(moviesDetailsEntity),
+            ),
+      );
     } catch (e) {
       emit(const ReviewErrorState(errorMessage: "Erro ao fazer o delete"));
     }

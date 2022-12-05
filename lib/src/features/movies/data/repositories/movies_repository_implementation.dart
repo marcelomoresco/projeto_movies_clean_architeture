@@ -138,12 +138,12 @@ class MoviesRepositoryImplementation implements IMoviesRepository {
   }
 
   @override
-  Future<Either<Failure, List<RatingEntity>>> getRating() async {
+  Future<List<RatingEntity>> getRating() async {
     try {
       final movies = await moviesRemoteDatasource.getRating();
-      return Right(movies);
+      return movies;
     } on ServerException {
-      return Left(ServerFailure());
+      throw ServerFailure();
     }
   }
 }

@@ -4,15 +4,13 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/entities/movies_entity.dart';
-import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/entities/rating_entity.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/cast_movie_bloc/cast_movie_bloc.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/favorites_bloc/favorites_bloc.dart';
-import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/rating_bloc/rating_bloc.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/blocs/similar_movies/similar_movies_bloc.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/cubits/review/review_cubit.dart';
-import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/views/favorites/favorites_page.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/widgets/loading_widget.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/widgets/modal_add_rating.dart';
+import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/widgets/modal_delete_rating.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/widgets/similar_movies_widget.dart';
 import 'package:intl/intl.dart';
 import '../../domain/entities/movies_details_entity.dart';
@@ -242,48 +240,38 @@ class _MoviesDetailsWidgetState extends State<MoviesDetailsWidget> {
                   BlocBuilder<ReviewCubit, ReviewState>(
                     builder: (context, state) {
                       if (state is RatingLoadedState) {
-                        print('LOADED');
-
                         return Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Text(
-                              "Você ainda não tem rating",
-                              style: const TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16),
-                            ),
-                          ],
-                        );
-                      } else if (state is RatingFailure) {
-                        return Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: const [
-                            Text(
-                              "Você ainda não avaliou",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16),
-                            ),
-                          ],
-                        );
-                      } else if (state is RatingInitial) {
-                        return Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: const [
-                            Text(
-                              "Avalie esse filme",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16),
+                            GestureDetector(
+                              onTap: () {
+                                ModalDeleteRating(
+                                        moviesDetailsEntity: widget.movie)
+                                    .modalBottomSheet(context);
+                              },
+                              child: Text(
+                                state.message,
+                                style: const TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16),
+                              ),
                             ),
                           ],
                         );
                       } else {
-                        return Container();
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: const [
+                            Text(
+                              "",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16),
+                            ),
+                          ],
+                        );
                       }
                     },
                   )

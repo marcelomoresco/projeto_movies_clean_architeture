@@ -35,7 +35,7 @@ class ModalDeleteRating {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     const Text(
-                      "Tem certeza que quer apagar o rating desse filme?",
+                      "Apagar o Rating?",
                       style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
@@ -45,27 +45,7 @@ class ModalDeleteRating {
                         onPressed: () {
                           Navigator.of(context).pop();
                         },
-                        icon: const Icon(Icons.close))
-                  ],
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      "Ao apagar o seu rating ele deixará de existir em nosso banco\n de dados e não conseguirá puxado de volta",
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    IconButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        icon: const Icon(Icons.close))
+                        icon: const Icon(Icons.close, size: 24))
                   ],
                 ),
                 const SizedBox(
@@ -93,12 +73,15 @@ class ModalDeleteRating {
                 SizedBox(
                   width: MediaQuery.of(context).size.width - 16,
                   child: ElevatedButton(
-                    style:
-                        ElevatedButton.styleFrom(backgroundColor: Colors.red),
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.red,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15))),
                     onPressed: () {
                       context
                           .read<ReviewCubit>()
-                          .deleteRatingMovie(moviesDetailsEntity.id, context)
+                          .deleteRatingMovie(moviesDetailsEntity.id, context,
+                              moviesDetailsEntity)
                           .then(
                             (value) => Navigator.of(context).pop(),
                           );

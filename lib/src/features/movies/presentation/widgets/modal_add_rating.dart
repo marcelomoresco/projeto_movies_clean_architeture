@@ -134,7 +134,8 @@ class _ModalAddRatingState extends State<ModalAddRating> {
                       onPressed: () {
                         context
                             .read<ReviewCubit>()
-                            .deleteRatingMovie(widget.movieModel.id, context)
+                            .deleteRatingMovie(widget.movieModel.id, context,
+                                widget.movieModel)
                             .then(
                               (value) => Navigator.of(context).pop(),
                             );

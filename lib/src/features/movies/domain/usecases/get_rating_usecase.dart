@@ -9,7 +9,7 @@ class GetRatingUsecase {
 
   const GetRatingUsecase({required this.moviesRepository});
 
-  Future<Either<Failure, List<RatingEntity>>> call() async {
+  Future<List<RatingEntity>> call() async {
     return await moviesRepository.getRating();
   }
 }

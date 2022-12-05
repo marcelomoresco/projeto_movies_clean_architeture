@@ -3,7 +3,7 @@ import 'package:projeto_movies_clean_arciteture/src/features/movies/domain/entit
 class RatingModel extends RatingEntity {
   RatingModel({
     required int id,
-    required int rating,
+    required double rating,
   }) : super(
           id: id,
           rating: rating,

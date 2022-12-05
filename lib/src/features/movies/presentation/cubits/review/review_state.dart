@@ -27,11 +27,9 @@ class ReviewLoadedState extends ReviewState {
 }
 
 class RatingLoadedState extends ReviewState {
-  //final List<RatingEntity> ratings;
   String message;
 
   RatingLoadedState({
-    // required this.ratings,
     required this.message,
   });
 
