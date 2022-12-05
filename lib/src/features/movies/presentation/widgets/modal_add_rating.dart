@@ -108,44 +108,29 @@ class _ModalAddRatingState extends State<ModalAddRating> {
                 const SizedBox(
                   height: 60,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.green),
-                      onPressed: () {
-                        context
-                            .read<ReviewCubit>()
-                            .postRatingMovie(widget.movieModel.id, ratingInt,
-                                context, widget.movieModel)
-                            .then(
-                              (value) => Navigator.of(context).pop(),
-                            );
-                      },
-                      child: const Text(
-                        "Add Rating",
-                        style: TextStyle(color: Colors.white),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width - 16,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.green,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
                       ),
                     ),
-                    ElevatedButton(
-                      style:
-                          ElevatedButton.styleFrom(backgroundColor: Colors.red),
-                      onPressed: () {
-                        context
-                            .read<ReviewCubit>()
-                            .deleteRatingMovie(widget.movieModel.id, context,
-                                widget.movieModel)
-                            .then(
-                              (value) => Navigator.of(context).pop(),
-                            );
-                      },
-                      child: const Text(
-                        "Deletar Rating",
-                        style: TextStyle(color: Colors.white),
-                      ),
+                    onPressed: () {
+                      context
+                          .read<ReviewCubit>()
+                          .postRatingMovie(widget.movieModel.id, ratingInt,
+                              context, widget.movieModel)
+                          .then(
+                            (value) => Navigator.of(context).pop(),
+                          );
+                    },
+                    child: const Text(
+                      "Add Rating",
+                      style: TextStyle(color: Colors.white),
                     ),
-                  ],
+                  ),
                 ),
                 const SizedBox(
                   height: 30,
