@@ -52,8 +52,6 @@ class SearchPage extends StatelessWidget {
                             itemCount: state.moviesList.length,
                             itemBuilder: (context, index) {
                               final movie = state.moviesList[index];
-                              DateTime dateTime =
-                                  DateTime.parse(movie.releaseDate);
 
                               return Padding(
                                 padding: const EdgeInsets.all(8.0),
@@ -128,12 +126,6 @@ class SearchPage extends StatelessWidget {
                                           const SizedBox(
                                             height: 15,
                                           ),
-                                          Text(
-                                              DateFormat("dd/MM/yyyy")
-                                                  .format(dateTime),
-                                              style: const TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 12)),
                                           const SizedBox(
                                             height: 15,
                                           ),
