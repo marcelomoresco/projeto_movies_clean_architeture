@@ -26,6 +26,7 @@ class FirebaseRemoteDatasourceImplementation
         status: user.status,
         email: user.email,
         name: user.name,
+        password: user.password,
       ).toDocument();
       if (!value.exists) {
         userCollectionRef.doc(uid).set(newUser);
