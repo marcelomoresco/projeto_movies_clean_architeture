@@ -40,17 +40,21 @@ class ReviewCubit extends Cubit<ReviewState> {
     required this.getReviewsUsecase,
   }) : super(ReviewInitial());
 
-  Future<void> getRating(MoviesDetailsEntity moviesDetailsEntity) async {
+  Future<void> getRating(int movieId, int? rating, bool isAvaliado) async {
     try {
       emit(ReviewLoadingState());
-      final ratings = await getRatingUsecase();
+      print(rating);
+      print(rating);
 
-      for (int i = 0; i < ratings.length; i++) {
-        if (ratings[i].id == moviesDetailsEntity.id) {
-          message = "Seu rating é de ${ratings[i].rating}";
-        } else {
-          message = "";
-        }
+      print(rating);
+
+      print(rating);
+
+      final ratings = await getRatingUsecase();
+      if (rating != null && isAvaliado == true) {
+        message = "Seu rating é de $rating";
+      } else {
+        message = "Você não avaliou o filme";
       }
 
       emit(RatingLoadedState(message: message));
@@ -62,6 +66,7 @@ class ReviewCubit extends Cubit<ReviewState> {
   Future<void> postRatingMovie(int movieId, int rate, BuildContext context,
       MoviesDetailsEntity moviesDetailsEntity) async {
     try {
+      print(rate);
       await postRatingMovieUseCase(movieId, rate)
           .then(
             (value) => AwesomeDialog(
@@ -73,7 +78,7 @@ class ReviewCubit extends Cubit<ReviewState> {
               btnOkOnPress: () {},
             ).show(),
           )
-          .then((value) async => await getRating(moviesDetailsEntity));
+          .then((value) async => await getRating(movieId, rate, true));
     } catch (e) {
       AwesomeDialog(
         context: context,
@@ -99,7 +104,7 @@ class ReviewCubit extends Cubit<ReviewState> {
           headerAnimationLoop: false,
           btnOkOnPress: () {},
         ).show().then(
-              (value) async => await getRating(moviesDetailsEntity),
+              (value) async => await getRating(movieId, null, true),
             ),
       );
     } catch (e) {

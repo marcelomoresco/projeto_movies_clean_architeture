@@ -32,10 +32,10 @@ class MoviesDetailsWidget extends StatefulWidget {
 class _MoviesDetailsWidgetState extends State<MoviesDetailsWidget> {
   @override
   void initState() {
+    context.read<ReviewCubit>().getRating(widget.movie.id, null, false);
+
     super.initState();
   }
-
-  String message = '';
 
   @override
   Widget build(BuildContext context) {
@@ -240,6 +240,7 @@ class _MoviesDetailsWidgetState extends State<MoviesDetailsWidget> {
                   BlocBuilder<ReviewCubit, ReviewState>(
                     builder: (context, state) {
                       if (state is RatingLoadedState) {
+                        print(state.message);
                         return Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
@@ -259,12 +260,16 @@ class _MoviesDetailsWidgetState extends State<MoviesDetailsWidget> {
                             ),
                           ],
                         );
+                      } else if (state is ReviewLoadingState) {
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
                       } else {
                         return Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: const [
                             Text(
-                              "",
+                              "Filme não avaliado",
                               style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,

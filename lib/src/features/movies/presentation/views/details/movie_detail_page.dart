@@ -47,30 +47,27 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
             ),
         ),
       ],
-      child: WillPopScope(
-        onWillPop: () async => true,
-        child: Scaffold(
-          backgroundColor: Colors.black,
-          body: BlocBuilder<MovieDetailBloc, MovieDetailState>(
-            builder: (context, state) {
-              if (state is MovieDetailLoadingState) {
-                return const LoadingWidget();
-              } else if (state is MovieDetailErrorState) {
-                return Center(
-                  child: Text(state.errorMessage),
-                );
-              } else if (state is MovieDetailLoadedState) {
-                return MoviesDetailsWidget(
-                  movie: state.movieDetails,
-                  movieEntity: widget.movie,
-                );
-              } else {
-                return const Center(
-                  child: Text("Algo de errado aconteceu.....!"),
-                );
-              }
-            },
-          ),
+      child: Scaffold(
+        backgroundColor: Colors.black,
+        body: BlocBuilder<MovieDetailBloc, MovieDetailState>(
+          builder: (context, state) {
+            if (state is MovieDetailLoadingState) {
+              return const LoadingWidget();
+            } else if (state is MovieDetailErrorState) {
+              return Center(
+                child: Text(state.errorMessage),
+              );
+            } else if (state is MovieDetailLoadedState) {
+              return MoviesDetailsWidget(
+                movie: state.movieDetails,
+                movieEntity: widget.movie,
+              );
+            } else {
+              return const Center(
+                child: Text("Algo de errado aconteceu.....!"),
+              );
+            }
+          },
         ),
       ),
     );

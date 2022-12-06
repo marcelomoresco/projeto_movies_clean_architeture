@@ -32,24 +32,26 @@ class _HomePageState extends State<HomePage> {
         centerTitle: true,
         elevation: 0,
         backgroundColor: Colors.black,
-        leading: Row(
-          children: [
-            IconButton(
-              icon: const Icon(
-                Icons.logout,
-                color: Colors.white,
+        actions: [
+          Row(
+            children: [
+              IconButton(
+                icon: const Icon(
+                  Icons.logout,
+                  color: Colors.white,
+                ),
+                onPressed: () {
+                  context.read<UserCubit>().signOut();
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) => const SignInPage(),
+                    ),
+                  );
+                },
               ),
-              onPressed: () {
-                context.read<UserCubit>().signOut();
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (_) => const SignInPage(),
-                  ),
-                );
-              },
-            ),
-          ],
-        ),
+            ],
+          ),
+        ],
       ),
       backgroundColor: Colors.black,
       body: SingleChildScrollView(
