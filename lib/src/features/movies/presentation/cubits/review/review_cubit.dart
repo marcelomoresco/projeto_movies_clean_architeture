@@ -47,11 +47,10 @@ class ReviewCubit extends Cubit<ReviewState> {
 
       ratings = await getRatingUsecase();
 
+      message = "Filme não avaliado";
       for (int i = 0; i < ratings.length; i++) {
         if (ratings[i].id == movieId) {
           message = "Seu rating é de ${ratings[i].rating}";
-        } else {
-          message = "Filme não avaliado";
         }
       }
 
