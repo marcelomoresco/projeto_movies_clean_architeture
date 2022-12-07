@@ -276,15 +276,6 @@ class _SignInPageState extends State<SignInPage> {
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         submitSignIn();
-                        AwesomeDialog(
-                          context: context,
-                          animType: AnimType.scale,
-                          dialogType: DialogType.success,
-                          title: 'Login Concluído',
-                          desc: 'Agora você consegue ver os melhores filmes!',
-                          headerAnimationLoop: false,
-                          btnOkOnPress: () {},
-                        ).show();
                       }
                     },
                     child: GestureDetector(

@@ -58,10 +58,17 @@ dependencies:
   rxdart: ^0.27.7
   flutter_rating_bar: ^4.0.1
   email_validator: ^2.1.17
+  flutter_launcher_icons:
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/app_icon.png"
+  min_sdk_android: 19
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -85,6 +92,7 @@ flutter:
     - movie.json
     - img_not_found.jpg
     - lottie_movie.json
+    - app_icon.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
