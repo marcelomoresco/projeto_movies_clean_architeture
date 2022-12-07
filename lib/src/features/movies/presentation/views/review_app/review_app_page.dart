@@ -306,7 +306,7 @@ class _ReviewAppPageState extends State<ReviewAppPage> {
                                   ),
                                   Container(
                                     width: 270,
-                                    height: 55,
+                                    height: 100,
                                     decoration: BoxDecoration(
                                         color: Colors.white,
                                         borderRadius:
@@ -324,11 +324,16 @@ class _ReviewAppPageState extends State<ReviewAppPage> {
                                                   color: Colors.black,
                                                   fontWeight: FontWeight.bold,
                                                   fontSize: 16)),
-                                          Text(
-                                            documentSnapshot['review'],
-                                            style: const TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 14,
+                                          SizedBox(
+                                            height: 90,
+                                            child: Text(
+                                              documentSnapshot['review'],
+                                              maxLines: 5,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: const TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 14,
+                                              ),
                                             ),
                                           )
                                         ],

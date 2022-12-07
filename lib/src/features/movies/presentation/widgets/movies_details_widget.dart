@@ -32,7 +32,7 @@ class MoviesDetailsWidget extends StatefulWidget {
 class _MoviesDetailsWidgetState extends State<MoviesDetailsWidget> {
   @override
   void initState() {
-    context.read<ReviewCubit>().getRating(widget.movie.id, null, false);
+    context.read<ReviewCubit>().getRating(widget.movie.id);
 
     super.initState();
   }

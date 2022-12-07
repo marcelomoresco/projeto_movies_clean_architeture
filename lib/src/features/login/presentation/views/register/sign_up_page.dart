@@ -1,4 +1,5 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/login/presentation/views/login/sign_in_page.dart';
@@ -201,10 +202,12 @@ class _SignUpPageState extends State<SignUpPage> {
                                 hintStyle: const TextStyle(fontSize: 14)),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
-                                return "Por favor isnira um E-mail ";
+                                return "Por favor insira um E-mail ";
                               } else if (!value.contains("@") ||
                                   !value.contains(".")) {
                                 return "Insira um E-mail valido";
+                              } else if (!EmailValidator.validate(value)) {
+                                return "E-mail não existe";
                               }
                               return null;
                             },

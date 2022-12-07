@@ -57,6 +57,7 @@ dependencies:
   awesome_dialog:
   rxdart: ^0.27.7
   flutter_rating_bar: ^4.0.1
+  email_validator: ^2.1.17
 
 dev_dependencies:
   flutter_test:

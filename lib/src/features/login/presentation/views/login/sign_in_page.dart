@@ -1,4 +1,5 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,6 +28,7 @@ class _SignInPageState extends State<SignInPage> {
 
   final GlobalKey<ScaffoldState> _scaffoldGlobalKey =
       GlobalKey<ScaffoldState>();
+  final _formKey = GlobalKey<FormState>();
 
   @override
   void dispose() {
@@ -51,12 +53,22 @@ class _SignInPageState extends State<SignInPage> {
             email: _emailController.text,
             password: _passwordController.text,
           ));
+
       Navigator.of(context).push(
         MaterialPageRoute(
           builder: (_) => const InitialPage(),
         ),
       );
     } else {
+      AwesomeDialog(
+        context: context,
+        animType: AnimType.scale,
+        dialogType: DialogType.error,
+        title: 'Erro',
+        desc: 'Erro ao efetuar o login',
+        headerAnimationLoop: false,
+        btnOkOnPress: () {},
+      ).show();
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text(
           "Erro ao tentar login",
@@ -104,16 +116,17 @@ class _SignInPageState extends State<SignInPage> {
             width: MediaQuery.of(context).size.width - 40,
             margin: const EdgeInsets.symmetric(horizontal: 20),
             decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(18),
-                border: Border.all(color: Colors.white, width: 1.5),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.38),
-                    spreadRadius: 5,
-                    blurRadius: 15,
-                  )
-                ],),
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(18),
+              border: Border.all(color: Colors.white, width: 1.5),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.38),
+                  spreadRadius: 5,
+                  blurRadius: 15,
+                )
+              ],
+            ),
             child: Column(
               children: [
                 const Padding(
@@ -122,73 +135,101 @@ class _SignInPageState extends State<SignInPage> {
                 Container(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Column(children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
                         children: [
-                          Text(
-                            "Login",
-                            style: TextStyle(
-                              color: Colors.grey[600],
-                              fontWeight: FontWeight.w600,
-                              fontSize: 16,
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Login",
+                                style: TextStyle(
+                                  color: Colors.grey[600],
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          TextFormField(
+                            controller: _emailController,
+                            obscureText: false,
+                            keyboardType: TextInputType.emailAddress,
+                            decoration: InputDecoration(
+                              //errorText: _errorEmailText,
+                              prefixIcon: const Icon(Icons.email),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Colors.grey.shade500),
+                                borderRadius: BorderRadius.circular(25),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Colors.grey.shade500),
+                                borderRadius: BorderRadius.circular(25),
+                              ),
+                              contentPadding: const EdgeInsets.all(10),
+                              hintText: "E-mail",
+                              hintStyle: const TextStyle(fontSize: 14),
                             ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return "Por favor insira um E-mail ";
+                              } else if (!value.contains("@") ||
+                                  !value.contains(".")) {
+                                return "Insira um E-mail valido";
+                              } else if (!EmailValidator.validate(value)) {
+                                return "E-mail não existe";
+                              }
+                              return null;
+                            },
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          TextFormField(
+                            controller: _passwordController,
+                            obscureText: isVisible ? false : true,
+                            keyboardType: TextInputType.text,
+                            decoration: InputDecoration(
+                              //errorText: _errorPasswordText,
+                              prefixIcon: const Icon(Icons.password),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Colors.grey.shade500),
+                                borderRadius: BorderRadius.circular(25),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Colors.grey.shade500),
+                                borderRadius: BorderRadius.circular(25),
+                              ),
+                              contentPadding: const EdgeInsets.all(10),
+                              hintText: "Senha",
+                              hintStyle: const TextStyle(fontSize: 14),
+                              suffixIcon: GestureDetector(
+                                onTap: toggleIsVisible,
+                                child:
+                                    const Icon(Icons.visibility_off_outlined),
+                              ),
+                            ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return "Por favor insira uma senha ";
+                              } else if (value.length < 7) {
+                                return "Insira uma senha de pelo menos 7 caracteres";
+                              }
+                              return null;
+                            },
                           ),
                         ],
                       ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      TextField(
-                        controller: _emailController,
-                        obscureText: false,
-                        keyboardType: TextInputType.emailAddress,
-                        decoration: InputDecoration(
-                            //errorText: _errorEmailText,
-                            prefixIcon: const Icon(Icons.email),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: Colors.grey.shade500),
-                              borderRadius: BorderRadius.circular(25),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: Colors.grey.shade500),
-                              borderRadius: BorderRadius.circular(25),
-                            ),
-                            contentPadding: const EdgeInsets.all(10),
-                            hintText: "E-mail",
-                            hintStyle: const TextStyle(fontSize: 14)),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      TextField(
-                        controller: _passwordController,
-                        obscureText: isVisible ? false : true,
-                        keyboardType: TextInputType.text,
-                        decoration: InputDecoration(
-                          //errorText: _errorPasswordText,
-                          prefixIcon: const Icon(Icons.password),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.grey.shade500),
-                            borderRadius: BorderRadius.circular(25),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.grey.shade500),
-                            borderRadius: BorderRadius.circular(25),
-                          ),
-                          contentPadding: const EdgeInsets.all(10),
-                          hintText: "Senha",
-                          hintStyle: const TextStyle(fontSize: 14),
-                          suffixIcon: GestureDetector(
-                            onTap: toggleIsVisible,
-                            child: const Icon(Icons.visibility_off_outlined),
-                          ),
-                        ),
-                      ),
-                    ]),
+                    ),
                   ),
                 ),
                 Padding(
@@ -233,16 +274,18 @@ class _SignInPageState extends State<SignInPage> {
                     style:
                         ElevatedButton.styleFrom(backgroundColor: Colors.black),
                     onPressed: () {
-                      submitSignIn();
-                      AwesomeDialog(
-                        context: context,
-                        animType: AnimType.scale,
-                        dialogType: DialogType.success,
-                        title: 'Login Concluído',
-                        desc: 'Agora você consegue ver os melhores filmes!',
-                        headerAnimationLoop: false,
-                        btnOkOnPress: () {},
-                      ).show();
+                      if (_formKey.currentState!.validate()) {
+                        submitSignIn();
+                        AwesomeDialog(
+                          context: context,
+                          animType: AnimType.scale,
+                          dialogType: DialogType.success,
+                          title: 'Login Concluído',
+                          desc: 'Agora você consegue ver os melhores filmes!',
+                          headerAnimationLoop: false,
+                          btnOkOnPress: () {},
+                        ).show();
+                      }
                     },
                     child: GestureDetector(
                       child: const Text("Login",

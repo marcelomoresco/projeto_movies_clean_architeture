@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:projeto_movies_clean_arciteture/src/features/movies/presentation/views/review_app/review_app_page.dart';
 
 import '../favorites/favorites_page.dart';
@@ -15,8 +14,6 @@ class InitialPage extends StatefulWidget {
 
 class _InitialPageState extends State<InitialPage>
     with SingleTickerProviderStateMixin {
-  AnimationController? _animationController;
-
   int currentIndex = 0;
   PageController pageController = PageController();
 
@@ -36,14 +33,15 @@ class _InitialPageState extends State<InitialPage>
   Widget build(BuildContext context) {
     return Scaffold(
       body: PageView(
-          controller: pageController,
-          physics: const NeverScrollableScrollPhysics(),
-          children: const [
-            HomePage(),
-            SearchPage(),
-            FavoritesPage(),
-            ReviewAppPage(),
-          ]),
+        controller: pageController,
+        physics: const NeverScrollableScrollPhysics(),
+        children: const [
+          HomePage(),
+          SearchPage(),
+          FavoritesPage(),
+          ReviewAppPage(),
+        ],
+      ),
       bottomNavigationBar: BottomNavigationBar(
         selectedLabelStyle: const TextStyle(
           fontWeight: FontWeight.bold,
