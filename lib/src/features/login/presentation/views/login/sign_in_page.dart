@@ -87,6 +87,18 @@ class _SignInPageState extends State<SignInPage> {
     );
   }
 
+  bool checkEmail() {
+    if (_emailController.text.isEmpty) return false;
+    if (!_emailController.text.contains("@") ||
+        !_emailController.text.contains(".")) return false;
+    if (_emailController.text.isEmpty) return false;
+    if (!EmailValidator.validate(_emailController.text)) return false;
+    if (_passwordController.text.isEmpty) return false;
+    if (_passwordController.text.length < 7) return false;
+
+    return true;
+  }
+
   _bodyWidget() {
     return Stack(
       children: [
@@ -262,22 +274,18 @@ class _SignInPageState extends State<SignInPage> {
                   height: 50,
                   width: 200,
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(22),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.7),
-                          spreadRadius: 5,
-                          blurRadius: 15,
-                        )
-                      ]),
+                    borderRadius: BorderRadius.circular(22),
+                  ),
                   child: ElevatedButton(
                     style:
                         ElevatedButton.styleFrom(backgroundColor: Colors.black),
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        submitSignIn();
-                      }
-                    },
+                    onPressed: checkEmail()
+                        ? () {
+                            if (_formKey.currentState!.validate()) {
+                              submitSignIn();
+                            }
+                          }
+                        : null,
                     child: GestureDetector(
                       child: const Text("Login",
                           style: TextStyle(color: Colors.white)),
