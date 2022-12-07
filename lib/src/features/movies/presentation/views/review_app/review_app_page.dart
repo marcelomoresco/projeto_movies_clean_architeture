@@ -306,7 +306,7 @@ class _ReviewAppPageState extends State<ReviewAppPage> {
                                   ),
                                   Container(
                                     width: 270,
-                                    height: 100,
+                                    height: 60,
                                     decoration: BoxDecoration(
                                         color: Colors.white,
                                         borderRadius:

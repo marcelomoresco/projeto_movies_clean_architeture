@@ -54,7 +54,7 @@ class _SignInPageState extends State<SignInPage> {
             password: _passwordController.text,
           ));
 
-      Navigator.of(context).push(
+      Navigator.of(context).pushReplacement(
         MaterialPageRoute(
           builder: (_) => const InitialPage(),
         ),

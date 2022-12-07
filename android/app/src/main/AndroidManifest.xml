@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
    <application
-        android:label="projeto_movies_clean_arciteture"
+        android:label="Talk Movie"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
