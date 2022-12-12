@@ -19,8 +19,6 @@
 
 ![ezgif com-gif-maker (15)](https://user-images.githubusercontent.com/85464545/206937679-5c68febf-187d-42a9-859d-21998456a376.gif)
 
-![demonstracao](https://user-images.githubusercontent.com/85464545/206936758-c083d5e3-d8bd-41ac-8543-d05f29730a5a.gif)
-
 ![ezgif com-gif-maker (16)](https://user-images.githubusercontent.com/85464545/206937859-194d070e-1959-41d3-b7d8-54db9dc4c7b6.gif)
 
 
