@@ -11,11 +11,12 @@
 
 <!-- GIF-->
 ![gifLogin](https://user-images.githubusercontent.com/85464545/206936762-36c15f9d-fa6b-4888-aa21-f3e6b08886ab.gif)
+![ezgif com-gif-maker (14)](https://user-images.githubusercontent.com/85464545/206937678-cab06cac-3523-4f07-bf80-1c5b7baae30f.gif)
+![ezgif com-gif-maker (15)](https://user-images.githubusercontent.com/85464545/206937679-5c68febf-187d-42a9-859d-21998456a376.gif)
 
 ![demonstracao](https://user-images.githubusercontent.com/85464545/206936758-c083d5e3-d8bd-41ac-8543-d05f29730a5a.gif)
 
 ![crudReview](https://user-images.githubusercontent.com/85464545/206936737-4f8fdba7-6b66-4c1f-9297-d3dd06cacc1a.gif)
-![favoritos](https://user-images.githubusercontent.com/85464545/206936744-fe26e97b-1a4e-49d2-9576-f3962b13f732.gif)
 
 
 ### Autor
