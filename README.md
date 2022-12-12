@@ -2,7 +2,7 @@
 
 <p align="center">Esse projeto é um app para estudar a arquitetura.</p>
 
-<p align="center">Status - Finaliado</p>
+<p align="center">Status - Finalizado - pronto para Deploy</p>
 
 <p align="center">O aplicativo é um aplicativo para ver seus filmes a qual você tem um login feito e ligado com o Firebase, salvando os dados do usuário no Firestore database, apos isso você consegue entrar no aplicativo e consumir os filmes que são carregados através da API The Movie DB, utilizando programação reativa, no APP você consegue ainda favoritar seus filmes e deixar em uma lista para verificar mais tarde, você consegue fazer um POST/DELETE/PUT no rating do filme, e consegue deixar uma review/sugestão no app</p>
 
