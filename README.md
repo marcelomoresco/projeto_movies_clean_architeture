@@ -10,13 +10,19 @@
 <br>
 
 <!-- GIF-->
-![gifLogin](https://user-images.githubusercontent.com/85464545/206936762-36c15f9d-fa6b-4888-aa21-f3e6b08886ab.gif)
+
+![ezgif com-gif-maker (17)](https://user-images.githubusercontent.com/85464545/206937863-46847ad4-a235-4f46-8564-f097e835ee8a.gif)
+
+![ezgif com-gif-maker (18)](https://user-images.githubusercontent.com/85464545/206937899-0ea7a719-f036-4362-99a3-aec0e4224197.gif)
+
 ![ezgif com-gif-maker (14)](https://user-images.githubusercontent.com/85464545/206937678-cab06cac-3523-4f07-bf80-1c5b7baae30f.gif)
+
 ![ezgif com-gif-maker (15)](https://user-images.githubusercontent.com/85464545/206937679-5c68febf-187d-42a9-859d-21998456a376.gif)
 
 ![demonstracao](https://user-images.githubusercontent.com/85464545/206936758-c083d5e3-d8bd-41ac-8543-d05f29730a5a.gif)
 
-![crudReview](https://user-images.githubusercontent.com/85464545/206936737-4f8fdba7-6b66-4c1f-9297-d3dd06cacc1a.gif)
+![ezgif com-gif-maker (16)](https://user-images.githubusercontent.com/85464545/206937859-194d070e-1959-41d3-b7d8-54db9dc4c7b6.gif)
+
 
 
 ### Autor
